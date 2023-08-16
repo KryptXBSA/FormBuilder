@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { FormBuilder, formBuilderSchema } from "@/schema"
+import { Form as F, formBuilderSchema } from "@/schema"
 import {
   newBooleanField,
   newDateField,
@@ -58,6 +58,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { generateCode } from "@/handlebars/generate-code"
 
 export const fieldTypes = [
   "string",
@@ -92,7 +93,7 @@ const types: { value: FieldTypes; label: string }[] = [
 ]
 
 export function FormBuilder() {
-  const form = useForm<FormBuilder>({
+  const form = useForm<F>({
     resolver: zodResolver(formBuilderSchema),
     defaultValues: {
       name: "MyForm",
@@ -436,6 +437,7 @@ export function FormBuilder() {
         <Button onClick={() => append(newBooleanField())}>Boolean</Button>
         <Button onClick={() => append(newEnumField())}>Enum</Button>
         <Button onClick={() => append(newDateField())}>Date</Button>
+        <Button onClick={() => generateCode(form.getValues())}>Generate Code</Button>
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
-import { FieldSchema } from "@/schema"
+import { FormField } from "@/schema"
 
-export function newStringField(): FieldSchema {
+export function newStringField(): FormField {
   return {
     key: "key" + randNum(),
     label: "My string",
@@ -15,7 +15,7 @@ export function newStringField(): FieldSchema {
     },
   }
 }
-export function newNumberField(): FieldSchema {
+export function newNumberField(): FormField {
   return {
     key: "key" + randNum(),
     label: "My number",
@@ -32,7 +32,7 @@ export function newNumberField(): FieldSchema {
     },
   }
 }
-export function newBooleanField(): FieldSchema {
+export function newBooleanField(): FormField {
   return {
     key: "key" + randNum(),
     label: "My bool",
@@ -43,7 +43,7 @@ export function newBooleanField(): FieldSchema {
     required: true,
   }
 }
-export function newEnumField(): FieldSchema {
+export function newEnumField(): FormField {
   return {
     key: "key" + randNum(),
     label: "My enum",
@@ -53,7 +53,7 @@ export function newEnumField(): FieldSchema {
     required: true,
   }
 }
-export function newDateField(): FieldSchema {
+export function newDateField(): FormField {
   return {
     key: "key" + randNum(),
     label: "My date",

@@ -58,5 +58,5 @@ export const formBuilderSchema = z.object({
   name: z.string().min(1).max(50),
   fields: z.array(fieldSchema),
 })
-export type FormBuilder = z.infer<typeof formBuilderSchema>
-export type FieldSchema = z.infer<typeof fieldSchema>
+export type Form = z.infer<typeof formBuilderSchema>
+export type FormField = z.infer<typeof fieldSchema>
