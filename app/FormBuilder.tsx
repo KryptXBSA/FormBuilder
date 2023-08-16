@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react"
+import { generateCode } from "@/handlebars/generate-code"
 import { Form as F, formBuilderSchema } from "@/schema"
 import {
   newBooleanField,
@@ -58,7 +59,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { generateCode } from "@/handlebars/generate-code"
+
+import { CopyCodeDialog } from "./CopyCodeDialog"
 
 export const fieldTypes = [
   "string",
@@ -117,6 +119,120 @@ export function FormBuilder() {
   function onSubmit(values: z.infer<typeof formBuilderSchema>) {
     console.log("values", values)
   }
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [generatedCode, setGeneratedCode] = useState("")
+  function showCodeDialog() {
+    setDialogOpen(true)
+    const code = generateCode(form.getValues())
+    setGeneratedCode(code)
+  }
+  return (
+    <div className="flex">
+      <CopyCodeDialog
+        code={generatedCode}
+        setOpen={setDialogOpen}
+        open={dialogOpen}
+      />
+      <Form {...form}>
+        <form className="w-5/6" onSubmit={form.handleSubmit(onSubmit)}>
+          <Table>
+            <TableCaption>A list of your recent invoices.</TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Move</TableHead>
+                <TableHead>Label</TableHead>
+                <TableHead>Key</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Required</TableHead>
+                <TableHead>Delete</TableHead>
+                <TableHead>More</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {fields.map((field, idx) => (
+                <>
+                  <TableRow key={field.key}>
+                    <TableCell>
+                      <ArrowUpIcon onClick={() => move(idx, idx - 1)} />
+                      <ArrowDownIcon onClick={() => move(idx, idx + 1)} />
+                    </TableCell>
+                    <TableCell>
+                      <FormField
+                        control={form.control}
+                        name={`fields.${idx}.label`}
+                        render={({ field }) => (
+                          <FormItem className="py-1">
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <FormField
+                        control={form.control}
+                        name={`fields.${idx}.key`}
+                        render={({ field }) => (
+                          <FormItem className="py-1">
+                            <FormControl>
+                              <Input {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Type idx={idx} />
+                    </TableCell>
+                    <TableCell className="p-4  text-center">
+                      <FormField
+                        control={form.control}
+                        name={`fields.${idx}.required`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <Trash onClick={() => remove(idx)} />
+                    </TableCell>
+                    <TableCell>
+                      <ChevronsUpDown
+                        onClick={() => toggleMoreInfo(field.key)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                  <MoreInfo idx={idx} type={field.type} id={field.key} />
+                </>
+              ))}
+            </TableBody>
+          </Table>
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+      <div className="flex flex-col  gap-2">
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Add Field
+        </h3>
+        <Button onClick={() => append(newStringField())}>String</Button>
+        <Button onClick={() => append(newNumberField())}>Number</Button>
+        <Button onClick={() => append(newBooleanField())}>Boolean</Button>
+        <Button onClick={() => append(newEnumField())}>Enum</Button>
+        <Button onClick={() => append(newDateField())}>Date</Button>
+        <Button onClick={showCodeDialog}>Generate Code</Button>
+      </div>
+    </div>
+  )
   function MoreInfo({
     id,
     type,
@@ -339,108 +455,6 @@ export function FormBuilder() {
       }
     } else return <></>
   }
-  return (
-    <div className="flex">
-      <Form {...form}>
-        <form className="w-5/6" onSubmit={form.handleSubmit(onSubmit)}>
-          <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Move</TableHead>
-                <TableHead>Label</TableHead>
-                <TableHead>Key</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Required</TableHead>
-                <TableHead>Delete</TableHead>
-                <TableHead>More</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {fields.map((field, idx) => (
-                <>
-                  <TableRow key={field.key}>
-                    <TableCell>
-                      <ArrowUpIcon onClick={() => move(idx, idx - 1)} />
-                      <ArrowDownIcon onClick={() => move(idx, idx + 1)} />
-                    </TableCell>
-                    <TableCell>
-                      <FormField
-                        control={form.control}
-                        name={`fields.${idx}.label`}
-                        render={({ field }) => (
-                          <FormItem className="py-1">
-                            <FormControl>
-                              <Input {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <FormField
-                        control={form.control}
-                        name={`fields.${idx}.key`}
-                        render={({ field }) => (
-                          <FormItem className="py-1">
-                            <FormControl>
-                              <Input {...field} />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <Type idx={idx} />
-                    </TableCell>
-                    <TableCell className="p-4  text-center">
-                      <FormField
-                        control={form.control}
-                        name={`fields.${idx}.required`}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormControl>
-                              <Checkbox
-                                checked={field.value}
-                                onCheckedChange={field.onChange}
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <Trash onClick={() => remove(idx)} />
-                    </TableCell>
-                    <TableCell>
-                      <ChevronsUpDown
-                        onClick={() => toggleMoreInfo(field.key)}
-                      />
-                    </TableCell>
-                  </TableRow>
-                  <MoreInfo idx={idx} type={field.type} id={field.key} />
-                </>
-              ))}
-            </TableBody>
-          </Table>
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
-      <div className="flex flex-col  gap-2">
-        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-          Add Field
-        </h3>
-        <Button onClick={() => append(newStringField())}>String</Button>
-        <Button onClick={() => append(newNumberField())}>Number</Button>
-        <Button onClick={() => append(newBooleanField())}>Boolean</Button>
-        <Button onClick={() => append(newEnumField())}>Enum</Button>
-        <Button onClick={() => append(newDateField())}>Date</Button>
-        <Button onClick={() => generateCode(form.getValues())}>Generate Code</Button>
-      </div>
-    </div>
-  )
   function Type({ idx }: { idx: number }) {
     return (
       <FormField
