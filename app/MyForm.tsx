@@ -42,7 +42,7 @@ import {
 import { Switch } from "@/components/ui/switch"
 
 const formSchema = z.object({
-  username: z.string().min(1).max(255),
+  username: z.string().min(1),
   myNumber: z.coerce.number().gte(1).lte(9999),
   email: z.string().email().min(1).max(255),
   securityEmails: z.boolean(),
@@ -87,7 +87,7 @@ export function MyForm() {
               <FormControl>
                 <Input placeholder="username" {...field} />
               </FormControl>
-              <FormDescription></FormDescription>
+              <FormDescription>gdgsdsgdggggg</FormDescription>
               <FormMessage />
             </FormItem>
           )}

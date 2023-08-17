@@ -116,9 +116,14 @@ export function FormBuilder() {
     },
   })
   form.watch()
+  const [setInitial, setSetInitial] = useState(false)
   useEffect(() => {
-    form.setValue("fields", mockFields)
+    if (!setInitial) {
+      form.setValue("fields", mockFields)
+      setSetInitial(true)
+    }
   }, [])
+
   const { fields, append, update, prepend, remove, swap, move, insert } =
     useFieldArray({
       control: form.control,
@@ -128,6 +133,7 @@ export function FormBuilder() {
   function onSubmit(values: z.infer<typeof formBuilderSchema>) {
     console.log("values", values)
   }
+
   const [moreInfo, setMoreInfo] = useState<string[]>([])
   const [dialogOpen, setDialogOpen] = useState(false)
   const [generatedCode, setGeneratedCode] = useState("")
@@ -257,7 +263,7 @@ export function FormBuilder() {
               ))}
             </TableBody>
           </Table>
-          <Button type="submit">Submit</Button>
+          {/* <Button onClick={()=>console.log("aaa",form.getValues())} type="submit">Submit</Button> */}
         </form>
       </Form>
       <div className="flex flex-col  gap-2">

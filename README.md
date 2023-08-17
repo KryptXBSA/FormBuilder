@@ -1,22 +1,25 @@
-# next-template
+# Form Builder for @shadcn/ui
 
-A Next.js 13 template for building apps with Radix UI and Tailwind CSS.
+UI based codegen tool to easily create @shadcn/ui forms.
 
-## Usage
+Try it out <https://formbuilder.kurdmake.com>.
 
-```bash
-npx create-next-app -e https://github.com/shadcn/next-template
-```
+![FormBuilder demo](./demo.png)
 
-## Features
+## Field types
 
-- Next.js 13 App Directory
-- Radix UI Primitives
-- Tailwind CSS
-- Icons from [Lucide](https://lucide.dev)
-- Dark mode with `next-themes`
-- Tailwind CSS class sorting, merging and linting.
+Currently, these field types are implemented:
+
+- string (input)
+- number (input)
+- boolean (switch)
+- enum (select, radio, combobox)
+- date (date picker)
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
 
 ## License
 
-Licensed under the [MIT license](https://github.com/shadcn/ui/blob/main/LICENSE.md).
+MIT

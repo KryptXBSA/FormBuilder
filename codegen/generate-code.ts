@@ -49,6 +49,5 @@ const main = Handlebars.compile(mainTemplate)
 export function generateCode(form: Form) {
   const zodFormSchema = formToZodSchema(form)
   const generatedCode = imports + main({ ...form, zodFormSchema })
-  console.log("generatedCode", generatedCode)
   return generatedCode
 }
