@@ -93,6 +93,21 @@ const types: { value: FieldTypes; label: string }[] = [
     label: "Date",
   },
 ]
+const style: { value: "combobox"|"select"|"radio"; label: string }[] = [
+  {
+    value: "combobox",
+    label: "ComboBox",
+  },
+  {
+    value: "select",
+    label: "Select",
+  },
+  {
+    value: "radio",
+    label: "Radio",
+  },
+]
+
 
 export function FormBuilder() {
   const form = useForm<F>({
@@ -149,7 +164,7 @@ export function FormBuilder() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {fields.map((field, idx) => (
+              {form.getValues("fields").map((field, idx) => (
                 <>
                   <TableRow key={field.key}>
                     <TableCell>
@@ -212,7 +227,9 @@ export function FormBuilder() {
                       />
                     </TableCell>
                   </TableRow>
-                  <MoreInfo idx={idx} type={field.type} id={field.key} />
+                  {/* using a component causes inputs to lose focus */}
+                  {/* <MoreInfo idx={idx} type={field.type} id={field.key} /> */}
+                  {MoreInfo({ idx, type: field.type, id: field.key })}
                 </>
               ))}
             </TableBody>
@@ -242,76 +259,6 @@ export function FormBuilder() {
     idx: number
     type: FieldTypes
   }) {
-    function EnumValues() {
-      const [inputRefs, setInputRefs] = useState<
-        Array<{
-          labelRef: React.RefObject<HTMLInputElement>
-          valueRef: React.RefObject<HTMLInputElement>
-        }>
-      >(
-        fields[idx].enumValues?.map(() => ({
-          labelRef: useRef<HTMLInputElement>(null),
-          valueRef: useRef<HTMLInputElement>(null),
-        })) || []
-      )
-      return (
-        <div className="flex w-1/4 flex-col items-start gap-2">
-          <div className="flex flex-col">
-            {fields[idx].enumValues?.map((f, idxx: number) => {
-              const inputRef = inputRefs[idxx]
-              return (
-                <div className="flex items-center gap-1" key={idxx}>
-                  <Input
-                    ref={inputRef.labelRef}
-                    type="text"
-                    defaultValue={f.label}
-                  />
-                  <p className="text-2xl">:</p>
-                  <Input
-                    ref={inputRef.valueRef}
-                    type="text"
-                    defaultValue={f.value}
-                  />
-                </div>
-              )
-            })}
-          </div>
-          <div className="flex gap-4">
-            <Button
-              onClick={() => {
-                const newEnumValues: { label: string; value: string }[] =
-                  inputRefs.map((inputRef) => ({
-                    label: inputRef.labelRef.current?.value || "",
-                    value: inputRef.valueRef.current?.value || "",
-                  }))
-
-                update(idx, {
-                  ...form.getValues("fields")[idx],
-                  enumValues: newEnumValues,
-                })
-              }}
-            >
-              Save
-            </Button>
-            <Button
-              onClick={() => {
-                let enumValues: any[] = []
-                let arr = form.getValues().fields[idx].enumValues || []
-                enumValues = enumValues.concat(arr)
-                enumValues.push({ label: "label", value: "value" })
-
-                update(idx, {
-                  ...form.getValues("fields")[idx],
-                  enumValues,
-                })
-              }}
-            >
-              New
-            </Button>
-          </div>
-        </div>
-      )
-    }
     if (moreInfo.find((s) => s === id)) {
       if (type === "string") {
         return (
@@ -322,6 +269,32 @@ export function FormBuilder() {
               colSpan={9}
               className="flex flex-col gap-2"
             >
+              <FormField
+                control={form.control}
+                name={`fields.${idx}.desc`}
+                render={({ field }) => (
+                  <FormItem className="py-1">
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Input className="w-1/2" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name={`fields.${idx}.placeholder`}
+                render={({ field }) => (
+                  <FormItem className="py-1">
+                    <FormLabel>Placeholder</FormLabel>
+                    <FormControl>
+                      <Input className="w-1/2" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <FormField
                 control={form.control}
                 name={`fields.${idx}.validation.format`}
@@ -392,6 +365,32 @@ export function FormBuilder() {
               colSpan={9}
               className="flex flex-col gap-2"
             >
+              <FormField
+                control={form.control}
+                name={`fields.${idx}.desc`}
+                render={({ field }) => (
+                  <FormItem className="py-1">
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Input className="w-1/2" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name={`fields.${idx}.placeholder`}
+                render={({ field }) => (
+                  <FormItem className="py-1">
+                    <FormLabel>Placeholder</FormLabel>
+                    <FormControl>
+                      <Input className="w-1/2" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <div className="flex gap-2">
                 <FormField
                   control={form.control}
@@ -423,9 +422,10 @@ export function FormBuilder() {
             </TableCell>
           </TableRow>
         )
-      } else if (type === "enum") {
+      } else if (type === "boolean") {
         return (
           <TableRow className="border-b">
+            <td></td>
             <TableCell
               style={{ display: "table-cell" }}
               colSpan={9}
@@ -433,20 +433,170 @@ export function FormBuilder() {
             >
               <FormField
                 control={form.control}
-                name={`fields.${idx}.enumName`}
+                name={`fields.${idx}.desc`}
                 render={({ field }) => (
                   <FormItem className="py-1">
-                    <FormLabel>Enum Name</FormLabel>
+                    <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input className="w-40" {...field} />
+                      <Input className="w-1/2" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <p className="text-lg">Enum Values</p>
+            </TableCell>
+          </TableRow>
+        )
+      } else if (type === "enum") {
+        return (
+          <TableRow className="border-b">
+            <TableCell
+              style={{ display: "table-cell" }}
+              colSpan={9}
+              className=""
+            >
+              <div className="flex gap-5">
+                <div>
+                  <FormField
+                    control={form.control}
+                    name={`fields.${idx}.desc`}
+                    render={({ field }) => (
+                      <FormItem className="py-1">
+                        <FormLabel>Description</FormLabel>
+                        <FormControl>
+                          <Input className="w-full" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`fields.${idx}.placeholder`}
+                    render={({ field }) => (
+                      <FormItem className="py-1">
+                        <FormLabel>Placeholder</FormLabel>
+                        <FormControl>
+                          <Input className="w-full" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <EnumValues />
+      <FormField
+        control={form.control}
+        name={`fields.${idx}.style`}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+                        <FormLabel>Style</FormLabel>
+            <Popover>
+              <PopoverTrigger asChild>
+                <FormControl>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    className={cn(
+                      "w-[200px] justify-between",
+                      !field.value && "text-muted-foreground"
+                    )}
+                  >
+                    {field.value
+                      ? style.find((item) => item.value === field.value)?.label
+                      : "Select item"}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </FormControl>
+              </PopoverTrigger>
+              <PopoverContent className="w-[200px] p-0">
+                <Command>
+                  <CommandInput placeholder="Search types..." />
+                  <CommandEmpty>No type found.</CommandEmpty>
+                  <CommandGroup>
+                    {style.map((item) => (
+                      <CommandItem
+                        value={item.label}
+                        key={item.value}
+                        onSelect={() => {
+                          form.setValue(`fields.${idx}.style`, item.value)
+                        }}
+                      >
+                        <Check
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            item.value === field.value
+                              ? "opacity-100"
+                              : "opacity-0"
+                          )}
+                        />
+                        {item.label}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+                </div>
+                <div>
+                  <FormField
+                    control={form.control}
+                    name={`fields.${idx}.enumName`}
+                    render={({ field }) => (
+                      <FormItem className="py-1">
+                        <FormLabel>Enum Name</FormLabel>
+                        <FormControl>
+                          <Input className="w-40" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <p className="text-lg">Enum Values</p>
+                  {EnumValues()}
+                </div>
+              </div>
+            </TableCell>
+          </TableRow>
+        )
+      } else if (type === "date") {
+        return (
+          <TableRow className="border-b">
+            <td></td>
+            <TableCell
+              style={{ display: "table-cell" }}
+              colSpan={9}
+              className="flex flex-col gap-2"
+            >
+              <FormField
+                control={form.control}
+                name={`fields.${idx}.desc`}
+                render={({ field }) => (
+                  <FormItem className="py-1">
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Input className="w-1/2" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name={`fields.${idx}.placeholder`}
+                render={({ field }) => (
+                  <FormItem className="py-1">
+                    <FormLabel>Placeholder</FormLabel>
+                    <FormControl>
+                      <Input className="w-1/2" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </TableCell>
           </TableRow>
         )
@@ -454,6 +604,64 @@ export function FormBuilder() {
         return <TableRow className="border-b">&nbsp;</TableRow>
       }
     } else return <></>
+
+    function EnumValues() {
+      return (
+        <div className="flex w-1/4 flex-col items-start gap-2">
+          <div className="flex flex-col">
+            {fields[idx].enumValues?.map((f, idxx: number) => {
+              return (
+                <div className="flex items-center gap-1" key={idxx}>
+                  <FormField
+                    control={form.control}
+                    name={`fields.${idx}.enumValues.${idxx}.label`}
+                    render={({ field }) => (
+                      <FormItem className="py-1">
+                        <FormLabel>Label</FormLabel>
+                        <FormControl>
+                          <Input className="w-32" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`fields.${idx}.enumValues.${idxx}.value`}
+                    render={({ field }) => (
+                      <FormItem className="py-1">
+                        <FormLabel>Value</FormLabel>
+                        <FormControl>
+                          <Input className="w-32" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              )
+            })}
+          </div>
+          <div className="flex gap-4">
+            <Button
+              onClick={() => {
+                let enumValues: any[] = []
+                let arr = form.getValues().fields[idx].enumValues || []
+                enumValues = enumValues.concat(arr)
+                enumValues.push({ label: "label", value: "value" })
+
+                update(idx, {
+                  ...form.getValues("fields")[idx],
+                  enumValues,
+                })
+              }}
+            >
+              New
+            </Button>
+          </div>
+        </div>
+      )
+    }
   }
   function Type({ idx }: { idx: number }) {
     return (
@@ -482,8 +690,8 @@ export function FormBuilder() {
               </PopoverTrigger>
               <PopoverContent className="w-[200px] p-0">
                 <Command>
-                  <CommandInput placeholder="Search n12nnnnn..." />
-                  <CommandEmpty>No n12nnnnn found.</CommandEmpty>
+                  <CommandInput placeholder="Search types..." />
+                  <CommandEmpty>No type found.</CommandEmpty>
                   <CommandGroup>
                     {types.map((item) => (
                       <CommandItem
