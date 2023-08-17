@@ -33,6 +33,7 @@ export const types: { value: FieldTypes; label: string }[] = [
 ]
 
 const fieldSchema = z.object({
+  id: z.string(),
   label: z.string().min(1).max(50),
   desc: z.string().min(1).max(50).optional(),
   placeholder: z.string().min(1).max(50).optional(),
@@ -58,5 +59,6 @@ export const formBuilderSchema = z.object({
   name: z.string().min(1).max(50),
   fields: z.array(fieldSchema),
 })
+
 export type Form = z.infer<typeof formBuilderSchema>
 export type FormField = z.infer<typeof fieldSchema>

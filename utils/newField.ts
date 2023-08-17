@@ -2,6 +2,7 @@ import { FormField } from "@/schema"
 
 export function newStringField(): FormField {
   return {
+    id:"id"+randNum(),
     key: "key" + randNum(),
     label: "My string",
     desc: "Description",
@@ -17,6 +18,7 @@ export function newStringField(): FormField {
 }
 export function newNumberField(): FormField {
   return {
+    id:"id"+randNum(),
     key: "key" + randNum(),
     label: "My number",
     desc: "Description",
@@ -34,6 +36,7 @@ export function newNumberField(): FormField {
 }
 export function newBooleanField(): FormField {
   return {
+    id:"id"+randNum(),
     key: "key" + randNum(),
     label: "My bool",
     desc: "Description",
@@ -45,6 +48,7 @@ export function newBooleanField(): FormField {
 }
 export function newEnumField(): FormField {
   return {
+    id:"id"+randNum(),
     key: "key" + randNum(),
     label: "My enum",
     desc: "Description",
@@ -58,6 +62,7 @@ export function newEnumField(): FormField {
 }
 export function newDateField(): FormField {
   return {
+    id:"id"+randNum(),
     key: "key" + randNum(),
     label: "My date",
     desc: "Description",

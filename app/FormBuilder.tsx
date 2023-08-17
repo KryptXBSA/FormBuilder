@@ -1,8 +1,9 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { generateCode } from "@/handlebars/generate-code"
 import { Form as F, formBuilderSchema } from "@/schema"
+import { checkDuplicates } from "@/utils/checkDuplicates"
 import {
   newBooleanField,
   newDateField,
@@ -12,13 +13,11 @@ import {
 } from "@/utils/newField"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
-  ArrowDown,
   ArrowDownIcon,
   ArrowUpIcon,
   Check,
   ChevronsUpDown,
   Trash,
-  TrashIcon,
 } from "lucide-react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
@@ -36,7 +35,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -49,16 +47,15 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Switch } from "@/components/ui/switch"
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { useToast } from "@/components/ui/use-toast"
 
 import { CopyCodeDialog } from "./CopyCodeDialog"
 
@@ -93,7 +90,7 @@ const types: { value: FieldTypes; label: string }[] = [
     label: "Date",
   },
 ]
-const style: { value: "combobox"|"select"|"radio"; label: string }[] = [
+const style: { value: "combobox" | "select" | "radio"; label: string }[] = [
   {
     value: "combobox",
     label: "ComboBox",
@@ -108,8 +105,8 @@ const style: { value: "combobox"|"select"|"radio"; label: string }[] = [
   },
 ]
 
-
 export function FormBuilder() {
+  const { toast } = useToast()
   const form = useForm<F>({
     resolver: zodResolver(formBuilderSchema),
     defaultValues: {
@@ -121,26 +118,45 @@ export function FormBuilder() {
 
   const { fields, append, update, prepend, remove, swap, move, insert } =
     useFieldArray({
-      control: form.control, // control props comes from useForm (optional: if you are using FormContext)
-      name: "fields", // unique name for your Field Array
+      control: form.control,
+      name: "fields",
     })
 
+  function onSubmit(values: z.infer<typeof formBuilderSchema>) {
+    console.log("values", values)
+  }
   const [moreInfo, setMoreInfo] = useState<string[]>([])
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [generatedCode, setGeneratedCode] = useState("")
+
+  function showCodeDialog() {
+    const result = checkDuplicates(form.getValues("fields"))
+    if (result.hasDuplicates) {
+      if (result.duplicates.key.length > 0)
+        toast({
+          variant: "destructive",
+          title: "Duplicate Keys found",
+          description: result.duplicates.key.toString(),
+        })
+      if (result.duplicates.enum.length > 0)
+        toast({
+          variant: "destructive",
+          title: "Duplicate Enum Names found",
+          description: result.duplicates.enum.toString(),
+        })
+    } else {
+      setDialogOpen(true)
+      const code = generateCode(form.getValues())
+      setGeneratedCode(code)
+    }
+  }
+
   function toggleMoreInfo(id: string) {
     if (moreInfo.find((s) => s === id))
       setMoreInfo(moreInfo.filter((s) => s !== id))
     else setMoreInfo(moreInfo.concat([id]))
   }
-  function onSubmit(values: z.infer<typeof formBuilderSchema>) {
-    console.log("values", values)
-  }
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const [generatedCode, setGeneratedCode] = useState("")
-  function showCodeDialog() {
-    setDialogOpen(true)
-    const code = generateCode(form.getValues())
-    setGeneratedCode(code)
-  }
+
   return (
     <div className="flex">
       <CopyCodeDialog
@@ -151,7 +167,6 @@ export function FormBuilder() {
       <Form {...form}>
         <form className="w-5/6" onSubmit={form.handleSubmit(onSubmit)}>
           <Table>
-            <TableCaption>A list of your recent invoices.</TableCaption>
             <TableHeader>
               <TableRow>
                 <TableHead>Move</TableHead>
@@ -166,7 +181,7 @@ export function FormBuilder() {
             <TableBody>
               {form.getValues("fields").map((field, idx) => (
                 <>
-                  <TableRow key={field.key}>
+                  <TableRow key={field.id}>
                     <TableCell>
                       <ArrowUpIcon onClick={() => move(idx, idx - 1)} />
                       <ArrowDownIcon onClick={() => move(idx, idx + 1)} />
@@ -192,7 +207,9 @@ export function FormBuilder() {
                         render={({ field }) => (
                           <FormItem className="py-1">
                             <FormControl>
-                              <Input {...field} />
+                              <Input
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -227,7 +244,7 @@ export function FormBuilder() {
                       />
                     </TableCell>
                   </TableRow>
-                  {/* using a component causes inputs to lose focus */}
+                  {/* using  component causes inputs to lose focus */}
                   {/* <MoreInfo idx={idx} type={field.type} id={field.key} /> */}
                   {MoreInfo({ idx, type: field.type, id: field.key })}
                 </>
@@ -484,62 +501,67 @@ export function FormBuilder() {
                     )}
                   />
 
-      <FormField
-        control={form.control}
-        name={`fields.${idx}.style`}
-        render={({ field }) => (
-          <FormItem className="flex flex-col">
+                  <FormField
+                    control={form.control}
+                    name={`fields.${idx}.style`}
+                    render={({ field }) => (
+                      <FormItem className="flex flex-col">
                         <FormLabel>Style</FormLabel>
-            <Popover>
-              <PopoverTrigger asChild>
-                <FormControl>
-                  <Button
-                    variant="outline"
-                    role="combobox"
-                    className={cn(
-                      "w-[200px] justify-between",
-                      !field.value && "text-muted-foreground"
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant="outline"
+                                role="combobox"
+                                className={cn(
+                                  "w-[200px] justify-between",
+                                  !field.value && "text-muted-foreground"
+                                )}
+                              >
+                                {field.value
+                                  ? style.find(
+                                      (item) => item.value === field.value
+                                    )?.label
+                                  : "Select item"}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-[200px] p-0">
+                            <Command>
+                              <CommandInput placeholder="Search types..." />
+                              <CommandEmpty>No type found.</CommandEmpty>
+                              <CommandGroup>
+                                {style.map((item) => (
+                                  <CommandItem
+                                    value={item.label}
+                                    key={item.value}
+                                    onSelect={() => {
+                                      form.setValue(
+                                        `fields.${idx}.style`,
+                                        item.value
+                                      )
+                                    }}
+                                  >
+                                    <Check
+                                      className={cn(
+                                        "mr-2 h-4 w-4",
+                                        item.value === field.value
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      )}
+                                    />
+                                    {item.label}
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
                     )}
-                  >
-                    {field.value
-                      ? style.find((item) => item.value === field.value)?.label
-                      : "Select item"}
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                  </Button>
-                </FormControl>
-              </PopoverTrigger>
-              <PopoverContent className="w-[200px] p-0">
-                <Command>
-                  <CommandInput placeholder="Search types..." />
-                  <CommandEmpty>No type found.</CommandEmpty>
-                  <CommandGroup>
-                    {style.map((item) => (
-                      <CommandItem
-                        value={item.label}
-                        key={item.value}
-                        onSelect={() => {
-                          form.setValue(`fields.${idx}.style`, item.value)
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            item.value === field.value
-                              ? "opacity-100"
-                              : "opacity-0"
-                          )}
-                        />
-                        {item.label}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </Command>
-              </PopoverContent>
-            </Popover>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+                  />
                 </div>
                 <div>
                   <FormField
