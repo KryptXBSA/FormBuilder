@@ -66,7 +66,7 @@ export function newDateField(): FormField {
     key: "key" + randNum(),
     label: "My date",
     desc: "Description",
-    placeholder: "Placeholder",
+    placeholder: "Pick a date",
     type: "date",
     required: true,
   }

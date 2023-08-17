@@ -11,17 +11,13 @@ const {{enumName}} = [
             {{/ifEquals}}
           {{/ifEquals}}
         {{/each}}
-export function Preview() {
-  // 1. Define your form.
+export function MyForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {{{defaultValues fields}}},
   })
 
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values)
   }
 

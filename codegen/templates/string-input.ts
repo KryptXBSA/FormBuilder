@@ -1,4 +1,3 @@
-
 export const stringInputTemplate = `
 <FormField
   control={form.control}
@@ -10,11 +9,11 @@ export const stringInputTemplate = `
           {{#ifEquals validation.format "email"}}
         <Input type="email" placeholder="{{label}}" {...field} />
         {{else}}
-        <Input  placeholder="{{label}}" {...field} />
+        <Input  placeholder="{{placeholder}}" {...field} />
           {{/ifEquals}}
       </FormControl>
       <FormDescription>
-        {{label}} description here
+        {{desc}}
       </FormDescription>
       <FormMessage />
     </FormItem>

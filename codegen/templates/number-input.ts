@@ -7,10 +7,10 @@ export const numberInputTemplate = `
     <FormItem>
       <FormLabel>{{label}}</FormLabel>
       <FormControl>
-        <Input type="number" placeholder="{{label}}" {...field} />
+        <Input type="number" placeholder="{{placeholder}}" {...field} />
       </FormControl>
       <FormDescription>
-        {{label}} description here
+        {{desc}}
       </FormDescription>
       <FormMessage />
     </FormItem>

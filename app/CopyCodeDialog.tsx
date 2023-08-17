@@ -34,7 +34,7 @@ export function CopyCodeDialog({
     <Dialog onOpenChange={setOpen} open={open}>
       <DialogContent>
         <div className="flex items-center my-3 justify-between">
-          <p>Remember to format the code once you've copied it.</p>
+          <p>Remember to format the code once you've pasted it.</p>
           <Button variant="ghost" className="" onClick={copy}>
             {copied ? (
               <CheckIcon />

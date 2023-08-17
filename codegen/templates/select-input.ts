@@ -1,5 +1,4 @@
 export const selectInputTemplate = `
-
   <FormField
           control={form.control}
           name="{{key}}"

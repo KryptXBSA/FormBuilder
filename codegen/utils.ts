@@ -1,9 +1,9 @@
 import { Form, FormField } from "@/schema"
 import { parseSchema } from "json-schema-to-zod"
+
 export function formToZodSchema(form: Form) {
   const jsonSchema = formToJsonSchema(form)
   const formSchema = jsonSchemaToZod(jsonSchema)
-  console.log("azzzzzzzzzzzzzzz", formSchema)
   return formSchema
 }
 
@@ -66,11 +66,11 @@ function formToJsonSchema(form: Form) {
     // description: "My neat object schema",
   }
 
-  const schema = {
-    // $ref: `#/definitions/${form.id}`,
-    definitions,
-    $schema: "http://json-schema.org/draft-07/schema#",
-  }
+  // const schema = {
+  //   // $ref: `#/definitions/${form.id}`,
+  //   definitions,
+  //   $schema: "http://json-schema.org/draft-07/schema#",
+  // }
 
   return definitions.form
 }
