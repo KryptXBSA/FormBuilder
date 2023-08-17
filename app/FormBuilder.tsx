@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { generateCode } from "@/codegen/generate-code"
 import { Form as F, formBuilderSchema } from "@/schema"
 import { checkDuplicates } from "@/utils/checkDuplicates"
@@ -58,6 +58,7 @@ import {
 import { useToast } from "@/components/ui/use-toast"
 
 import { CopyCodeDialog } from "./CopyCodeDialog"
+import { mockFields } from "./mockFields"
 
 export const fieldTypes = [
   "string",
@@ -111,102 +112,13 @@ export function FormBuilder() {
     resolver: zodResolver(formBuilderSchema),
     defaultValues: {
       name: "MyForm",
-      fields: [
-        {
-          id: "username",
-          label: "Username",
-          placeholder: "username",
-          key: "username",
-          type: "string",
-          defaultValue: "",
-          required: true,
-          validation: { min: 1, max: 255 },
-        },
-        {
-          id: "mmm",
-          label: "Number",
-          key: "myNumber",
-          type: "number",
-          required: true,
-          validation: { min: 1, max: 9999 },
-        },
-        {
-          id: "email",
-          label: "Email",
-          key: "email",
-          defaultValue: "",
-          type: "string",
-          required: true,
-          validation: { format: "email", min: 1, max: 255 },
-        },
-        {
-          id: "bool",
-          label: "Security emails",
-          desc: "Receive emails about your account security.",
-          key: "securityEmails",
-          defaultValue: false,
-          type: "boolean",
-          required: true,
-        },
-        {
-          id: "dateee",
-          label: "Date of birth",
-          placeholder:"Pick a date",
-          desc: "Your date of birth is used to calculate your age.",
-          key: "dateOfBirth",
-          type: "date",
-          required: true,
-        },
-        {
-          id: "aeenum",
-          label: "Notify me about",
-          key: "notify",
-          style: "radio",
-          enumValues: [
-            { label: "All new messages", value: "all" },
-            { label: "Direct messages and mentions", value: "dm" },
-            { label: "Nothing", value: "none" },
-          ],
-          type: "enum",
-          enumName: "languagee",
-          required: true,
-        },
-        {
-          id: "enum",
-          label: "Language",
-          desc: "This is the language that will be used in the dashboard.",
-          key: "language",
-          style: "combobox",
-          enumName: "language",
-          enumValues: [
-            { label: "English", value: "en" },
-            { label: "Arabic", value: "ar" },
-            { label: "Kurdish", value: "ku" },
-          ],
-          type: "enum",
-          required: true,
-        },
-        {
-          id: "enummm",
-          label: "Language",
-          desc: "desc sadsdajsadbdsab das",
-          placeholder: "Sselect a value",
-          key: "languageSelect",
-          style: "select",
-          enumValues: [
-            { label: "English", value: "en" },
-            { label: "Arabic", value: "ar" },
-            { label: "Kurdish", value: "ku" },
-          ],
-          enumName: "languageee",
-          type: "enum",
-          required: true,
-        },
-      ],
+      fields: [],
     },
   })
   form.watch()
-
+  useEffect(() => {
+    form.setValue("fields", mockFields)
+  }, [])
   const { fields, append, update, prepend, remove, swap, move, insert } =
     useFieldArray({
       control: form.control,
@@ -221,6 +133,11 @@ export function FormBuilder() {
   const [generatedCode, setGeneratedCode] = useState("")
 
   function showCodeDialog() {
+    if (form.getValues("fields").length === 0)
+      toast({
+        variant: "destructive",
+        title: "Form has 0 Fields",
+      })
     const result = checkDuplicates(form.getValues("fields"))
     if (result.hasDuplicates) {
       if (result.duplicates.key.length > 0)
