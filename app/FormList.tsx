@@ -16,7 +16,7 @@ export function FormList(props: {}) {
         </li>
       ))}
       <Button onClick={() => newForm({ name: "My Form", fields: [] })}>
-        <PlusIcon />
+        {/* <PlusIcon /> */}
         New Form
       </Button>
     </ul>

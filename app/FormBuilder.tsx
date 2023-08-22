@@ -13,13 +13,13 @@ import {
   newStringField,
 } from "@/utils/newField"
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  Check,
-  ChevronsUpDown,
-  Trash,
-} from "lucide-react"
+// import {
+//   ArrowDownIcon,
+//   ArrowUpIcon,
+//   Check,
+//   ChevronsUpDown,
+//   Trash,
+// } from "lucide-react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -213,8 +213,8 @@ export function FormBuilder() {
                   <>
                     <TableRow key={field.id}>
                       <TableCell>
-                        <ArrowUpIcon onClick={() => move(idx, idx - 1)} />
-                        <ArrowDownIcon onClick={() => move(idx, idx + 1)} />
+                        {/* <ArrowUpIcon onClick={() => move(idx, idx - 1)} /> */}
+                        {/* <ArrowDownIcon onClick={() => move(idx, idx + 1)} /> */}
                       </TableCell>
                       <TableCell>
                         <FormField
@@ -264,12 +264,12 @@ export function FormBuilder() {
                         />
                       </TableCell>
                       <TableCell className="text-center">
-                        <Trash onClick={() => remove(idx)} />
+                        {/* <Trash onClick={() => remove(idx)} /> */}
                       </TableCell>
                       <TableCell>
-                        <ChevronsUpDown
-                          onClick={() => toggleMoreInfo(field.key)}
-                        />
+                        {/* <ChevronsUpDown */}
+                        {/*   onClick={() => toggleMoreInfo(field.key)} */}
+                        {/* /> */}
                       </TableCell>
                     </TableRow>
                     {/* using  component causes inputs to lose focus */}
@@ -552,7 +552,7 @@ export function FormBuilder() {
                                       (item) => item.value === field.value
                                     )?.label
                                   : "Select item"}
-                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                {/* <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
@@ -572,14 +572,14 @@ export function FormBuilder() {
                                       )
                                     }}
                                   >
-                                    <Check
-                                      className={cn(
-                                        "mr-2 h-4 w-4",
-                                        item.value === field.value
-                                          ? "opacity-100"
-                                          : "opacity-0"
-                                      )}
-                                    />
+                                    {/* <Check */}
+                                    {/*   className={cn( */}
+                                    {/*     "mr-2 h-4 w-4", */}
+                                    {/*     item.value === field.value */}
+                                    {/*       ? "opacity-100" */}
+                                    {/*       : "opacity-0" */}
+                                    {/*   )} */}
+                                    {/* /> */}
                                     {item.label}
                                   </CommandItem>
                                 ))}
@@ -735,7 +735,7 @@ export function FormBuilder() {
                     {field.value
                       ? types.find((item) => item.value === field.value)?.label
                       : "Select item"}
-                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    {/* <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
                   </Button>
                 </FormControl>
               </PopoverTrigger>
@@ -752,14 +752,14 @@ export function FormBuilder() {
                           form.setValue(`fields.${idx}.type`, item.value)
                         }}
                       >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            item.value === field.value
-                              ? "opacity-100"
-                              : "opacity-0"
-                          )}
-                        />
+                        {/* <Check */}
+                        {/*   className={cn( */}
+                        {/*     "mr-2 h-4 w-4", */}
+                        {/*     item.value === field.value */}
+                        {/*       ? "opacity-100" */}
+                        {/*       : "opacity-0" */}
+                        {/*   )} */}
+                        {/* /> */}
                         {item.label}
                       </CommandItem>
                     ))}
