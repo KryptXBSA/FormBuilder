@@ -5,17 +5,17 @@ import { PlusIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function FormList(props: {}) {
-  const { forms } = useFormStore()
+  const { forms, newForm, selectForm } = useFormStore()
   return (
     <ul className="flex flex-col gap-2 mt-20">
-      {forms.map((f) => (
-        <li>
-          <Button>
+      {forms.map((f, idx) => (
+        <li key={idx}>
+          <Button onClick={() => selectForm(idx)}>
             <p>{f.name}</p>
           </Button>
         </li>
       ))}
-      <Button>
+      <Button onClick={() => newForm({ name: "My Form", fields: [] })}>
         <PlusIcon />
         New Form
       </Button>

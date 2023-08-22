@@ -1,4 +1,5 @@
 import { FormField } from "@/schema"
+import { randNum } from "./randNum"
 
 export function newStringField(): FormField {
   return {
@@ -71,8 +72,4 @@ export function newDateField(): FormField {
     required: true,
   }
 }
-function randNum() {
-  const min = 1
-  const max = 999
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
+

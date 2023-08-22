@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { generateCode } from "@/codegen/generate-code"
 import { Form as F, formBuilderSchema } from "@/schema"
+import { useFormStore } from "@/stores/form-store"
 import { checkDuplicates } from "@/utils/checkDuplicates"
 import {
   newBooleanField,
@@ -109,15 +110,24 @@ const style: { value: "combobox" | "select" | "radio"; label: string }[] = [
 ]
 
 export function FormBuilder() {
+  const { forms, newForm, selectedForm, updateFormFields } = useFormStore()
   const { toast } = useToast()
+
   const form = useForm<F>({
     resolver: zodResolver(formBuilderSchema),
     defaultValues: {
-      name: "MyForm",
-      fields: [],
+      name: forms[selectedForm].name,
+      fields: forms[selectedForm].fields,
     },
   })
   form.watch()
+  useEffect(() => {
+    form.setValue("name", forms[selectedForm].name)
+    form.setValue("fields", forms[selectedForm].fields)
+  }, [selectedForm])
+  useEffect(() => {
+    updateFormFields(form.getValues("fields"))
+  }, [form.getValues("fields")])
   const [setInitial, setSetInitial] = useState(false)
   // useEffect(() => {
   //   if (!setInitial) {
