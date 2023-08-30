@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { CheckIcon, ClipboardIcon } from "lucide-react"
 
+import { HiCheck,HiClipboard } from "react-icons/hi2"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
 
@@ -37,10 +37,10 @@ export function CopyCodeDialog({
           <p>Remember to format the code once you've pasted it.</p>
           <Button variant="ghost" className="" onClick={copy}>
             {copied ? (
-              <CheckIcon />
+              <HiCheck size={24}/>
             ) : (
               <>
-                <ClipboardIcon size={22} />
+                <HiClipboard size={24} />
               </>
             )}
           </Button>
