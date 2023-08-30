@@ -35,8 +35,8 @@ export const useFormStore = create<Store>()(
     forms:
       // (JSON.parse(localStorage.getItem("bearStore")!)
       //   ?.state as Form[]) ??
-      // [{ name: "My Form", fields: mockFields }]
-      null,
+      [{ name: "My Form", fields: mockFields }]
+      ,
     updateFormFields: (fields) =>
       set((state) => {
         let newForms = state.forms
