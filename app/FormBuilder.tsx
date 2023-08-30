@@ -1,4 +1,5 @@
 "use client"
+import { Separator } from "@/components/ui/separator"
 
 import { useEffect, useState } from "react"
 import { generateCode } from "@/codegen/generate-code"
@@ -21,6 +22,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 //   Trash,
 // } from "lucide-react"
 import { useFieldArray, useForm } from "react-hook-form"
+import { AiOutlineCheck } from "react-icons/ai"
+import { FiArrowDown, FiArrowUp, FiTrash } from "react-icons/fi"
+import { HiChevronUpDown } from "react-icons/hi2"
 import { z } from "zod"
 
 import { cn } from "@/lib/utils"
@@ -116,8 +120,8 @@ export function FormBuilder() {
   const form = useForm<F>({
     resolver: zodResolver(formBuilderSchema),
     defaultValues: {
-      name: forms[selectedForm].name,
-      fields: forms[selectedForm].fields,
+      name: forms[selectedForm]?.name||"",
+      fields: forms[selectedForm]?.fields||[],
     },
   })
   form.watch()
@@ -213,8 +217,16 @@ export function FormBuilder() {
                   <>
                     <TableRow key={field.id}>
                       <TableCell>
-                        {/* <ArrowUpIcon onClick={() => move(idx, idx - 1)} /> */}
-                        {/* <ArrowDownIcon onClick={() => move(idx, idx + 1)} /> */}
+                        <FiArrowUp
+                          size={22}
+                          className="cursor-pointer"
+                          onClick={() => move(idx, idx - 1)}
+                        />
+                        <FiArrowDown
+                          size={22}
+                          className="cursor-pointer"
+                          onClick={() => move(idx, idx + 1)}
+                        />
                       </TableCell>
                       <TableCell>
                         <FormField
@@ -264,12 +276,18 @@ export function FormBuilder() {
                         />
                       </TableCell>
                       <TableCell className="text-center">
-                        {/* <Trash onClick={() => remove(idx)} /> */}
+                        <FiTrash
+                          className="cursor-pointer"
+                          size={22}
+                          onClick={() => remove(idx)}
+                        />
                       </TableCell>
                       <TableCell>
-                        {/* <ChevronsUpDown */}
-                        {/*   onClick={() => toggleMoreInfo(field.key)} */}
-                        {/* /> */}
+                        <HiChevronUpDown
+                          className="cursor-pointer"
+                          size={25}
+                          onClick={() => toggleMoreInfo(field.key)}
+                        />
                       </TableCell>
                     </TableRow>
                     {/* using  component causes inputs to lose focus */}
@@ -291,7 +309,9 @@ export function FormBuilder() {
           <Button onClick={() => append(newBooleanField())}>Boolean</Button>
           <Button onClick={() => append(newEnumField())}>Enum</Button>
           <Button onClick={() => append(newDateField())}>Date</Button>
-          <Button onClick={showCodeDialog}>Generate Code</Button>
+
+      <Separator className="my-0.5"  />
+          <Button variant="secondary" onClick={showCodeDialog}>Generate Code</Button>
         </div>
       </div>
     </div>
@@ -552,7 +572,10 @@ export function FormBuilder() {
                                       (item) => item.value === field.value
                                     )?.label
                                   : "Select item"}
-                                {/* <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
+                                <HiChevronUpDown
+                                  size={22}
+                                  className="ml-2 h-4 w-4 shrink-0 opacity-50"
+                                />
                               </Button>
                             </FormControl>
                           </PopoverTrigger>
@@ -735,7 +758,7 @@ export function FormBuilder() {
                     {field.value
                       ? types.find((item) => item.value === field.value)?.label
                       : "Select item"}
-                    {/* <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" /> */}
+                    <HiChevronUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
                 </FormControl>
               </PopoverTrigger>
@@ -752,14 +775,14 @@ export function FormBuilder() {
                           form.setValue(`fields.${idx}.type`, item.value)
                         }}
                       >
-                        {/* <Check */}
-                        {/*   className={cn( */}
-                        {/*     "mr-2 h-4 w-4", */}
-                        {/*     item.value === field.value */}
-                        {/*       ? "opacity-100" */}
-                        {/*       : "opacity-0" */}
-                        {/*   )} */}
-                        {/* /> */}
+                        <AiOutlineCheck
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            item.value === field.value
+                              ? "opacity-100"
+                              : "opacity-0"
+                          )}
+                        />
                         {item.label}
                       </CommandItem>
                     ))}

@@ -1,22 +1,28 @@
 import React from "react"
 import { useFormStore } from "@/stores/form-store"
-import { PlusIcon } from "lucide-react"
+import { FiTrash,FiPlus } from "react-icons/fi"
 
 import { Button } from "@/components/ui/button"
 
 export function FormList(props: {}) {
-  const { forms, newForm, selectForm } = useFormStore()
+  const { forms, newForm, selectForm, deleteForm } = useFormStore()
   return (
     <ul className="flex flex-col gap-2 mt-20">
       {forms.map((f, idx) => (
-        <li key={idx}>
-          <Button onClick={() => selectForm(idx)}>
+        <li className="flex gap-2" key={idx}>
+          <Button className="w-32" onClick={() => selectForm(idx)}>
             <p>{f.name}</p>
+          </Button>
+          <Button variant="ghost" className="hover:bg-red-500">
+            <FiTrash size={24} onClick={() => deleteForm(idx)} />
           </Button>
         </li>
       ))}
-      <Button onClick={() => newForm({ name: "My Form", fields: [] })}>
-        {/* <PlusIcon /> */}
+      <Button
+        className="w-32"
+        onClick={() => newForm({ name: "My Form", fields: [] })}
+      >
+        <FiPlus size={22} />
         New Form
       </Button>
     </ul>
