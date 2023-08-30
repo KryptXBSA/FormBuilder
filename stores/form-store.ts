@@ -32,8 +32,11 @@ export const useFormStore = create<Store>()(
         return { forms: state.forms.filter((_f, id) => id !== idx) }
       }),
     //@ts-ignore
-    forms: (JSON.parse(localStorage.getItem("bearStore")!)
-      ?.state as Form[]) ?? [{ name: "My Form", fields: mockFields }],
+    forms:
+      // (JSON.parse(localStorage.getItem("bearStore")!)
+      //   ?.state as Form[]) ??
+      // [{ name: "My Form", fields: mockFields }]
+      null,
     updateFormFields: (fields) =>
       set((state) => {
         let newForms = state.forms
