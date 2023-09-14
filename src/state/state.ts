@@ -28,12 +28,12 @@ export function useAppState() {
     updateFormName,
     updateFormFields,
     newForm,
-    // setAppState,
+    setAppState,
   }
 }
-// function setAppState(state: State) {
-//   $appState.set(state)
-// }
+function setAppState(state: State) {
+  $appState.set(state)
+}
 
 function newForm(f: Form) {
   let currentForms = $appState.get().forms

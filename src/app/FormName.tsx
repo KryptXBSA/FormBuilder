@@ -36,6 +36,7 @@ export function FormName() {
     resolver: zodResolver(editNameSchema),
   })
   useEffect(() => {
+    forms&&
     form.setValue("name", forms[selectedForm].name)
   }, [selectedForm])
 
@@ -86,7 +87,7 @@ export function FormName() {
       <>
         <div className="flex flex-col">
           <h3 className="flex scroll-m-20 items-center gap-1  text-2xl font-semibold tracking-tight">
-            {forms[selectedForm].name}
+            {forms&&forms[selectedForm].name||""}
             <BsPencil
               onClick={toggleEdit}
               className="mb-1 ml-1 cursor-pointer"
@@ -94,7 +95,7 @@ export function FormName() {
             />{" "}
           </h3>
           <p className="text-lg text-blue-400 ">
-            {forms[selectedForm].fields.length} Fields
+            {forms&&forms[selectedForm].fields.length||0} Fields
           </p>
         </div>
       </>
