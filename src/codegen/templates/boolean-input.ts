@@ -1,4 +1,5 @@
-export const booleanInputTemplate = `<FormField
+export const booleanInputTemplate = `
+<FormField
               control={form.control}
   name="{{key}}"
               render={({ field }) => (
@@ -17,4 +18,5 @@ export const booleanInputTemplate = `<FormField
                   </FormControl>
                 </FormItem>
               )}
-            />`
+            />
+`

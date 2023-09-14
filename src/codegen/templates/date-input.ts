@@ -1,5 +1,6 @@
 
-export const dateInputTemplate = `<FormField
+export const dateInputTemplate = `
+<FormField
           control={form.control}
   name="{{key}}"
           render={({ field }) => (
@@ -42,4 +43,5 @@ export const dateInputTemplate = `<FormField
               <FormMessage />
             </FormItem>
           )}
-        />`
+        />
+`

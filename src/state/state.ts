@@ -37,8 +37,6 @@ function setAppState(state: State) {
 
 function newForm(f: Form) {
   let currentForms = $appState.get().forms
-  console.log("cuuu", currentForms)
-  console.log("enddd", currentForms.concat(f))
   $appState.set({
     ...$appState.get(),
     forms: currentForms.concat(f),
