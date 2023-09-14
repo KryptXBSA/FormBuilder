@@ -14,8 +14,10 @@ export default function IndexPage() {
   const [loaded, setLoaded] = useState(false)
   let appState = useAppState()
   useEffect(() => {
-    let state = localStorage.getItem("state")!
-    appState.setAppState(JSON.parse(state!))
+    let state: any = JSON.parse(localStorage.getItem("state")!)!
+    if (state["version"] == 0) {
+      appState.setAppState(state.state)
+    }
     setLoaded(true)
   }, [])
   if (!loaded) return <></>
@@ -23,7 +25,7 @@ export default function IndexPage() {
     <section className="mx-auto max-w-[1500px]  py-10">
       <div className="flex gap-6 w-full">
         <FormList />
-        <Tabs defaultValue="editor" className="w-full">
+        <Tabs defaultValue="editorr" className="w-full">
           <FormName />
           <TabsList className="grid w-1/2 mx-aut grid-cols-2">
             <TabsTrigger value="editor">Editor</TabsTrigger>
