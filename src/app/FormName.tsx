@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useAppState } from "@/state/state"
 import { useFormStore } from "@/stores/form-store"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { PencilIcon } from "lucide-react"
@@ -22,7 +23,8 @@ export const editNameSchema = z.object({
 })
 
 export function FormName() {
-  const { forms, selectedForm, updateFormName } = useFormStore()
+  // const { forms, selectedForm, updateFormName } = useFormStore()
+  const { forms, selectedForm, updateFormName } = useAppState()
 
   const [editName, setEditName] = useState(false)
 

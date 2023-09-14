@@ -66,6 +66,7 @@ import { CopyCodeDialog } from "./CopyCodeDialog"
 import { FormList } from "./FormList"
 import { FormName } from "./FormName"
 import { mockFields } from "./mockFields"
+import { useAppState } from "@/state/state"
 
 export const fieldTypes = [
   "string",
@@ -114,7 +115,7 @@ const style: { value: "combobox" | "select" | "radio"; label: string }[] = [
 ]
 
 export function FormBuilder() {
-  const { forms, newForm, selectedForm, updateFormFields } = useFormStore()
+  const { forms, newForm, selectedForm, updateFormFields } = useAppState()
   const { toast } = useToast()
 
   const form = useForm<F>({
