@@ -192,7 +192,6 @@ export function FormBuilder() {
 
   return (
     <div className="flex flex-col w-full">
-      <FormName />
       <div className="flex gap-4 w-full">
         <CopyCodeDialog
           code={generatedCode}
