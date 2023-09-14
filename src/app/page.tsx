@@ -25,7 +25,7 @@ export default function IndexPage() {
     <section className="mx-auto max-w-[1500px]  py-10">
       <div className="flex gap-6 w-full">
         <FormList />
-        <Tabs defaultValue="editorr" className="w-full">
+        <Tabs defaultValue="editor" className="w-full">
           <FormName />
           <TabsList className="grid w-1/2 mx-aut grid-cols-2">
             <TabsTrigger value="editor">Editor</TabsTrigger>
