@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { useAppState } from "@/state/state"
+import { Loader, Loader2Icon, LoaderIcon } from "lucide-react"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
@@ -20,7 +21,13 @@ export default function IndexPage() {
     }
     setLoaded(true)
   }, [])
-  if (!loaded) return <></>
+  if (!loaded)
+    return (
+      <div className="w-full flex-col flex h-96 items-center justify-center   ">
+        <Loader2Icon className="animate-spin w-16 h-16  text-blue-500" />{" "}
+        <p>Loading...</p>
+      </div>
+    )
   return (
     <section className="mx-auto max-w-[1500px]  py-10">
       <div className="flex gap-6 w-full">

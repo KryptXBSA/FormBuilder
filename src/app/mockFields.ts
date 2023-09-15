@@ -78,7 +78,7 @@ export const mockFields: FormField[] = [
   {
     id: "enummm",
     label: "Language",
-    desc: "desc sadsdajsadbdsab das",
+    desc: "Select a language",
     placeholder: "Sselect a value",
     key: "languageSelect",
     style: "select",
