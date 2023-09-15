@@ -1,15 +1,23 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { FormField as FF } from "@/schema"
 import { useAppState } from "@/state/state"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
-import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react"
+import {
+  AlertCircle,
+  CalendarIcon,
+  Check,
+  ChevronsUpDown,
+  FileWarning,
+  Terminal,
+} from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { cn } from "@/lib/utils"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import {
@@ -48,30 +56,66 @@ export function Preview() {
   const { forms, selectedForm } = useAppState()
   let formFields = forms[selectedForm].fields
 
-  const formSchema = z.object({
-    username: z.string().min(1).max(255),
-    myNumber: z.coerce.number().gte(1).lte(9999),
-    email: z.string().email().min(1).max(255),
-    securityEmails: z.boolean(),
-    dateOfBirth: z.date(),
-    notify: z.string(),
-    language: z.string(),
-    languageSelect: z.string(),
-    key85: z.number().gte(1).lte(9999999999),
-  })
+  let formSchema = z.object({})
+
+  useEffect(() => {
+    for (let f of formFields) {
+      switch (f.type) {
+        case "string":
+          if (f.validation?.format === "email") {
+            Object.assign(formSchema, {
+              [f.key]: z.string().email().min(1).max(9999999999),
+            })
+          } else {
+            Object.assign(formSchema, {
+              [f.key]: z.string().email().min(1).max(9999999999),
+            })
+          }
+          break
+        case "number":
+          Object.assign(formSchema, {
+            [f.key]: z.coerce
+              .number()
+              .min(f.validation?.min || 1)
+              .max(f.validation?.max || 9999999999),
+          })
+          break
+        case "boolean":
+          Object.assign(
+            formSchema,
+
+            {
+              [f.key]: z.boolean(),
+            }
+          )
+          break
+        case "date":
+          Object.assign(formSchema, {
+            [f.key]: z.date(),
+          })
+
+          break
+        case "enum":
+          Object.assign(formSchema, {
+            [f.key]: z.string(),
+          })
+          break
+        default:
+      }
+    }
+    // formSchema = z.object({})
+    console.log("ffff", form.getValues(), formSchema.strip())
+  }, [selectedForm])
+
   const form = useForm<z.infer<any>>({
     // const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-      myNumber: 1,
-      email: "",
-      key85: 1,
-    },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit() {
+    let values = form.getValues()
     let result = "Submitted Values:\n"
+    console.log("fff", form.getValues())
 
     for (const key in values) {
       if (values.hasOwnProperty(key)) {
@@ -79,10 +123,18 @@ export function Preview() {
         result += `${key}: ${values[key]}\n`
       }
     }
+    console.log(result)
     alert(result)
   }
   return (
     <Form {...form}>
+      <Alert className="w-1/2 my-3" variant="warning">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
+        <AlertDescription>
+          But it does work when utilizing the generated code.
+        </AlertDescription>
+      </Alert>
       <form
         noValidate
         onSubmit={form.handleSubmit(onSubmit)}
@@ -99,7 +151,7 @@ export function Preview() {
             {f.style === "combobox" && ComboboxField(f)}
           </>
         ))}
-        <Button type="submit">Submit</Button>
+        <Button onClick={() => form.getValues()}>Submit</Button>
       </form>
     </Form>
   )
