@@ -5,13 +5,20 @@ import { FormField as FF } from "@/schema"
 import { useAppState } from "@/state/state"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command"
 import {
   Form,
   FormControl,
@@ -27,6 +34,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 
 export function Preview() {
@@ -56,14 +71,22 @@ export function Preview() {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    let result = "Submitted Values:\n"
+
+    for (const key in values) {
+      if (values.hasOwnProperty(key)) {
+        // @ts-ignore
+        result += `${key}: ${values[key]}\n`
+      }
+    }
+    alert(result)
   }
   return (
     <Form {...form}>
       <form
         noValidate
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8"
+        className="space-y-8 w-1/2"
       >
         {formFields.map((f) => (
           <>
@@ -71,11 +94,135 @@ export function Preview() {
             {f.type === "number" && NumberField(f)}
             {f.type === "date" && DateField(f)}
             {f.type === "boolean" && BooleanField(f)}
+            {f.style === "radio" && RadioField(f)}
+            {f.style === "select" && SelectField(f)}
+            {f.style === "combobox" && ComboboxField(f)}
           </>
         ))}
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   )
+  function ComboboxField(f: FF) {
+    return (
+      <FormField
+        control={form.control}
+        name={f.key}
+        render={({ field }) => (
+          <FormItem className="flex flex-col">
+            <FormLabel>{f.label}</FormLabel>
+            <Popover>
+              <PopoverTrigger asChild>
+                <FormControl>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    className={cn(
+                      "w-[200px] justify-between",
+                      !field.value && "text-muted-foreground"
+                    )}
+                  >
+                    {field.value
+                      ? f.enumValues?.find((item) => item.value === field.value)
+                          ?.label
+                      : "Select item"}
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                  </Button>
+                </FormControl>
+              </PopoverTrigger>
+              <PopoverContent className="w-[200px] p-0">
+                <Command>
+                  <CommandInput placeholder={`Search ${f.enumName}...`} />
+                  <CommandEmpty>No {f.enumName} found.</CommandEmpty>
+                  <CommandGroup>
+                    {f.enumValues?.map((item) => (
+                      <CommandItem
+                        value={item.label}
+                        key={item.value}
+                        onSelect={() => {
+                          form.setValue(f.key, item.value)
+                        }}
+                      >
+                        <Check
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            item.value === field.value
+                              ? "opacity-100"
+                              : "opacity-0"
+                          )}
+                        />
+                        {item.label}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            <FormDescription>{f.desc}</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    )
+  }
+  function SelectField(f: FF) {
+    return (
+      <FormField
+        control={form.control}
+        name={f.key}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{f.label}</FormLabel>
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <FormControl>
+                <SelectTrigger>
+                  <SelectValue placeholder={f.placeholder} />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {f.enumValues?.map((v) => (
+                  <SelectItem value={v.value}>{v.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FormDescription>{f.desc}</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    )
+  }
+  function RadioField(f: FF) {
+    return (
+      <FormField
+        control={form.control}
+        name={f.key}
+        render={({ field }) => (
+          <FormItem className="space-y-3">
+            <FormLabel>{f.label}</FormLabel>
+            <FormControl>
+              <RadioGroup
+                onValueChange={field.onChange}
+                defaultValue={field.value}
+                className="flex flex-col space-y-1"
+              >
+                {f.enumValues?.map((v) => (
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value={v.value} />
+                    </FormControl>
+                    <FormLabel className="font-normal">{v.label}</FormLabel>
+                  </FormItem>
+                ))}
+              </RadioGroup>
+            </FormControl>
+            <FormDescription>{f.desc}</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    )
+  }
   function BooleanField(f: FF) {
     return (
       <FormField
@@ -127,9 +274,9 @@ export function Preview() {
                   mode="single"
                   selected={field.value}
                   onSelect={field.onChange}
-                  disabled={(date) =>
-                    date > new Date() || date < new Date("1900-01-01")
-                  }
+                  // disabled={(date) =>
+                  //   date > new Date() || date < new Date("1900-01-01")
+                  // }
                   initialFocus
                 />
               </PopoverContent>

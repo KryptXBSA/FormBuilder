@@ -24,6 +24,9 @@ export const radioInputTemplate = `
                   {{/each}}
                 </RadioGroup>
               </FormControl>
+              <FormDescription>
+              {{desc}}
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

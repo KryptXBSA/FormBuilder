@@ -1,4 +1,5 @@
-export const comboboxInputTemplate = `<FormField
+export const comboboxInputTemplate = `
+<FormField
           control={form.control}
           name="{{key}}"
           render={({ field }) => (
