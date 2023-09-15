@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react"
 import { useAppState } from "@/state/state"
-import { Loader, Loader2Icon, LoaderIcon } from "lucide-react"
 
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { FormBuilder } from "./FormBuilder"
@@ -24,7 +24,7 @@ export default function IndexPage() {
   if (!loaded)
     return (
       <div className="w-full flex-col flex h-96 items-center justify-center   ">
-        <Loader2Icon className="animate-spin w-16 h-16  text-blue-500" />{" "}
+        <AiOutlineLoading3Quarters className="animate-spin w-16 h-16  text-blue-500" />{" "}
         <p>Loading...</p>
       </div>
     )
@@ -46,9 +46,6 @@ export default function IndexPage() {
           </TabsContent>
         </Tabs>
       </div>
-      {/* <div className="w-1/2"> */}
-      {/* <MyForm/> */}
-      {/* </div> */}
     </section>
   )
 }
