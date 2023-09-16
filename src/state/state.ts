@@ -10,7 +10,7 @@ export type State = {
   forms: Form[]
 }
 
-const $appState = persistentAtom<State>(
+export const $appState = persistentAtom<State>(
   "state",
   { selectedForm: 0, forms: [{ name: "My Form", fields: mockFields }] },
   {

@@ -128,13 +128,6 @@ export function Preview() {
   }
   return (
     <Form {...form}>
-      <Alert className="w-1/2 my-3" variant="warning">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
-        <AlertDescription>
-          But it does work when utilizing the generated code.
-        </AlertDescription>
-      </Alert>
       <form
         noValidate
         onSubmit={form.handleSubmit(onSubmit)}
@@ -152,6 +145,14 @@ export function Preview() {
           </>
         ))}
         <Button onClick={() => form.getValues()}>Submit</Button>
+
+      <Alert variant="warning">
+        <AlertCircle className="h-4 w-4" />
+        <AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
+        <AlertDescription>
+          But it does work when utilizing the generated code.
+        </AlertDescription>
+      </Alert>
       </form>
     </Form>
   )
