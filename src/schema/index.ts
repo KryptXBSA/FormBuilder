@@ -43,7 +43,7 @@ const fieldSchema = z.object({
   defaultValue: z.union([z.string(), z.number(), z.boolean()]).optional(),
   style: z.enum(["radio", "select", "combobox"]).optional(),
   enumValues: z
-    .array(z.object({ label: z.string(), value: z.string() }))
+    .array(z.object({ label: z.string(), value: z.string(), id: z.string() }))
     .optional(),
   enumName: z.string().min(1).max(50).optional(),
   validation: z

@@ -686,7 +686,7 @@ export function FormBuilder() {
        console.log("enumvalues", enumValues)
        update(idx, {
         ...form.getValues("fields")[idx],
-        enumValues
+        enumValues,
       })
       }
 
@@ -695,7 +695,7 @@ export function FormBuilder() {
           <div className="flex flex-col">
             {fields[idx].enumValues?.map((f, idxx: number) => {
               return (
-                <div className="flex items-center gap-1" key={`${f.label}${f.value}${idxx}`}>
+                <div className="flex items-center gap-1" key={f.id}>
                   <FormField
                     control={form.control}
                     name={`fields.${idx}.enumValues.${idxx}.label`}
@@ -733,7 +733,7 @@ export function FormBuilder() {
                 let enumValues: any[] = []
                 let arr = form.getValues().fields[idx].enumValues || []
                 enumValues = enumValues.concat(arr)
-                enumValues.push({ label: "label", value: "value" })
+                enumValues.push({ label: "label", value: "value", id:Date.now().toString() })
 
                 update(idx, {
                   ...form.getValues("fields")[idx],
