@@ -680,12 +680,22 @@ export function FormBuilder() {
     } else return <></>
 
     function EnumValues() {
+
+      function deleteCurrentEnum(idx:number, idxx:number){
+       let enumValues = fields[idx].enumValues?.filter((val, index)=>index!==idxx)
+       console.log("enumvalues", enumValues)
+       update(idx, {
+        ...form.getValues("fields")[idx],
+        enumValues
+      })
+      }
+
       return (
         <div className="flex w-1/4 flex-col items-start gap-2">
           <div className="flex flex-col">
             {fields[idx].enumValues?.map((f, idxx: number) => {
               return (
-                <div className="flex items-center gap-1" key={idxx}>
+                <div className="flex items-center gap-1" key={`${f.label}${f.value}${idxx}`}>
                   <FormField
                     control={form.control}
                     name={`fields.${idx}.enumValues.${idxx}.label`}
@@ -712,6 +722,7 @@ export function FormBuilder() {
                       </FormItem>
                     )}
                   />
+                  <Button type="button" onClick={()=>deleteCurrentEnum(idx, idxx)} variant={"destructive"} className="ml-2 mt-7">Delete</Button>
                 </div>
               )
             })}
