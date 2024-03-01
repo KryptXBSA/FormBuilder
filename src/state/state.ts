@@ -1,13 +1,12 @@
-import { Form, FormField } from "@/schema"
+import { mockFields } from "@/mock/mockFields"
+import { FormSchema, FormField } from "@/schema"
 import { persistentAtom } from "@nanostores/persistent"
 import { useStore } from "@nanostores/react"
 import { atom } from "nanostores"
 
-import { mockFields } from "@/app/mockFields"
-
 export type State = {
   selectedForm: number
-  forms: Form[]
+  forms: FormSchema[]
 }
 
 export const $appState = persistentAtom<State>(
@@ -35,7 +34,7 @@ function setAppState(state: State) {
   $appState.set(state)
 }
 
-function newForm(f: Form) {
+function newForm(f: FormSchema) {
   let currentForms = $appState.get().forms
   $appState.set({
     ...$appState.get(),

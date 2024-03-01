@@ -1,4 +1,4 @@
-import { Form, FormField } from "@/schema"
+import { FormSchema, FormField } from "@/schema"
 import { $appState } from "@/state/state"
 import Handlebars from "handlebars"
 
@@ -49,7 +49,7 @@ Handlebars.registerHelper("defaultValues", function (fields) {
 
 const main = Handlebars.compile(mainTemplate)
 
-export function generateCode(form: Form) {
+export function generateCode(form: FormSchema) {
   const zodFormSchema = formToZodSchema(form)
   const generatedCode =
     generateImports(

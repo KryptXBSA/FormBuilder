@@ -1,11 +1,8 @@
 "use client"
-import { Separator } from "@/components/ui/separator"
 
 import { useEffect, useState } from "react"
-import { generateCode } from "@/codegen/generate-code"
-import { Form as F, formBuilderSchema } from "@/schema"
-import { useFormStore } from "@/stores/form-store"
-import { checkDuplicates } from "@/utils/checkDuplicates"
+import { FormSchema, formBuilderSchema } from "@/schema"
+import { useAppState } from "@/state/state"
 import {
   newBooleanField,
   newDateField,
@@ -52,6 +49,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Separator } from "@/components/ui/separator"
 import {
   Table,
   TableBody,
@@ -63,10 +61,7 @@ import {
 import { useToast } from "@/components/ui/use-toast"
 
 import { CopyCodeDialog } from "./CopyCodeDialog"
-import { FormList } from "./FormList"
-import { FormName } from "./FormName"
-import { mockFields } from "./mockFields"
-import { useAppState } from "@/state/state"
+import { showCodeDialog } from "./showCodeDialog"
 
 export const fieldTypes = [
   "string",
@@ -115,73 +110,50 @@ const style: { value: "combobox" | "select" | "radio"; label: string }[] = [
 ]
 
 export function FormBuilder() {
-  const { forms, newForm, selectedForm, updateFormFields } = useAppState()
+  const { forms, selectedForm, updateFormFields } = useAppState()
   const { toast } = useToast()
 
-  const form = useForm<F>({
+  const form = useForm<FormSchema>({
     resolver: zodResolver(formBuilderSchema),
     defaultValues: {
-      name: forms[selectedForm]?.name||"",
-      fields: forms[selectedForm]?.fields||[],
+      name: forms[selectedForm]?.name || "",
+      fields: forms[selectedForm]?.fields || [],
     },
   })
+
+  const [moreInfo, setMoreInfo] = useState<string[]>([])
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [generatedCode, setGeneratedCode] = useState("")
+
+  // Important!, watching the form for any changes
   form.watch()
+
   useEffect(() => {
     form.setValue("name", forms[selectedForm].name)
     form.setValue("fields", forms[selectedForm].fields)
   }, [selectedForm])
+
   useEffect(() => {
     updateFormFields(form.getValues("fields"))
   }, [form.getValues("fields")])
-  const [setInitial, setSetInitial] = useState(false)
-  // useEffect(() => {
-  //   if (!setInitial) {
-  //     form.setValue("fields", mockFields)
-  //     setSetInitial(true)
-  //   }
-  // }, [])
 
+  // Thanks to react-hook-form, we can easily update a FieldArray
   const { fields, append, update, prepend, remove, swap, move, insert } =
     useFieldArray({
       control: form.control,
       name: "fields",
     })
 
-  function onSubmit(values: z.infer<typeof formBuilderSchema>) {
-    console.log("values", values)
+  const handleShowCodeDialog = () => {
+    showCodeDialog({
+      form,
+      setDialogOpen,
+      setGeneratedCode,
+    })
   }
 
-  const [moreInfo, setMoreInfo] = useState<string[]>([])
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const [generatedCode, setGeneratedCode] = useState("")
-
-  function showCodeDialog() {
-    if (form.getValues("fields").length === 0) {
-      toast({
-        variant: "destructive",
-        title: "Form has 0 Fields",
-      })
-      return
-    }
-    const result = checkDuplicates(form.getValues("fields"))
-    if (result.hasDuplicates) {
-      if (result.duplicates.key.length > 0)
-        toast({
-          variant: "destructive",
-          title: "Duplicate Keys found",
-          description: result.duplicates.key.toString(),
-        })
-      if (result.duplicates.enum.length > 0)
-        toast({
-          variant: "destructive",
-          title: "Duplicate Enum Names found",
-          description: result.duplicates.enum.toString(),
-        })
-    } else {
-      setDialogOpen(true)
-      const code = generateCode(form.getValues())
-      setGeneratedCode(code)
-    }
+  function onSubmit(values: z.infer<typeof formBuilderSchema>) {
+    console.log("values", values)
   }
 
   function toggleMoreInfo(id: string) {
@@ -310,8 +282,10 @@ export function FormBuilder() {
           <Button onClick={() => append(newEnumField())}>Enum</Button>
           <Button onClick={() => append(newDateField())}>Date</Button>
 
-      <Separator className="my-0.5"  />
-          <Button variant="secondary" onClick={showCodeDialog}>Generate Code</Button>
+          <Separator className="my-0.5" />
+          <Button variant="secondary" onClick={handleShowCodeDialog}>
+            Generate Code
+          </Button>
         </div>
       </div>
     </div>
@@ -680,14 +654,15 @@ export function FormBuilder() {
     } else return <></>
 
     function EnumValues() {
-
-      function deleteCurrentEnum(idx:number, idxx:number){
-       let enumValues = fields[idx].enumValues?.filter((val, index)=>index!==idxx)
-       console.log("enumvalues", enumValues)
-       update(idx, {
-        ...form.getValues("fields")[idx],
-        enumValues,
-      })
+      function deleteCurrentEnum(idx: number, idxx: number) {
+        let enumValues = fields[idx].enumValues?.filter(
+          (val, index) => index !== idxx
+        )
+        console.log("enumvalues", enumValues)
+        update(idx, {
+          ...form.getValues("fields")[idx],
+          enumValues,
+        })
       }
 
       return (
@@ -722,7 +697,14 @@ export function FormBuilder() {
                       </FormItem>
                     )}
                   />
-                  <Button type="button" onClick={()=>deleteCurrentEnum(idx, idxx)} variant={"destructive"} className="ml-2 mt-7">Delete</Button>
+                  <Button
+                    type="button"
+                    onClick={() => deleteCurrentEnum(idx, idxx)}
+                    variant={"destructive"}
+                    className="ml-2 mt-7"
+                  >
+                    Delete
+                  </Button>
                 </div>
               )
             })}
@@ -733,7 +715,11 @@ export function FormBuilder() {
                 let enumValues: any[] = []
                 let arr = form.getValues().fields[idx].enumValues || []
                 enumValues = enumValues.concat(arr)
-                enumValues.push({ label: "label", value: "value", id:Date.now().toString() })
+                enumValues.push({
+                  label: "label",
+                  value: "value",
+                  id: Date.now().toString(),
+                })
 
                 update(idx, {
                   ...form.getValues("fields")[idx],

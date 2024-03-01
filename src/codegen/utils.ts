@@ -1,7 +1,7 @@
-import { Form, FormField } from "@/schema"
+import { FormSchema, FormField } from "@/schema"
 import { parseSchema } from "json-schema-to-zod"
 
-export function formToZodSchema(form: Form) {
+export function formToZodSchema(form: FormSchema) {
   const jsonSchema = formToJsonSchema(form)
   const formSchema = jsonSchemaToZod(jsonSchema)
   return formSchema
@@ -16,7 +16,7 @@ function jsonSchemaToZod(obj: any) {
   return schema
 }
 
-function formToJsonSchema(form: Form) {
+function formToJsonSchema(form: FormSchema) {
   const definitions: { [key: string]: any } = {}
   const properties: { [key: string]: any } = {}
   const required: string[] = []

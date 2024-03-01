@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useAppState } from "@/state/state"
-import { useFormStore } from "@/stores/form-store"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { PencilIcon } from "lucide-react"
-// import { PencilIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { BsPencil } from "react-icons/bs"
 import * as z from "zod"
-
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -23,7 +19,6 @@ export const editNameSchema = z.object({
 })
 
 export function FormName() {
-  // const { forms, selectedForm, updateFormName } = useFormStore()
   const { forms, selectedForm, updateFormName } = useAppState()
 
   const [editName, setEditName] = useState(false)
@@ -35,19 +30,15 @@ export function FormName() {
   const form = useForm<z.infer<typeof editNameSchema>>({
     resolver: zodResolver(editNameSchema),
   })
+
   useEffect(() => {
-    forms&&
-    form.setValue("name", forms[selectedForm].name)
+    forms && form.setValue("name", forms[selectedForm].name)
   }, [selectedForm])
 
   function onSubmit(values: z.infer<typeof editNameSchema>) {
     console.log("values", values)
     toggleEdit()
     updateFormName(values.name)
-    // editModelMutation.mutate({
-    //   ...values,
-    //   modelId: modelState.selectedModel,
-    // })
   }
   if (editName) {
     return (
@@ -87,7 +78,7 @@ export function FormName() {
       <>
         <div className="flex flex-col">
           <h3 className="flex scroll-m-20 items-center gap-1  text-2xl font-semibold tracking-tight">
-            {forms&&forms[selectedForm].name||""}
+            {(forms && forms[selectedForm].name) || ""}
             <BsPencil
               onClick={toggleEdit}
               className="mb-1 ml-1 cursor-pointer"
@@ -95,7 +86,7 @@ export function FormName() {
             />{" "}
           </h3>
           <p className="text-lg text-blue-400 ">
-            {forms&&forms[selectedForm].fields.length||0} Fields
+            {(forms && forms[selectedForm].fields.length) || 0} Fields
           </p>
         </div>
       </>

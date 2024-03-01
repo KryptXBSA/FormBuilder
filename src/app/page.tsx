@@ -2,25 +2,26 @@
 
 import React, { useEffect, useState } from "react"
 import { useAppState } from "@/state/state"
-
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { AiOutlineLoading3Quarters } from "react-icons/ai"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-import { FormBuilder } from "./FormBuilder"
-import { FormList } from "./FormList"
-import { FormName } from "./FormName"
-import { Preview } from "./Preview"
+import { FormBuilder } from "@/components/index/FormBuilder"
+import { FormList } from "@/components/index/FormList"
+import { FormName } from "@/components/index/FormName"
+import { Preview } from "@/components/index/Preview"
 
 export default function IndexPage() {
   const [loaded, setLoaded] = useState(false)
   let appState = useAppState()
+
   useEffect(() => {
     let state: any = JSON.parse(localStorage.getItem("state")!)!
+
     if (state["version"] == 0) {
       appState.setAppState(state.state)
     }
     setLoaded(true)
   }, [])
+
   if (!loaded)
     return (
       <div className="w-full flex-col flex h-96 items-center justify-center   ">
