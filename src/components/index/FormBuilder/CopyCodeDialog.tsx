@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { generateCode } from "@/codegen/generate-code"
 import { FormSchema } from "@/schema"
 import { useAppState } from "@/state/state"
 import { checkDuplicates } from "@/utils/checkDuplicates"
-import { useFormContext } from "react-hook-form"
-import { HiCheck, HiClipboard } from "react-icons/hi2"
+import { UseFormReturn } from "react-hook-form"
 
 import { getRequiredComponents } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
 import { useToast } from "@/components/ui/use-toast"
+import { CopyTextBtn } from "@/components/shared/CopyTextBtn"
 
-export function CopyCodeDialog() {
-  const form = useFormContext<FormSchema>()
+export function GenerateCodeDialog({
+  form,
+}: {
+  form: UseFormReturn<FormSchema>
+}) {
   const { toast } = useToast()
 
   const [generatedCode, setGeneratedCode] = useState("")
   const [dialogOpen, setDialogOpen] = useState(false)
-  const [copiedRequired, setCopiedRequired] = useState(false)
-  const [copiedCode, setCopiedCode] = useState(false)
-
 
   let state = useAppState()
   let selectedForm = state.forms[state.selectedForm]
@@ -28,33 +28,6 @@ export function CopyCodeDialog() {
   for (let i of getRequiredComponents(selectedForm.fields)) {
     requiredComponents += i + " "
   }
-
-  function copyCode() {
-    navigator.clipboard.writeText(generatedCode)
-    setCopiedCode(true)
-  }
-
-  function copyRequired() {
-    navigator.clipboard.writeText(requiredComponents)
-    setCopiedRequired(true)
-  }
-
-  useEffect(() => {
-    if (copiedCode) {
-      const timeout = setTimeout(() => {
-        setCopiedCode(false)
-      }, 2000)
-
-      return () => clearTimeout(timeout)
-    }
-    if (copiedRequired) {
-      const timeout = setTimeout(() => {
-        setCopiedRequired(false)
-      }, 2000)
-
-      return () => clearTimeout(timeout)
-    }
-  }, [copiedCode, copiedRequired])
 
   function showCodeDialog() {
     // validating that the form has more than one field
@@ -95,33 +68,20 @@ export function CopyCodeDialog() {
       </DialogTrigger>
       <DialogContent className="max-w-2xl">
         <p>Required Components:</p>
-
         <div className="border-border flex items-center justify-between border-2 rounded-lg p-1">
           <p className="ml-1">{requiredComponents}</p>
-
-          <Button variant="ghost" className="" onClick={copyRequired}>
-            {copiedRequired ? (
-              <HiCheck size={24} />
-            ) : (
-              <>
-                <HiClipboard size={24} />
-              </>
-            )}
-          </Button>
+          <CopyTextBtn text={requiredComponents} />
         </div>
         <div className="flex items-center my-3 justify-between">
-          <p>Remember to format the code once you've pasted it.</p>
-          <Button variant="ghost" className="" onClick={copyCode}>
-            {copiedCode ? (
-              <HiCheck size={24} />
-            ) : (
-              <>
-                <HiClipboard size={24} />
-              </>
-            )}
-          </Button>
+          <div className="flex flex-col items-start my-3 justify-between">
+            <p>Generated code</p>
+            <p className="text-xs">
+              Remember to format the code once you've pasted it.
+            </p>
+          </div>
+          <CopyTextBtn text={generatedCode} />
         </div>
-        <div className="h-[500px] overflow-auto">
+        <div className="h-[500px] border-2 rounded-lg p-1 overflow-auto">
           <pre>{generatedCode}</pre>
         </div>
       </DialogContent>

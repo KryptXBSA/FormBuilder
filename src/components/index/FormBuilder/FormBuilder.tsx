@@ -36,27 +36,9 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import { CopyCodeDialog } from "./CopyCodeDialog"
+import { GenerateCodeDialog } from "./CopyCodeDialog"
 import { MoreInfo } from "./MoreInfo"
 import { FieldTypeComboBox } from "./Type"
-
-export const style: {
-  value: "combobox" | "select" | "radio"
-  label: string
-}[] = [
-  {
-    value: "combobox",
-    label: "ComboBox",
-  },
-  {
-    value: "select",
-    label: "Select",
-  },
-  {
-    value: "radio",
-    label: "Radio",
-  },
-]
 
 export function FormBuilder() {
   const { forms, selectedForm, updateFormFields } = useAppState()
@@ -216,9 +198,8 @@ export function FormBuilder() {
           <Button onClick={() => append(newEnumField())}>Enum</Button>
           <Button onClick={() => append(newDateField())}>Date</Button>
 
-          <Separator className="my-0.5" />
 
-          <CopyCodeDialog />
+          <GenerateCodeDialog form={form} />
           {/* <GenerateCodeDialog/> */}
         </div>
       </div>

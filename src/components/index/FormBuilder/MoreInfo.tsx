@@ -4,6 +4,7 @@ import { FormSchema } from "@/schema"
 import { UseFormReturn, useFieldArray, useFormContext } from "react-hook-form"
 import { HiChevronUpDown } from "react-icons/hi2"
 
+import { FieldKind } from "@/types/fieldKind"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -29,15 +30,31 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { TableCell, TableRow } from "@/components/ui/table"
 
-import {  style } from "./FormBuilder"
-import { FieldKind } from "@/types/fieldKind"
-
 interface MoreInfoProps {
   id: string
   idx: number
   type: FieldKind
   moreInfo: string[]
 }
+
+type EnumStyle = {
+  value: "combobox" | "select" | "radio"
+  label: string
+}
+const enumStyle: EnumStyle[] = [
+  {
+    value: "combobox",
+    label: "ComboBox",
+  },
+  {
+    value: "select",
+    label: "Select",
+  },
+  {
+    value: "radio",
+    label: "Radio",
+  },
+]
 
 export function MoreInfo({ id, type, idx, moreInfo }: MoreInfoProps) {
   const form = useFormContext<FormSchema>()
@@ -285,7 +302,7 @@ export function MoreInfo({ id, type, idx, moreInfo }: MoreInfoProps) {
                               )}
                             >
                               {field.value
-                                ? style.find(
+                                ? enumStyle.find(
                                     (item) => item.value === field.value
                                   )?.label
                                 : "Select item"}
@@ -301,7 +318,7 @@ export function MoreInfo({ id, type, idx, moreInfo }: MoreInfoProps) {
                             <CommandInput placeholder="Search types..." />
                             <CommandEmpty>No type found.</CommandEmpty>
                             <CommandGroup>
-                              {style.map((item) => (
+                              {enumStyle.map((item) => (
                                 <CommandItem
                                   value={item.label}
                                   key={item.value}
