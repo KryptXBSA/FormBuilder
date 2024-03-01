@@ -1,30 +1,32 @@
 import { FormField } from "@/schema"
-type DuplicateType = "key" | "enum";
+
+type DuplicateType = "key" | "enum"
 
 export type DuplicateResult = {
-  hasDuplicates: boolean;
+  hasDuplicates: boolean
   duplicates: {
-    [type in DuplicateType]: string[];
-  };
-};
+    [type in DuplicateType]: string[]
+  }
+}
 
+// checking duplicate form and enum keys
 export function checkDuplicates(fields: FormField[]): DuplicateResult {
-  const keysSet = new Set<string>();
-  const enumNamesSet = new Set<string>();
-  const duplicateKeys: string[] = [];
-  const duplicateEnumNames: string[] = [];
+  const keysSet = new Set<string>()
+  const enumNamesSet = new Set<string>()
+  const duplicateKeys: string[] = []
+  const duplicateEnumNames: string[] = []
 
   for (const field of fields) {
     if (field.key && keysSet.has(field.key)) {
-      duplicateKeys.push(field.key);
+      duplicateKeys.push(field.key)
     } else {
-      keysSet.add(field.key);
+      keysSet.add(field.key)
     }
 
     if (field.enumName && enumNamesSet.has(field.enumName)) {
-      duplicateEnumNames.push(field.enumName);
+      duplicateEnumNames.push(field.enumName)
     } else {
-      enumNamesSet.add(field.enumName!);
+      enumNamesSet.add(field.enumName!)
     }
   }
 
@@ -34,5 +36,5 @@ export function checkDuplicates(fields: FormField[]): DuplicateResult {
       key: duplicateKeys,
       enum: duplicateEnumNames,
     },
-  };
+  }
 }

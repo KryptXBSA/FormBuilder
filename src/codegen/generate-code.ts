@@ -37,9 +37,9 @@ Handlebars.registerHelper("ifNotEquals", function (arg1, arg2, options) {
 Handlebars.registerHelper("defaultValues", function (fields) {
   let output = "{\n"
   fields.forEach((field: FormField) => {
-    if (field.type === "string") {
+    if (field.kind === "string") {
       output += `${field.key}: "${field.defaultValue || ""}",\n`
-    } else if (field.type === "number") {
+    } else if (field.kind === "number") {
       output += `${field.key}: ${field.defaultValue || 1},\n`
     }
   })

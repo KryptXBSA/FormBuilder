@@ -2,22 +2,23 @@ import { Dispatch, SetStateAction } from "react"
 import { generateCode } from "@/codegen/generate-code"
 import { FormSchema } from "@/schema"
 import { checkDuplicates } from "@/utils/checkDuplicates"
-import { UseFormReturn } from "react-hook-form"
+import { UseFormReturn, useFormContext } from "react-hook-form"
 
 import { useToast } from "@/components/ui/use-toast"
 
 type ShowCodeDialogProps = {
-  form: UseFormReturn<FormSchema>
   setDialogOpen: Dispatch<SetStateAction<boolean>>
   setGeneratedCode: Dispatch<SetStateAction<string>>
+  toast: any
 }
 
 export function showCodeDialog({
-  form,
   setGeneratedCode,
+  toast,
   setDialogOpen,
 }: ShowCodeDialogProps) {
-  const { toast } = useToast()
+  const form = useFormContext<FormSchema>()
+
   if (form.getValues("fields").length === 0) {
     toast({
       variant: "destructive",

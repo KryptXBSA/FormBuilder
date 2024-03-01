@@ -23,33 +23,33 @@ function formToJsonSchema(form: FormSchema) {
 
   form.fields.forEach((field: FormField) => {
     let property: any
-    if (field.type === "string")
+    if (field.kind === "string")
       property = {
-        type: field.type,
+        type: field.kind,
         minLength: field.validation?.min,
         maxLength: field.validation?.max,
       }
-    else if (field.type === "number")
+    else if (field.kind === "number")
       property = {
-        type: field.type,
+        type: field.kind,
         minimum: field.validation?.min,
         maximum: field.validation?.max,
       }
-    else if (field.type === "boolean")
+    else if (field.kind === "boolean")
       property = {
-        type: field.type,
+        type: field.kind,
       }
-    else if (field.type === "date")
+    else if (field.kind === "date")
       property = {
         type: "string",
         format: "date-time",
       }
-    else if (field.type === "enum")
+    else if (field.kind === "enum")
       property = {
         type: "string",
       }
 
-    if (field.type === "string" && field.validation?.format) {
+    if (field.kind === "string" && field.validation?.format) {
       property.format = field.validation.format
     }
     properties[field.key] = property

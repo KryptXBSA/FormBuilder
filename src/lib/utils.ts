@@ -9,10 +9,10 @@ export function cn(...inputs: ClassValue[]) {
 export function getRequiredComponents(fields: FormField[]) {
   let requiredComponents = []
   for (let f of fields) {
-    if (f.type === "string") requiredComponents.push("input")
-    if (f.type === "number") requiredComponents.push("input")
-    if (f.type === "date") requiredComponents.push("date")
-    if (f.type === "boolean") requiredComponents.push("switch")
+    if (f.kind === "string") requiredComponents.push("input")
+    if (f.kind === "number") requiredComponents.push("input")
+    if (f.kind === "date") requiredComponents.push("date")
+    if (f.kind === "boolean") requiredComponents.push("switch")
     if (f.style === "radio") requiredComponents.push("radio-group")
     if (f.style === "select") requiredComponents.push("select")
     if (f.style === "combobox") requiredComponents.push("popover", "command")

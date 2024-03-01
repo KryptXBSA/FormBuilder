@@ -4,3 +4,4 @@ export interface NavItem {
   disabled?: boolean
   external?: boolean
 }
+

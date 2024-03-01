@@ -1,36 +1,6 @@
-import { z } from "zod";
+import { z } from "zod"
 
-export const fieldTypes = [
-  "string",
-  "number",
-  "boolean",
-  "date",
-  "enum",
-] as const
-
-export type FieldTypes = "string" | "number" | "boolean" | "date" | "enum"
-export const types: { value: FieldTypes; label: string }[] = [
-  {
-    value: "string",
-    label: "String",
-  },
-  {
-    value: "number",
-    label: "Number",
-  },
-  {
-    value: "boolean",
-    label: "Boolean",
-  },
-  {
-    value: "enum",
-    label: "Enum",
-  },
-  {
-    value: "date",
-    label: "Date",
-  },
-]
+import { fieldKinds } from "@/types/fieldKind"
 
 const fieldSchema = z.object({
   id: z.string(),
@@ -38,7 +8,7 @@ const fieldSchema = z.object({
   desc: z.string().min(1).max(50).optional(),
   placeholder: z.string().min(1).max(50).optional(),
   key: z.string().min(1).max(50),
-  type: z.enum(fieldTypes),
+  kind: z.enum(fieldKinds),
   required: z.boolean(),
   defaultValue: z.union([z.string(), z.number(), z.boolean()]).optional(),
   style: z.enum(["radio", "select", "combobox"]).optional(),

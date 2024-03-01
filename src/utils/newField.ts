@@ -1,14 +1,15 @@
 import { FormField } from "@/schema"
+
 import { randNum } from "./randNum"
 
 export function newStringField(): FormField {
   return {
-    id:"id"+randNum(),
+    id: "id" + randNum(),
     key: "key" + randNum(),
     label: "My string",
     desc: "Description",
     placeholder: "Placeholder",
-    type: "string",
+    kind: "string",
     defaultValue: "string",
     required: true,
     validation: {
@@ -19,12 +20,12 @@ export function newStringField(): FormField {
 }
 export function newNumberField(): FormField {
   return {
-    id:"id"+randNum(),
+    id: "id" + randNum(),
     key: "key" + randNum(),
     label: "My number",
     desc: "Description",
     placeholder: "Placeholder",
-    type: "number",
+    kind: "number",
     enumName: "myEnum",
     enumValues: [],
     defaultValue: 1,
@@ -37,39 +38,38 @@ export function newNumberField(): FormField {
 }
 export function newBooleanField(): FormField {
   return {
-    id:"id"+randNum(),
+    id: "id" + randNum(),
     key: "key" + randNum(),
     label: "My bool",
     desc: "Description",
     placeholder: "Placeholder",
-    type: "boolean",
+    kind: "boolean",
     defaultValue: true,
     required: true,
   }
 }
 export function newEnumField(): FormField {
   return {
-    id:"id"+randNum(),
+    id: "id" + randNum(),
     key: "key" + randNum(),
     label: "My enum",
     desc: "Description",
     placeholder: "Placeholder",
-    type: "enum",
-    style:"combobox",
-    enumName:"myEnum"+randNum(),
-    enumValues:[{"label":"label",value:"value", id:Date.now().toString()}],
+    kind: "enum",
+    style: "combobox",
+    enumName: "myEnum" + randNum(),
+    enumValues: [{ label: "label", value: "value", id: Date.now().toString() }],
     required: true,
   }
 }
 export function newDateField(): FormField {
   return {
-    id:"id"+randNum(),
+    id: "id" + randNum(),
     key: "key" + randNum(),
     label: "My date",
     desc: "Description",
     placeholder: "Pick a date",
-    type: "date",
+    kind: "date",
     required: true,
   }
 }
-

@@ -60,7 +60,7 @@ export function Preview() {
 
   useEffect(() => {
     for (let f of formFields) {
-      switch (f.type) {
+      switch (f.kind) {
         case "string":
           if (f.validation?.format === "email") {
             Object.assign(formSchema, {
@@ -135,10 +135,10 @@ export function Preview() {
       >
         {formFields.map((f) => (
           <>
-            {f.type === "string" && StringField(f)}
-            {f.type === "number" && NumberField(f)}
-            {f.type === "date" && DateField(f)}
-            {f.type === "boolean" && BooleanField(f)}
+            {f.kind === "string" && StringField(f)}
+            {f.kind === "number" && NumberField(f)}
+            {f.kind === "date" && DateField(f)}
+            {f.kind === "boolean" && BooleanField(f)}
             {f.style === "radio" && RadioField(f)}
             {f.style === "select" && SelectField(f)}
             {f.style === "combobox" && ComboboxField(f)}
