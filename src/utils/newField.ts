@@ -57,7 +57,7 @@ export function newEnumField(): FormField {
     type: "enum",
     style:"combobox",
     enumName:"myEnum"+randNum(),
-    enumValues:[{"label":"label",value:"value"}],
+    enumValues:[{"label":"label",value:"value", id:Date.now().toString()}],
     required: true,
   }
 }
