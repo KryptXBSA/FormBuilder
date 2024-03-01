@@ -26,7 +26,6 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
 import {
   Table,
   TableBody,
@@ -197,10 +196,7 @@ export function FormBuilder() {
           <Button onClick={() => append(newBooleanField())}>Boolean</Button>
           <Button onClick={() => append(newEnumField())}>Enum</Button>
           <Button onClick={() => append(newDateField())}>Date</Button>
-
-
           <GenerateCodeDialog form={form} />
-          {/* <GenerateCodeDialog/> */}
         </div>
       </div>
     </div>
