@@ -22,7 +22,7 @@ export default function NewVersionDialog({
           <DialogTitle>New Version Coming Soon</DialogTitle>
         </DialogHeader>
         <DialogDescription>
-          Version 1 of our FormBuilder is on its way! Stay tuned for exciting
+          Version 1 of FormBuilder is on its way! Stay tuned for exciting
           new features and improvements.
         </DialogDescription>
         <DialogFooter>
