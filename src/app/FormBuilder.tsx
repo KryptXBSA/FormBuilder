@@ -12,6 +12,7 @@ import {
   newEnumField,
   newNumberField,
   newStringField,
+  newTextAreaField,
 } from "@/utils/newField"
 import { zodResolver } from "@hookform/resolvers/zod"
 // import {
@@ -76,7 +77,7 @@ export const fieldTypes = [
   "enum",
 ] as const
 
-export type FieldTypes = "string" | "number" | "boolean" | "date" | "enum"
+export type FieldTypes = "string" | "number" | "boolean" | "date" | "enum" | "textarea"
 const types: { value: FieldTypes; label: string }[] = [
   {
     value: "string",
@@ -97,6 +98,10 @@ const types: { value: FieldTypes; label: string }[] = [
   {
     value: "date",
     label: "Date",
+  },
+  {
+    value: "textarea",
+    label: "Textarea",
   },
 ]
 const style: { value: "combobox" | "select" | "radio"; label: string }[] = [
@@ -309,8 +314,9 @@ export function FormBuilder() {
           <Button onClick={() => append(newBooleanField())}>Boolean</Button>
           <Button onClick={() => append(newEnumField())}>Enum</Button>
           <Button onClick={() => append(newDateField())}>Date</Button>
+          <Button onClick={() => append(newTextAreaField())}>Textarea</Button>
 
-      <Separator className="my-0.5"  />
+          <Separator className="my-0.5" />
           <Button variant="secondary" onClick={showCodeDialog}>Generate Code</Button>
         </div>
       </div>
@@ -569,8 +575,8 @@ export function FormBuilder() {
                               >
                                 {field.value
                                   ? style.find(
-                                      (item) => item.value === field.value
-                                    )?.label
+                                    (item) => item.value === field.value
+                                  )?.label
                                   : "Select item"}
                                 <HiChevronUpDown
                                   size={22}
@@ -674,20 +680,87 @@ export function FormBuilder() {
             </TableCell>
           </TableRow>
         )
-      } else {
+      } else if (type === "textarea") {
+        return (
+          <TableRow className="border-b">
+            <td></td>
+            <TableCell
+              style={{ display: "table-cell" }}
+              colSpan={9}
+              className="flex flex-col gap-2"
+            >
+              <FormField
+                control={form.control}
+                name={`fields.${idx}.desc`}
+                render={({ field }) => (
+                  <FormItem className="py-1">
+                    <FormLabel>Description</FormLabel>
+                    <FormControl>
+                      <Input className="w-1/2" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name={`fields.${idx}.placeholder`}
+                render={({ field }) => (
+                  <FormItem className="py-1">
+                    <FormLabel>Placeholder</FormLabel>
+                    <FormControl>
+                      <Input className="w-1/2" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex gap-2">
+                <FormField
+                  control={form.control}
+                  name={`fields.${idx}.validation.min`}
+                  render={({ field }) => (
+                    <FormItem className="py-1">
+                      <FormLabel>Min</FormLabel>
+                      <FormControl>
+                        <Input type="number" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`fields.${idx}.validation.max`}
+                  render={({ field }) => (
+                    <FormItem className="py-1">
+                      <FormLabel>Max</FormLabel>
+                      <FormControl>
+                        <Input type="number" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </TableCell>
+          </TableRow>
+        )
+      }
+      else {
         return <TableRow className="border-b">&nbsp;</TableRow>
       }
     } else return <></>
 
     function EnumValues() {
 
-      function deleteCurrentEnum(idx:number, idxx:number){
-       let enumValues = fields[idx].enumValues?.filter((val, index)=>index!==idxx)
-       console.log("enumvalues", enumValues)
-       update(idx, {
-        ...form.getValues("fields")[idx],
-        enumValues,
-      })
+      function deleteCurrentEnum(idx:number, idxx:number) {
+        let enumValues = fields[idx].enumValues?.filter((val, index)=>index!==idxx)
+        console.log("enumvalues", enumValues)
+        update(idx, {
+          ...form.getValues("fields")[idx],
+          enumValues,
+        })
       }
 
       return (

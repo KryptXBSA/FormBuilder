@@ -14,6 +14,7 @@ import {
   radioInputTemplate,
   selectInputTemplate,
   stringInputTemplate,
+  textareaInputTemplate,
 } from "./templates"
 import { formToZodSchema } from "./utils"
 
@@ -24,6 +25,7 @@ Handlebars.registerPartial("stringInput", stringInputTemplate)
 Handlebars.registerPartial("radioInput", radioInputTemplate)
 Handlebars.registerPartial("selectInput", selectInputTemplate)
 Handlebars.registerPartial("comboboxInput", comboboxInputTemplate)
+Handlebars.registerPartial("textareaInput", textareaInputTemplate)
 
 Handlebars.registerHelper("ifEquals", function (arg1, arg2, options) {
   //@ts-ignore
@@ -50,7 +52,7 @@ Handlebars.registerHelper("defaultValues", function (fields) {
 const main = Handlebars.compile(mainTemplate)
 
 export function generateCode(form: Form) {
-  const zodFormSchema = formToZodSchema(form)
+    const zodFormSchema = formToZodSchema(form)
   const generatedCode =
     generateImports(
       $appState.get().forms[$appState.get().selectedForm].fields
@@ -109,6 +111,9 @@ import {
   let radioImport = `
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 `
+  let textareaImport = `
+import { Textarea } from "@/components/ui/textarea"
+` 
 
   let imports = initialImports
   for (let i of getRequiredComponents(fields)) {
@@ -117,6 +122,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
     if (i === "radio-group") imports += radioImport
     if (i === "select") imports += selectImport
     if (i === "popover") imports += comboboxImport
+    if (i === "textarea") imports += textareaImport
     // if (i === "command") imports += comboboxImport
   }
   return imports

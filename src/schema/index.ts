@@ -6,9 +6,10 @@ export const fieldTypes = [
   "boolean",
   "date",
   "enum",
+  "textarea"
 ] as const
 
-export type FieldTypes = "string" | "number" | "boolean" | "date" | "enum"
+export type FieldTypes = "string" | "number" | "boolean" | "date" | "enum" | "textarea"
 export const types: { value: FieldTypes; label: string }[] = [
   {
     value: "string",
@@ -29,6 +30,10 @@ export const types: { value: FieldTypes; label: string }[] = [
   {
     value: "date",
     label: "Date",
+  },
+  {
+    value: "textarea",
+    label: "Textarea",
   },
 ]
 

@@ -51,6 +51,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
+import { Textarea } from "@/components/ui/textarea"
 
 export function Preview() {
   const { forms, selectedForm } = useAppState()
@@ -100,6 +101,12 @@ export function Preview() {
             [f.key]: z.string(),
           })
           break
+        case "textarea":
+          Object.assign(formSchema, {
+            [f.key]: z.string().min(f.validation?.min || 1).max(f.validation?.max || 9999999999),
+          })
+
+          break
         default:
       }
     }
@@ -142,17 +149,18 @@ export function Preview() {
             {f.style === "radio" && RadioField(f)}
             {f.style === "select" && SelectField(f)}
             {f.style === "combobox" && ComboboxField(f)}
+            {f.type === "textarea" && TextareaField(f)}
           </>
         ))}
         <Button onClick={() => form.getValues()}>Submit</Button>
 
-      <Alert variant="warning">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
-        <AlertDescription>
-          But it does work when utilizing the generated code.
-        </AlertDescription>
-      </Alert>
+        <Alert variant="warning">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
+          <AlertDescription>
+            But it does work when utilizing the generated code.
+          </AlertDescription>
+        </Alert>
       </form>
     </Form>
   )
@@ -177,7 +185,7 @@ export function Preview() {
                   >
                     {field.value
                       ? f.enumValues?.find((item) => item.value === field.value)
-                          ?.label
+                        ?.label
                       : "Select item"}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                   </Button>
@@ -373,6 +381,28 @@ export function Preview() {
               ) : (
                 <Input placeholder={f.placeholder} {...field} />
               )}
+            </FormControl>
+            <FormDescription>{f.desc}</FormDescription>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    )
+  }
+  function TextareaField(f: FF) {
+    return (
+      <FormField
+        control={form.control}
+        name={f.key}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>{f.label}</FormLabel>
+            <FormControl>
+              <Textarea
+                placeholder={f.placeholder}
+                className="resize-none"
+                {...field}
+              />
             </FormControl>
             <FormDescription>{f.desc}</FormDescription>
             <FormMessage />

@@ -73,3 +73,19 @@ export function newDateField(): FormField {
     required: true,
   }
 }
+export function newTextAreaField(): FormField {
+  return {
+    id: "id" + randNum(),
+    key: "key" + randNum(),
+    label: "My textarea",
+    desc: "Description",
+    placeholder: "Placeholder",
+    type: "textarea",
+    defaultValue: "textarea",
+    required: true,
+    validation: {
+      min: 1,
+      max: 255,
+    },
+  }
+}
