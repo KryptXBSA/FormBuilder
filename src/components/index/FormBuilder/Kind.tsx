@@ -1,11 +1,10 @@
 "use client"
 
-import { FormSchema } from "@/schema"
+import { FieldKind, FormSchema } from "@/schema"
 import { useFormContext } from "react-hook-form"
 import { AiOutlineCheck } from "react-icons/ai"
 import { HiChevronUpDown } from "react-icons/hi2"
 
-import { FieldKind } from "@/types/fieldKind"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -49,7 +48,7 @@ export const fieldKinds: { value: FieldKind; label: string }[] = [
     label: "Date",
   },
 ]
-export function FieldTypeComboBox({ idx }: { idx: number }) {
+export function FieldKindComboBox({ idx }: { idx: number }) {
   const form = useFormContext<FormSchema>()
   return (
     <FormField
@@ -69,7 +68,8 @@ export function FieldTypeComboBox({ idx }: { idx: number }) {
                   )}
                 >
                   {field.value
-                    ? fieldKinds.find((item) => item.value === field.value)?.label
+                    ? fieldKinds.find((item) => item.value === field.value)
+                        ?.label
                     : "Select item"}
                   <HiChevronUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>

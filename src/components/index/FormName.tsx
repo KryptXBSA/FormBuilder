@@ -60,7 +60,6 @@ export function FormName() {
                   )}
                 />
                 <Button
-                  onClick={() => console.log("wtdfffff")}
                   size="sm"
                   className="h-9 w-16"
                   type="submit"

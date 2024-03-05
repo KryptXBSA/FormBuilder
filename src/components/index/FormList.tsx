@@ -1,10 +1,12 @@
 import React from "react"
 import { useAppState } from "@/state/state"
 import { FiPlus, FiTrash } from "react-icons/fi"
+
 import { Button } from "@/components/ui/button"
 
-export function FormList(props: {}) {
+export function FormList() {
   const { forms, newForm, selectForm, deleteForm } = useAppState()
+
   return (
     <ul className="flex flex-col gap-2 mt-20">
       {forms?.map((f, idx) => (

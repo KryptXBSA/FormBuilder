@@ -1,18 +1,11 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { FormField as FF } from "@/schema"
 import { useAppState } from "@/state/state"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { format } from "date-fns"
-import {
-  AlertCircle,
-  CalendarIcon,
-  Check,
-  ChevronsUpDown,
-  FileWarning,
-  Terminal,
-} from "lucide-react"
+import { AlertCircle, CalendarIcon, Check, ChevronsUpDown } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
@@ -146,13 +139,13 @@ export function Preview() {
         ))}
         <Button onClick={() => form.getValues()}>Submit</Button>
 
-      <Alert variant="warning">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
-        <AlertDescription>
-          But it does work when utilizing the generated code.
-        </AlertDescription>
-      </Alert>
+        <Alert variant="warning">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
+          <AlertDescription>
+            But it does work when utilizing the generated code.
+          </AlertDescription>
+        </Alert>
       </form>
     </Form>
   )
