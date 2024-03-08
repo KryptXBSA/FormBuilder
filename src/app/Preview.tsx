@@ -146,13 +146,13 @@ export function Preview() {
         ))}
         <Button onClick={() => form.getValues()}>Submit</Button>
 
-      <Alert variant="warning">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
-        <AlertDescription>
-          But it does work when utilizing the generated code.
-        </AlertDescription>
-      </Alert>
+        <Alert variant="warning">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
+          <AlertDescription>
+            But it does work when utilizing the generated code.
+          </AlertDescription>
+        </Alert>
       </form>
     </Form>
   )
@@ -370,6 +370,8 @@ export function Preview() {
             <FormControl>
               {f.validation?.format === "email" ? (
                 <Input type="email" placeholder={f.placeholder} {...field} />
+              ) : f.validation?.format === "password" ? (
+                <Input type="password" placeholder={f.placeholder} {...field} />
               ) : (
                 <Input placeholder={f.placeholder} {...field} />
               )}

@@ -385,6 +385,12 @@ export function FormBuilder() {
                           </FormControl>
                           <FormLabel className="font-normal">String</FormLabel>
                         </FormItem>
+                        <FormItem className="flex items-center space-x-2 space-y-0">
+                          <FormControl>
+                            <RadioGroupItem value="password" />
+                          </FormControl>
+                          <FormLabel className="font-normal">Password</FormLabel>
+                        </FormItem>
                       </RadioGroup>
                     </FormControl>
                     <FormMessage />

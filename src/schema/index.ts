@@ -48,7 +48,7 @@ const fieldSchema = z.object({
   enumName: z.string().min(1).max(50).optional(),
   validation: z
     .object({
-      format: z.enum(["email", "string"]).optional(),
+      format: z.enum(["email", "string","password"]).optional(),
       min: z.coerce.number().min(1),
       max: z.coerce.number().max(99999999999),
     })
