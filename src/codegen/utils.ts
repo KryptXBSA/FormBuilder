@@ -1,5 +1,9 @@
-import { Form, FormField } from "@/schema"
-import { parseSchema } from "json-schema-to-zod"
+import { Form, FormField } from "@/schema";
+import { parseSchema } from "json-schema-to-zod";
+
+
+
+
 
 export function formToZodSchema(form: Form) {
   const jsonSchema = formToJsonSchema(form)
@@ -26,8 +30,12 @@ function formToJsonSchema(form: Form) {
     if (field.type === "string")
       property = {
         type: field.type,
-        minLength: field.validation?.min,
-        maxLength: field.validation?.max,
+        minLength: field.validation?.min
+          ? parseInt(field.validation?.min.toString())
+          : 1,
+        maxLength: field.validation?.max
+          ? parseInt(field.validation?.max.toString())
+          : 255,
       }
     else if (field.type === "number")
       property = {
