@@ -59,6 +59,7 @@ export function generateCode(form: FormSchema) {
 }
 function generateImports(fields: FormField[]) {
   let initialImports = `
+'use client'
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useForm } from "react-hook-form"

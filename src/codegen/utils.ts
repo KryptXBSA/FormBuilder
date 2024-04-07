@@ -26,8 +26,12 @@ function formToJsonSchema(form: FormSchema) {
     if (field.kind === "string")
       property = {
         type: field.kind,
-        minLength: field.validation?.min,
-        maxLength: field.validation?.max,
+        minLength: field.validation?.min
+          ? parseInt(field.validation?.min.toString())
+          : 1,
+        maxLength: field.validation?.max
+          ? parseInt(field.validation?.max.toString())
+          : 255,
       }
     else if (field.kind === "number")
       property = {

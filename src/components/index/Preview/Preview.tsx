@@ -363,6 +363,8 @@ export function Preview() {
             <FormControl>
               {f.validation?.format === "email" ? (
                 <Input type="email" placeholder={f.placeholder} {...field} />
+              ) : f.validation?.format === "password" ? (
+                <Input type="password" placeholder={f.placeholder} {...field} />
               ) : (
                 <Input placeholder={f.placeholder} {...field} />
               )}

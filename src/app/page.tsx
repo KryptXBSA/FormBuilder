@@ -10,8 +10,16 @@ import { FormList } from "@/components/index/FormList"
 import { FormName } from "@/components/index/FormName"
 import { Preview } from "@/components/index/Preview"
 
+import NewVersionDialog from "./NewVersionDialog"
 export default function IndexPage() {
   const [loaded, setLoaded] = useState(false)
+  const [dialogOpen, setDialogOpen] = useState(false)
+
+  const setOpen = (v: boolean) => {
+    localStorage.setItem("dialogClosed", "true")
+    setDialogOpen(v)
+  }
+
   let appState = useAppState()
 
   useEffect(() => {
@@ -21,6 +29,11 @@ export default function IndexPage() {
       appState.setAppState(state.state)
     }
     setLoaded(true)
+
+    const storedValue = localStorage.getItem("dialogClosed")
+    const dialogClosed: boolean =
+      storedValue !== null ? (JSON.parse(storedValue) as boolean) : false
+    if (!dialogClosed) setDialogOpen(true)
   }, [])
 
   if (!loaded)
@@ -32,6 +45,7 @@ export default function IndexPage() {
     )
   return (
     <section className="mx-auto max-w-[1500px]  py-10">
+      <NewVersionDialog open={dialogOpen} setOpen={setOpen} />
       <div className="flex gap-6 w-full">
         <FormList />
         <Tabs defaultValue="editor" className="w-full">

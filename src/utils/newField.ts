@@ -1,5 +1,6 @@
 import { FormField } from "@/schema"
 
+
 import { randNum } from "./randNum"
 
 export function newStringField(): FormField {
@@ -58,7 +59,7 @@ export function newEnumField(): FormField {
     kind: "enum",
     style: "combobox",
     enumName: "myEnum" + randNum(),
-    enumValues: [{ label: "label", value: "value", id: Date.now().toString() }],
+    enumValues: [{ id: Date.now().toString(), label: "label", value: "value" }],
     required: true,
   }
 }
@@ -73,3 +74,4 @@ export function newDateField(): FormField {
     required: true,
   }
 }
+
