@@ -58,10 +58,11 @@
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
     "autoprefixer": "^10.4.19",
-    "eslint": "9.0.0",
+    "eslint": "^8",
     "eslint-config-next": "14.1.4",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.13",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.4"
   }

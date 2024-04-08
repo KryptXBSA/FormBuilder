@@ -12,7 +12,7 @@ type ShowCodeDialogProps = {
   toast: any
 }
 
-export function showCodeDialog({
+export function useCodeViewDialog({
   setGeneratedCode,
   toast,
   setDialogOpen,

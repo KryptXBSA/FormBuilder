@@ -142,7 +142,7 @@ export function Preview() {
             {f.style === "radio" && RadioField(f)}
             {f.style === "select" && SelectField(f)}
             {f.style === "combobox" && ComboboxField(f)}
-            {f.type === "textarea" && TextareaField(f)}
+            {f.kind === "textarea" && TextareaField(f)}
           </>
         ))}
         <Button onClick={() => form.getValues()}>Submit</Button>
@@ -234,8 +234,8 @@ export function Preview() {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {f.enumValues?.map((v) => (
-                  <SelectItem value={v.value}>{v.label}</SelectItem>
+                {f.enumValues?.map((v,i) => (
+                  <SelectItem key={i} value={v.value}>{v.label}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -260,8 +260,8 @@ export function Preview() {
                 defaultValue={field.value}
                 className="flex flex-col space-y-1"
               >
-                {f.enumValues?.map((v) => (
-                  <FormItem className="flex items-center space-x-3 space-y-0">
+                {f.enumValues?.map((v,i) => (
+                  <FormItem key={i} className="flex items-center space-x-3 space-y-0">
                     <FormControl>
                       <RadioGroupItem value={v.value} />
                     </FormControl>

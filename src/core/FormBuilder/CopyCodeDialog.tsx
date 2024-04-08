@@ -81,7 +81,7 @@ export function GenerateCodeDialog({
               <div className="flex flex-col items-start my-3 justify-between">
                 <p className="text-lg font-semibold">Required Components</p>
                 <p className="text-xs">
-                  These 
+                  These
                   <Link href="https://ui.shadcn.com/docs/components" target="_blank" className=" border-1 text-xs rounded-lg py-0.5 px-1 bg-slate-500/50 mx-0.5 hover:bg-slate-500/80 cursor-pointer transition-colors">shadcn/ui</Link>
                   components must be installed in your project in order for the form to
                   work as expected.
@@ -98,7 +98,7 @@ export function GenerateCodeDialog({
               <div className="flex flex-col items-start my-3 justify-between">
                 <p className="text-lg font-semibold">Generated code</p>
                 <p className="text-xs">
-                  Remember to format the code once you've pasted it.
+                  Remember to format the code once you&apos;ve pasted it.
                 </p>
               </div>
               <CopyTextBtn text={generatedCode} />

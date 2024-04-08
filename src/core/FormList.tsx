@@ -8,7 +8,7 @@ export function FormList() {
   const { forms, newForm, selectForm, deleteForm } = useAppState()
 
   return (
-    <ul className="flex flex-col gap-2 mt-20">
+    <ul className="mt-20 flex flex-col gap-2">
       {forms?.map((f, idx) => (
         <li className="flex gap-2" key={idx}>
           <Button className="w-32" onClick={() => selectForm(idx)}>

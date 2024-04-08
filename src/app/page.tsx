@@ -5,10 +5,10 @@ import { useAppState } from "@/state/state"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { FormBuilder } from "@/components/index/FormBuilder"
-import { FormList } from "@/components/index/FormList"
-import { FormName } from "@/components/index/FormName"
-import { Preview } from "@/components/index/Preview"
+import { FormBuilder } from "@/core/FormBuilder"
+import { FormList } from "@/core/FormList"
+import { FormName } from "@/core/FormName"
+import { Preview } from "@/core/Preview"
 
 import NewVersionDialog from "./NewVersionDialog"
 
