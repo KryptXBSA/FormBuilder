@@ -6,6 +6,7 @@ export const fieldKind = [
   "boolean",
   "date",
   "enum",
+  "textarea"
 ] as const
 export type FieldKind = (typeof fieldKind)[number]
 

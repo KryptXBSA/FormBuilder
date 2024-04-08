@@ -16,6 +16,7 @@ export function getRequiredComponents(fields: FormField[]) {
     if (f.style === "radio") requiredComponents.push("radio-group")
     if (f.style === "select") requiredComponents.push("select")
     if (f.style === "combobox") requiredComponents.push("popover", "command")
+    if (f.type === "textarea") requiredComponents.push("textarea")
   }
   requiredComponents = requiredComponents.filter((item, index, array) => {
     return array.indexOf(item) === index

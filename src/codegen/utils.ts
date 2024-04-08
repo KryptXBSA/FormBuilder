@@ -4,7 +4,7 @@ import { parseSchema } from "json-schema-to-zod"
 export function formToZodSchema(form: FormSchema) {
   const jsonSchema = formToJsonSchema(form)
   const formSchema = jsonSchemaToZod(jsonSchema)
-  return formSchema
+    return formSchema
 }
 
 function jsonSchemaToZod(obj: any) {
@@ -51,6 +51,12 @@ function formToJsonSchema(form: FormSchema) {
     else if (field.kind === "enum")
       property = {
         type: "string",
+      }
+    else if (field.type === "textarea")
+      property = {
+        type: "string",
+        minLength: field.validation?.min,
+        maxLength: field.validation?.max,
       }
 
     if (field.kind === "string" && field.validation?.format) {

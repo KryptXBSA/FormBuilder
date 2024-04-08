@@ -11,6 +11,7 @@ import { FormName } from "@/components/index/FormName"
 import { Preview } from "@/components/index/Preview"
 
 import NewVersionDialog from "./NewVersionDialog"
+
 export default function IndexPage() {
   const [loaded, setLoaded] = useState(false)
   const [dialogOpen, setDialogOpen] = useState(false)
@@ -21,7 +22,7 @@ export default function IndexPage() {
   }
 
   let appState = useAppState()
-
+  // TODO make this a hook
   useEffect(() => {
     let state: any = JSON.parse(localStorage.getItem("state")!)!
 
@@ -43,6 +44,7 @@ export default function IndexPage() {
         <p>Loading...</p>
       </div>
     )
+  // TODO explain this section
   return (
     <section className="mx-auto max-w-[1500px]  py-10">
       <NewVersionDialog open={dialogOpen} setOpen={setOpen} />

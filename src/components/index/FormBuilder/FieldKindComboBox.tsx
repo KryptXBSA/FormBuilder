@@ -1,6 +1,7 @@
 "use client"
 
 import { FieldKind, FormSchema } from "@/schema"
+import { CommandList } from "cmdk"
 import { useFormContext } from "react-hook-form"
 import { AiOutlineCheck } from "react-icons/ai"
 import { HiChevronUpDown } from "react-icons/hi2"
@@ -47,6 +48,10 @@ export const fieldKinds: { value: FieldKind; label: string }[] = [
     value: "date",
     label: "Date",
   },
+  {
+    value: "textarea",
+    label: "Text Area",
+  },
 ]
 export function FieldKindComboBox({ idx }: { idx: number }) {
   const form = useFormContext<FormSchema>()
@@ -78,28 +83,32 @@ export function FieldKindComboBox({ idx }: { idx: number }) {
             <PopoverContent className="w-[200px] p-0">
               <Command>
                 <CommandInput placeholder="Search types..." />
-                <CommandEmpty>No type found.</CommandEmpty>
-                <CommandGroup>
-                  {fieldKinds.map((item) => (
-                    <CommandItem
-                      value={item.label}
-                      key={item.value}
-                      onSelect={() => {
-                        form.setValue(`fields.${idx}.kind`, item.value)
-                      }}
-                    >
-                      <AiOutlineCheck
-                        className={cn(
-                          "mr-2 h-4 w-4",
-                          item.value === field.value
-                            ? "opacity-100"
-                            : "opacity-0"
-                        )}
-                      />
-                      {item.label}
-                    </CommandItem>
-                  ))}
-                </CommandGroup>
+                <CommandList>
+                  <CommandEmpty>No type found.</CommandEmpty>
+                  <CommandGroup>
+                    {fieldKinds.map((item) => {
+                      return (
+                        <CommandItem
+                          value={item.label}
+                          key={item.value}
+                          onSelect={() => {
+                            form.setValue(`fields.${idx}.kind`, item.value)
+                          }}
+                        >
+                          <AiOutlineCheck
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              item.value === field.value
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                          {item.label}
+                        </CommandItem>
+                      )
+                    })}
+                  </CommandGroup>
+                </CommandList>
               </Command>
             </PopoverContent>
           </Popover>

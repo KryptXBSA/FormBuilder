@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { TableBody, TableCell, TableRow } from "@/components/ui/table"
 
-import { FieldKindComboBox } from "./Kind"
+import { FieldKindComboBox } from "./FieldKindComboBox"
 import { MoreInfo } from "./MoreInfo"
 
 export function FormTableBody() {

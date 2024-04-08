@@ -48,6 +48,9 @@ export function MyForm() {
           {{#ifEquals type "boolean"}}
             {{> booleanInput this}}
           {{/ifEquals}}
+          {{#ifEquals type "textarea"}}
+            {{> textareaInput }}
+          {{/ifEquals}}
         {{/each}}
         <Button type="submit">Submit</Button>
       </form>

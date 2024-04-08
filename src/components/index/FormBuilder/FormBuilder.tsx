@@ -9,6 +9,7 @@ import {
   newEnumField,
   newNumberField,
   newStringField,
+  newTextAreaField,
 } from "@/utils/newField"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
@@ -90,6 +91,7 @@ export function FormBuilder() {
           <Button onClick={() => append(newBooleanField())}>Boolean</Button>
           <Button onClick={() => append(newEnumField())}>Enum</Button>
           <Button onClick={() => append(newDateField())}>Date</Button>
+          <Button onClick={() => append(newTextAreaField())}>Textarea</Button>
           <GenerateCodeDialog form={form} />
         </div>
       </div>

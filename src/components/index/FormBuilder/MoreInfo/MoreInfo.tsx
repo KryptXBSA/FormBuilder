@@ -6,6 +6,7 @@ import { DateFieldKind } from "./FieldKinds/DateFieldKind"
 import { EnumFieldKind } from "./FieldKinds/EnumFieldKind"
 import { NumberFieldKind } from "./FieldKinds/NumberFieldKind"
 import { StringFieldKind } from "./FieldKinds/StringFieldKind"
+import { TextAreaFieldKind } from "./FieldKinds/TextAreaFieldKind"
 
 interface MoreInfoProps {
   id: string
@@ -23,6 +24,7 @@ const fieldKindComponents: Record<
   boolean: BooleanFieldKind,
   enum: EnumFieldKind,
   date: DateFieldKind,
+  textarea: TextAreaFieldKind
 }
 
 export function MoreInfo({ id, fieldKind, idx, moreInfo }: MoreInfoProps) {
