@@ -35,7 +35,7 @@ export default function IndexPage() {
     const dialogClosed: boolean =
       storedValue !== null ? (JSON.parse(storedValue) as boolean) : false
     if (!dialogClosed) setDialogOpen(true)
-  }, [])
+  })
 
   if (!loaded)
     return (
@@ -57,6 +57,7 @@ export default function IndexPage() {
             <TabsTrigger value="preview">Preview</TabsTrigger>
           </TabsList>
           <TabsContent className="w-full" value="editor">
+             {/* TODO better name other than FormBuilder */}
             <FormBuilder />
           </TabsContent>
           <TabsContent value="preview">

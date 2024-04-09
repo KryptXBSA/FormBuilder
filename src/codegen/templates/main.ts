@@ -1,7 +1,7 @@
 export const mainTemplate = `const formSchema = {{{zodFormSchema}}}
 
         {{#each fields}}
-          {{#ifEquals type "enum"}}
+          {{#ifEquals kind "enum"}}
             {{#ifEquals style "combobox"}}
 const {{enumName}} = [
                 {{#each enumValues}}
@@ -25,10 +25,10 @@ export function MyForm() {
     <Form {...form}>
       <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         {{#each fields}}
-          {{#ifEquals type "number"}}
+          {{#ifEquals kind "number"}}
             {{> numberInput }}
           {{/ifEquals}}
-          {{#ifEquals type "enum"}}
+          {{#ifEquals kind "enum"}}
             {{#ifEquals style "radio"}}
              {{> radioInput }}
             {{/ifEquals}}
@@ -39,16 +39,16 @@ export function MyForm() {
              {{> selectInput }}
             {{/ifEquals}}
           {{/ifEquals}}
-          {{#ifEquals type "date"}}
+          {{#ifEquals kind "date"}}
             {{> dateInput this}}
           {{/ifEquals}}
-          {{#ifEquals type "string"}}
+          {{#ifEquals kind "string"}}
             {{> stringInput }}
           {{/ifEquals}}
-          {{#ifEquals type "boolean"}}
+          {{#ifEquals kind "boolean"}}
             {{> booleanInput this}}
           {{/ifEquals}}
-          {{#ifEquals type "textarea"}}
+          {{#ifEquals kind "textarea"}}
             {{> textareaInput }}
           {{/ifEquals}}
         {{/each}}
