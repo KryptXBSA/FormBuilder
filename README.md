@@ -1,3 +1,6 @@
+:warning: **Please note:** This repository may seem abandoned, but it's not. It is currently undergoing significant refactoring to improve its structure and code quality.
+
+
 # Form Builder for @shadcn/ui
 
 UI based codegen tool to easily create @shadcn/ui forms.
