@@ -1,0 +1,41 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.7.3/schema.json",
+	"organizeImports": {
+		"enabled": true
+	},
+	"formatter": {
+		"formatWithErrors": true,
+		"attributePosition": "auto",
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"lineWidth": 80,
+		"ignore": ["node_modules", ".next", "drizzle-migrations"]
+	},
+	"linter": {
+		"ignore": ["node_modules", ".next", "drizzle-migrations"],
+		"rules": {
+			"style": {
+				"noNonNullAssertion": { "level": "off" },
+				"useImportType": { "level": "warn" }
+			},
+			"suspicious": {
+				"noArrayIndexKey": { "level": "warn" }
+			},
+			"a11y": {
+				"noSvgWithoutTitle": {
+					"level": "off"
+				}
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"level": "warn",
+					"options": {
+						"attributes": ["classList"],
+						"functions": ["clsx", "cva", "tw"]
+					}
+				}
+			},
+			"recommended": true
+		}
+	}
+}

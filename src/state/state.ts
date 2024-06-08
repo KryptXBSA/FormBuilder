@@ -2,7 +2,6 @@ import { mockFields } from "@/mock/mockFields"
 import { FormSchema, FormField } from "@/schema"
 import { persistentAtom } from "@nanostores/persistent"
 import { useStore } from "@nanostores/react"
-import { atom } from "nanostores"
 
 export type State = {
   selectedForm: number
