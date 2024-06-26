@@ -1,10 +1,8 @@
 "use client"
-import { Separator } from "@/components/ui/separator"
 
-import { useEffect, useState } from "react"
 import { generateCode } from "@/codegen/generate-code"
 import { Form as F, formBuilderSchema } from "@/schema"
-import { useFormStore } from "@/stores/form-store"
+import { useAppState } from "@/state/state"
 import { checkDuplicates } from "@/utils/checkDuplicates"
 import {
   newBooleanField,
@@ -14,6 +12,7 @@ import {
   newStringField,
 } from "@/utils/newField"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useEffect, useState } from "react"
 // import {
 //   ArrowDownIcon,
 //   ArrowUpIcon,
@@ -27,7 +26,6 @@ import { FiArrowDown, FiArrowUp, FiTrash } from "react-icons/fi"
 import { HiChevronUpDown } from "react-icons/hi2"
 import { z } from "zod"
 
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -52,6 +50,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Separator } from "@/components/ui/separator"
 import {
   Table,
   TableBody,
@@ -61,12 +60,9 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { useToast } from "@/components/ui/use-toast"
+import { cn } from "@/lib/utils"
 
 import { CopyCodeDialog } from "./CopyCodeDialog"
-import { FormList } from "./FormList"
-import { FormName } from "./FormName"
-import { mockFields } from "./mockFields"
-import { useAppState } from "@/state/state"
 
 export const fieldTypes = [
   "string",
@@ -121,8 +117,8 @@ export function FormBuilder() {
   const form = useForm<F>({
     resolver: zodResolver(formBuilderSchema),
     defaultValues: {
-      name: forms[selectedForm]?.name||"",
-      fields: forms[selectedForm]?.fields||[],
+      name: forms[selectedForm]?.name || "",
+      fields: forms[selectedForm]?.fields || [],
     },
   })
   form.watch()
@@ -219,13 +215,29 @@ export function FormBuilder() {
                       <TableCell>
                         <FiArrowUp
                           size={22}
-                          className="cursor-pointer"
-                          onClick={() => move(idx, idx - 1)}
+                          className={cn(
+                            "cursor-pointer text-foreground",
+                            idx === 0 &&
+                              "cursor-not-allowed text-muted-foreground"
+                          )}
+                          onClick={() => {
+                            if (idx !== 0) {
+                              move(idx, idx - 1)
+                            }
+                          }}
                         />
                         <FiArrowDown
                           size={22}
-                          className="cursor-pointer"
-                          onClick={() => move(idx, idx + 1)}
+                          className={cn(
+                            "cursor-not-allowed text-muted-foreground",
+                            idx < form.getValues("fields").length - 1 &&
+                              "cursor-pointer text-foreground"
+                          )}
+                          onClick={() => {
+                            if (idx < form.getValues("fields").length - 1) {
+                              move(idx, idx + 1)
+                            }
+                          }}
                         />
                       </TableCell>
                       <TableCell>
@@ -310,8 +322,10 @@ export function FormBuilder() {
           <Button onClick={() => append(newEnumField())}>Enum</Button>
           <Button onClick={() => append(newDateField())}>Date</Button>
 
-      <Separator className="my-0.5"  />
-          <Button variant="secondary" onClick={showCodeDialog}>Generate Code</Button>
+          <Separator className="my-0.5" />
+          <Button variant="secondary" onClick={showCodeDialog}>
+            Generate Code
+          </Button>
         </div>
       </div>
     </div>
@@ -680,14 +694,15 @@ export function FormBuilder() {
     } else return <></>
 
     function EnumValues() {
-
-      function deleteCurrentEnum(idx:number, idxx:number){
-       let enumValues = fields[idx].enumValues?.filter((val, index)=>index!==idxx)
-       console.log("enumvalues", enumValues)
-       update(idx, {
-        ...form.getValues("fields")[idx],
-        enumValues,
-      })
+      function deleteCurrentEnum(idx: number, idxx: number) {
+        let enumValues = fields[idx].enumValues?.filter(
+          (val, index) => index !== idxx
+        )
+        console.log("enumvalues", enumValues)
+        update(idx, {
+          ...form.getValues("fields")[idx],
+          enumValues,
+        })
       }
 
       return (
@@ -722,7 +737,14 @@ export function FormBuilder() {
                       </FormItem>
                     )}
                   />
-                  <Button type="button" onClick={()=>deleteCurrentEnum(idx, idxx)} variant={"destructive"} className="ml-2 mt-7">Delete</Button>
+                  <Button
+                    type="button"
+                    onClick={() => deleteCurrentEnum(idx, idxx)}
+                    variant={"destructive"}
+                    className="ml-2 mt-7"
+                  >
+                    Delete
+                  </Button>
                 </div>
               )
             })}
@@ -733,7 +755,11 @@ export function FormBuilder() {
                 let enumValues: any[] = []
                 let arr = form.getValues().fields[idx].enumValues || []
                 enumValues = enumValues.concat(arr)
-                enumValues.push({ label: "label", value: "value", id:Date.now().toString() })
+                enumValues.push({
+                  label: "label",
+                  value: "value",
+                  id: Date.now().toString(),
+                })
 
                 update(idx, {
                   ...form.getValues("fields")[idx],
