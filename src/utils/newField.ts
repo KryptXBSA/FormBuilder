@@ -26,7 +26,7 @@ export function newNumberField(): FormField {
     desc: "Description",
     placeholder: "Placeholder",
     type: "number",
-    enumName: "myEnum",
+    enumName: "myEnum" + randNum(),
     enumValues: [],
     defaultValue: 1,
     required: true,
