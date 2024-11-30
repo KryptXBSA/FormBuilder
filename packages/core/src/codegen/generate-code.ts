@@ -41,12 +41,12 @@ Handlebars.registerHelper("defaultValues", (fields) => {
 
 const main = Handlebars.compile(mainTemplate);
 
-export function generateCode(form: FormSchema, fields: FormField[]) {
+export function generateCode(form: FormSchema) {
 	const zodFormSchema = formToZodSchema(form);
 	const mainCode = main({ ...form, zodFormSchema });
 
-	console.log("ff", form, "main", mainCode);
-	const generatedCode = generateImports(fields) + mainCode;
+	// console.log("ff", form, "main", mainCode);
+	const generatedCode = generateImports(form.fields) + mainCode;
 	return generatedCode;
 }
 
