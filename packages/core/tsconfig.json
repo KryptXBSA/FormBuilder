@@ -7,7 +7,10 @@
     "moduleDetection": "force",
     "jsx": "react-jsx",
     "allowJs": true,
-
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     // Bundler mode
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

@@ -6,5 +6,8 @@
 	},
 	"[css]": {
 		"editor.defaultFormatter": "vscode.css-language-features"
-	}
+	},
+	"workbench.editor.enablePreview": false,
+	"workbench.editor.wrapTabs": true,
+	"workbench.editor.tabSizing": "fit"
 }
