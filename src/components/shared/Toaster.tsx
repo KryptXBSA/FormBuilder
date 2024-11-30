@@ -1,8 +1,8 @@
-"use client"
-import React from "react"
+"use client";
+import React from "react";
 
-import { Toaster as Toast } from "@/components/ui/toaster"
+import { Toaster as Toast } from "@/components/ui/toaster";
 
 export function Toaster() {
-  return <Toast />
+	return <Toast />;
 }

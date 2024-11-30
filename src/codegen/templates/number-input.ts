@@ -1,4 +1,3 @@
-
 export const numberInputTemplate = `
 <FormField
   control={form.control}
@@ -16,4 +15,4 @@ export const numberInputTemplate = `
     </FormItem>
   )}
 />
-`
+`;

@@ -1,3 +1,3 @@
-import { EnumFieldKind } from "./EnumFieldKind"
+import { EnumFieldKind } from "./EnumFieldKind";
 
-export { EnumFieldKind }
+export { EnumFieldKind };

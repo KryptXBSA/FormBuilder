@@ -23,4 +23,4 @@ export const selectInputTemplate = `
               <FormMessage />
             </FormItem>
           )}
-        />`
+        />`;

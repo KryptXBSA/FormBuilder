@@ -1,4 +1,3 @@
-
 export const radioInputTemplate = `
  <FormField
           control={form.control}
@@ -31,4 +30,4 @@ export const radioInputTemplate = `
             </FormItem>
           )}
         />
-`
+`;

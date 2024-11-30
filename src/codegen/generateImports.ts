@@ -1,8 +1,8 @@
-import { FormField } from "@/schema";
+import type { FormField } from "@/schema";
 import { getRequiredComponents } from "@/lib/utils";
 
 export function generateImports(fields: FormField[]) {
-    let initialImports = `
+	const initialImports = `
 'use client'
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -19,15 +19,15 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 `;
-    let switchImport = `
+	const switchImport = `
 import { Switch } from "@/components/ui/switch"
 `;
-    let dateImport = `
+	const dateImport = `
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import { Calendar } from "@/components/ui/calendar"
 `;
-    let selectImport = `
+	const selectImport = `
 import {
   Select,
   SelectContent,
@@ -36,7 +36,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 `;
-    let comboboxImport = `
+	const comboboxImport = `
 import { Check, ChevronsUpDown } from "lucide-react"
 import {
   Command,
@@ -51,23 +51,22 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 `;
-    let radioImport = `
+	const radioImport = `
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 `;
-    let textareaImport = `
+	const textareaImport = `
 import { Textarea } from "@/components/ui/textarea"
 `;
 
-    let imports = initialImports;
-    for (let i of getRequiredComponents(fields)) {
-        if (i === "date") imports += dateImport;
-        if (i === "boolean") imports += switchImport;
-        if (i === "radio-group") imports += radioImport;
-        if (i === "select") imports += selectImport;
-        if (i === "popover") imports += comboboxImport;
-        if (i === "textarea") imports += textareaImport;
-        // if (i === "command") imports += comboboxImport
-    }
-    return imports;
+	let imports = initialImports;
+	for (const i of getRequiredComponents(fields)) {
+		if (i === "date") imports += dateImport;
+		if (i === "boolean") imports += switchImport;
+		if (i === "radio-group") imports += radioImport;
+		if (i === "select") imports += selectImport;
+		if (i === "popover") imports += comboboxImport;
+		if (i === "textarea") imports += textareaImport;
+		// if (i === "command") imports += comboboxImport
+	}
+	return imports;
 }
-

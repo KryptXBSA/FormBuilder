@@ -1,3 +1,3 @@
 export interface FieldKindProps {
-  idx: number
+	idx: number;
 }

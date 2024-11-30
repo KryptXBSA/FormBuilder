@@ -1,4 +1,3 @@
-
 export const dateInputTemplate = `
 <FormField
           control={form.control}
@@ -44,4 +43,4 @@ export const dateInputTemplate = `
             </FormItem>
           )}
         />
-`
+`;

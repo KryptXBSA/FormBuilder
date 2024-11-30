@@ -60,4 +60,4 @@ export const comboboxInputTemplate = `
             </FormItem>
           )}
         />
-        `
+        `;

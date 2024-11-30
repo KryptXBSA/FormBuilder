@@ -1,3 +1,3 @@
-import { FormBuilder } from "./FormBuilder"
+import { FormBuilder } from "./FormBuilder";
 
-export { FormBuilder }
+export { FormBuilder };

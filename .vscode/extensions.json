@@ -1,3 +1,7 @@
 {
-	"recommendations": ["biomejs.biome", "tailwindcss.tailwind-css"]
+	"recommendations": [
+		"biomejs.biome",
+		"tailwindcss.tailwind-css",
+		"YoavBls.pretty-ts-errors"
+	]
 }
