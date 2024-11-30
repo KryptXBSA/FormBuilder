@@ -1,7 +1,7 @@
 import type { FormField, FormSchema } from "@/schema";
 import Handlebars from "handlebars";
 
-import { generateImports } from "./generateImports";
+import { generateImports } from "./imports/index";
 import {
 	booleanInputTemplate,
 	comboboxInputTemplate,
