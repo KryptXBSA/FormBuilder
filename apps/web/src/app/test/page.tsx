@@ -52,7 +52,7 @@ const language = [
                     { label: "Arabic", value: "ar" },
                     { label: "Kurdish", value: "ku" },
 ]
-export function MyForm() {
+export default function MyForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

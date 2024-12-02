@@ -1,4 +1,4 @@
-import type { FormField, FormSchema } from "@/schema";
+import type { FormSchema } from "@/schema";
 import Handlebars from "handlebars";
 
 import { generateImports } from "./imports/index";
