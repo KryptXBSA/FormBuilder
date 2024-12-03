@@ -39,6 +39,7 @@ export interface FormField {
 }
 
 export interface FormSchema {
+	framework: "next" | "react" | "svelte" | "vue" | "solid" | "astro";
 	name: string;
 	fields: FormField[];
 }

@@ -1,4 +1,4 @@
-import type { FormField, FormSchema } from "@/schema";
+import type { FormField, FormSchema } from "@/types";
 import { parseSchema } from "json-schema-to-zod";
 
 export function formToZodSchema(form: FormSchema) {

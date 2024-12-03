@@ -1,4 +1,4 @@
-import type { FormField } from "@/schema";
+import type { FormField } from "@/types";
 
 export const mockFields: FormField[] = [
 	{

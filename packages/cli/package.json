@@ -1,6 +1,9 @@
 {
 	"name": "shadcn-formbuilder",
 	"version": "0.5",
+  "dependencies": {
+    "formbuilder-core": "workspace:../../packages/core"
+  },
 	"devDependencies": {
 		"@types/bun": "latest"
   },

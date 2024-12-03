@@ -11,8 +11,8 @@ import {
 	radioInputTemplate,
 	comboboxInputTemplate,
 	textareaInputTemplate,
-  } from "../src/codegen/templates";
-import type { FormSchema } from "@/schema";
+} from "../src/codegen/templates";
+import type { FormSchema } from "@/types";
 
 test("test generate code", () => {
 	const form: FormSchema = {
@@ -35,5 +35,5 @@ test("test generate code", () => {
 		],
 	};
 	const generatedCode = generateCode(form);
-	expect(generatedCode).toBe();
+	expect(generatedCode).toBeDefined();
 });

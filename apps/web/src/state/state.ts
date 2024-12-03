@@ -1,5 +1,5 @@
 import { mockFields } from "@/mock/mockFields";
-import type { FormSchema, FormField } from "@/schema";
+import type { FormSchema, FormField } from "formbuilder-core";
 import { persistentAtom } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
 
