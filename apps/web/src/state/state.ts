@@ -10,7 +10,7 @@ export type State = {
 
 export const $appState = persistentAtom<State>(
 	"state",
-	{ selectedForm: 0, forms: [{ name: "My Form", fields: mockFields }] },
+	{ selectedForm: 0, forms: [{ name: "My Form", fields: mockFields, framework: "react" }] },
 	{
 		encode: JSON.stringify,
 		decode: JSON.parse,
@@ -19,6 +19,7 @@ export const $appState = persistentAtom<State>(
 
 export function useAppState() {
 	return {
+		currentForm: useStore($appState).forms[useStore($appState).selectedForm],
 		selectedForm: useStore($appState).selectedForm,
 		forms: useStore($appState).forms,
 		selectForm,

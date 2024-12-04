@@ -1,5 +1,5 @@
 import type React from "react";
-import type { FieldKind } from "@/schema";
+import type { FieldKind } from "formbuilder-core";
 
 import { BooleanFieldKind } from "./FieldKinds/BooleanFieldKind";
 import { DateFieldKind } from "./FieldKinds/DateFieldKind";

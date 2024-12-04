@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { type FormSchema, formBuilderSchema } from "@/schema";
+import type { FormSchema } from "formbuilder-core";
 import { useAppState } from "@/state/state";
 import {
 	newBooleanField,
@@ -10,7 +10,7 @@ import {
 	newNumberField,
 	newStringField,
 	newTextAreaField,
-} from "@/utils/newField";
+} from "formbuilder-core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import type { z } from "zod";
@@ -25,35 +25,35 @@ import { FormTableBody } from "./FormTableBody";
 export function FormBuilder() {
 	const { forms, selectedForm, updateFormFields } = useAppState();
 
-	const form = useForm<FormSchema>({
-		resolver: zodResolver(formBuilderSchema),
-		defaultValues: {
-			name: forms[selectedForm]?.name || "",
-			fields: forms[selectedForm]?.fields || [],
-		},
-	});
+	// const form = useForm<FormSchema>({
+	// 	resolver: zodResolver(formBuilderSchema),
+	// 	defaultValues: {
+	// 		name: forms[selectedForm]?.name || "",
+	// 		fields: forms[selectedForm]?.fields || [],
+	// 	},
+	// });
 
 	// Important!, watching the form for any changes
-	form.watch();
+	// form.watch();
 
 	// Thanks to react-hook-form, we can easily update the nested FieldArray
-	const { append } = useFieldArray({
-		control: form.control,
-		name: "fields",
-	});
+	// const { append } = useFieldArray({
+	// 	control: form.control,
+	// 	name: "fields",
+	// });
 
-	function onSubmit(values: z.infer<typeof formBuilderSchema>) {
-		console.log("values", values);
-	}
+	// function onSubmit(values: z.infer<typeof formBuilderSchema>) {
+	// 	console.log("values", values);
+	// }
 
-	useEffect(() => {
-		form.setValue("name", forms[selectedForm].name);
-		form.setValue("fields", forms[selectedForm].fields);
-	}, [selectedForm]);
+	// useEffect(() => {
+	// 	form.setValue("name", forms[selectedForm].name);
+	// 	form.setValue("fields", forms[selectedForm].fields);
+	// }, [selectedForm]);
 
-	useEffect(() => {
-		updateFormFields(form.getValues("fields"));
-	}, [form.getValues("fields")]);
+	// useEffect(() => {
+	// 	updateFormFields(form.getValues("fields"));
+	// }, [form.getValues("fields")]);
 
 	const tableHeaders = [
 		"Move",
@@ -68,7 +68,7 @@ export function FormBuilder() {
 	return (
 		<div className="flex w-full flex-col">
 			<div className="flex w-full gap-4">
-				<Form {...form}>
+				{/* <Form {...form}>
 					<form className="w-5/6" onSubmit={form.handleSubmit(onSubmit)}>
 						<Table>
 							<TableHeader>
@@ -81,18 +81,18 @@ export function FormBuilder() {
 							<FormTableBody />
 						</Table>
 					</form>
-				</Form>
+				</Form> */}
 				<div className="flex flex-col gap-2">
 					<h3 className="scroll-m-20 font-semibold text-2xl tracking-tight">
 						Add Field
 					</h3>
-					<Button onClick={() => append(newStringField())}>String</Button>
+					{/* <Button onClick={() => append(newStringField())}>String</Button>
 					<Button onClick={() => append(newNumberField())}>Number</Button>
 					<Button onClick={() => append(newBooleanField())}>Boolean</Button>
 					<Button onClick={() => append(newEnumField())}>Enum</Button>
 					<Button onClick={() => append(newDateField())}>Date</Button>
 					<Button onClick={() => append(newTextAreaField())}>Textarea</Button>
-					<GenerateCodeDialog form={form} />
+					<GenerateCodeDialog form={form} /> */}
 				</div>
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-import type { FormField } from "formbuilder-core";
+import type { FormField } from "@/types";
 
 import { randNum } from "./randNum";
 
@@ -88,4 +88,4 @@ export function newTextAreaField(): FormField {
 			max: 255,
 		},
 	};
-}
+}// 

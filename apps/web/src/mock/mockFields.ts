@@ -1,4 +1,4 @@
-import type { FormField } from "@/schema";
+import type { FormField } from "formbuilder-core";
 
 export const mockFields: FormField[] = [
 	{

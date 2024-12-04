@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import { generateCode } from "@/codegen/generate-code";
-import type { FormSchema } from "@/schema";
-import { checkDuplicates } from "@/utils/checkDuplicates";
+import type { FormSchema } from "formbuilder-core";
+import { checkDuplicates } from "formbuilder-core/checkDuplicates";
 import { UseFormReturn, useFormContext } from "react-hook-form";
 
 import { useToast } from "@/components/ui/use-toast";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import type { FormSchema } from "@/schema";
+import type { FormSchema } from "formbuilder-core";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FiArrowDown, FiArrowUp, FiTrash } from "react-icons/fi";
 import { HiChevronUpDown } from "react-icons/hi2";

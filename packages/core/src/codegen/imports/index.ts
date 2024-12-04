@@ -7,7 +7,7 @@ export * from "./radio";
 export * from "./textarea";
 
 import type { FormField } from "@/types";
-import { getRequiredComponents } from "@/lib/utils";
+import { getRequiredComponents } from "formbuilder-core";
 import {
 	initialImports,
 	switchImport,

@@ -21,7 +21,8 @@ export function FormList() {
 			))}
 			<Button
 				className="w-32"
-				onClick={() => newForm({ name: "My Form", fields: [] })}
+				// TODO: add framework
+				onClick={() => newForm({ name: "My Form", fields: [], framework: "react" })}
 			>
 				<FiPlus size={22} />
 				New Form

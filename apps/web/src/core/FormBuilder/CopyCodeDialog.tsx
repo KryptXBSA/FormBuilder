@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { generateCode } from "@/codegen/generate-code";
-import type { FormSchema } from "@/schema";
+import { generateCode } from "formbuilder-core";
+import type { FormSchema } from "formbuilder-core";
 import { useAppState } from "@/state/state";
-import { checkDuplicates } from "@/utils/checkDuplicates";
+import { checkDuplicates } from "formbuilder-core";
 import type { UseFormReturn } from "react-hook-form";
 
 import { getRequiredComponents } from "@/lib/utils";

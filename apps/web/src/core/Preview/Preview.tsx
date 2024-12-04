@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import type { FormField as FF } from "@/schema";
+import type { FormField as FF } from "formbuilder-core";
 import { useAppState } from "@/state/state";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";

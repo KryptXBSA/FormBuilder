@@ -1,4 +1,4 @@
-import type { FormField } from "formbuilder-core";
+import type { FormField } from "@/types";
 
 type DuplicateType = "key" | "enum";
 

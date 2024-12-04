@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { generateCode } from "../src/codegen/generate-code";
+import { generateCode } from "../src/codegen";
 import { mockFields } from "../src/mock/mockFields";
 import {
 	mainTemplate,

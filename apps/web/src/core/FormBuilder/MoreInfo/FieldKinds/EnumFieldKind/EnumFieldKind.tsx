@@ -1,4 +1,4 @@
-import type { EnumStyleValues, FormSchema } from "@/schema";
+import type { EnumStyleValues, FormSchema } from "formbuilder-core";
 import { Check } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 import { HiChevronUpDown } from "react-icons/hi2";
