@@ -37,8 +37,15 @@ export interface FormField {
 	enumName?: string;
 	validation?: ValidationOptions;
 }
+// TODO: add more settings and framework independent settings
+export interface Settings {
+	importAlias: string;
+	mode: string;
+}
 
 export interface FormSchema {
+	id: number;
+	settings: Settings;
 	framework: "next" | "react" | "svelte" | "vue" | "solid" | "astro";
 	name: string;
 	fields: FormField[];

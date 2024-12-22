@@ -1,10 +1,10 @@
 "use client";
-import { KanbanBoard } from "./_components/KanbanBoard";
 
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FormList } from "@/core/FormList";
 import { Preview } from "@/core/Preview";
+import { SortableGrid } from "./_components/SortableGrid";
 export default function Builder() {
 	return (
 		<section className="mx-auto max-w-[1500px] py-10">
@@ -17,7 +17,7 @@ export default function Builder() {
 						<TabsTrigger value="code">Code</TabsTrigger>
 					</TabsList>
 					<TabsContent className="flex w-full flex-row" value="editor">
-						<KanbanBoard />
+						<SortableGrid />
 					</TabsContent>
 					<TabsContent value="preview">
 						<Preview />

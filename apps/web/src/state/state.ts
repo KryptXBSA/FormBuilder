@@ -1,3 +1,4 @@
+"use client";
 import { mockFields } from "@/mock/mockFields";
 import type { FormSchema, FormField } from "formbuilder-core";
 import { persistentAtom } from "@nanostores/persistent";
@@ -6,11 +7,16 @@ import { useStore } from "@nanostores/react";
 export type State = {
 	selectedForm: number;
 	forms: FormSchema[];
+	renderContent: boolean;
 };
 
 export const $appState = persistentAtom<State>(
 	"state",
-	{ selectedForm: 0, forms: [{ name: "My Form", fields: mockFields, framework: "react" }] },
+	{
+		renderContent: false,
+		selectedForm: 0,
+		forms: [{ name: "My Form", fields: mockFields, framework: "react" }],
+	},
 	{
 		encode: JSON.stringify,
 		decode: JSON.parse,
@@ -19,6 +25,7 @@ export const $appState = persistentAtom<State>(
 
 export function useAppState() {
 	return {
+		renderContent: useStore($appState).renderContent,
 		currentForm: useStore($appState).forms[useStore($appState).selectedForm],
 		selectedForm: useStore($appState).selectedForm,
 		forms: useStore($appState).forms,
@@ -30,8 +37,8 @@ export function useAppState() {
 		setAppState,
 	};
 }
-function setAppState(state: State) {
-	$appState.set(state);
+function setAppState(state: Partial<State>) {
+	$appState.set({ ...$appState.get(), ...state });
 }
 
 function newForm(f: FormSchema) {
