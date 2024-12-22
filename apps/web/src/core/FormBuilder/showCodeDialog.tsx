@@ -1,14 +1,11 @@
 import type { Dispatch, SetStateAction } from "react";
-import { generateCode } from "@/codegen/generate-code";
-import type { FormSchema } from "formbuilder-core";
-import { checkDuplicates } from "formbuilder-core/checkDuplicates";
+import { checkDuplicates, generateCode, type FormSchema } from "formbuilder-core";
 import { UseFormReturn, useFormContext } from "react-hook-form";
-
-import { useToast } from "@/components/ui/use-toast";
 
 type ShowCodeDialogProps = {
 	setDialogOpen: Dispatch<SetStateAction<boolean>>;
 	setGeneratedCode: Dispatch<SetStateAction<string>>;
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	toast: any;
 };
 

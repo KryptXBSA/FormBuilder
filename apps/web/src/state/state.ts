@@ -15,7 +15,15 @@ export const $appState = persistentAtom<State>(
 	{
 		renderContent: false,
 		selectedForm: 0,
-		forms: [{ name: "My Form", fields: mockFields, framework: "react" }],
+		forms: [
+			{
+				id: 1,
+				settings: { importAlias: "a", mode: "a" },
+				name: "My Form",
+				fields: mockFields,
+				framework: "react",
+			},
+		],
 	},
 	{
 		encode: JSON.stringify,
@@ -65,6 +73,7 @@ function selectForm(selectedForm: number) {
 function deleteForm(idx: number) {
 	if ($appState.get().forms.length === 1) return $appState.get();
 	$appState.set({
+		renderContent: true,
 		forms: $appState.get().forms.filter((_f, i) => i !== idx),
 		selectedForm: 0,
 	});

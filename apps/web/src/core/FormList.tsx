@@ -23,7 +23,13 @@ export function FormList() {
 				className="w-32"
 				// TODO: add framework
 				onClick={() =>
-					newForm({ name: "My Form", fields: [], framework: "react" })
+					newForm({
+						id: 1,
+						settings: { importAlias: "a", mode: "a" },
+						name: "My Form",
+						fields: [],
+						framework: "react",
+					})
 				}
 			>
 				<FiPlus size={22} />

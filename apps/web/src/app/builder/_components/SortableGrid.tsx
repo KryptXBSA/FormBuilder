@@ -53,6 +53,7 @@ export const SortableGrid = () => {
 	const handleDragEnd = (event: DragEndEvent) => {
 		// setActiveId(null);
 		const { active, over } = event;
+		if (!over) return;
 
 		if (active.id !== over.id) {
 			setItems((items) => {
@@ -63,8 +64,8 @@ export const SortableGrid = () => {
 
 				// Find indices
 				for (let i = 0; i < items.length; i++) {
-					const overIdx = items[i].indexOf(over.id);
-					const activeIdx = items[i].indexOf(active.id);
+					const overIdx = items[i].indexOf(over.id as string);
+					const activeIdx = items[i].indexOf(active.id as string);
 
 					if (overIdx !== -1) {
 						overRowIndex = i;
@@ -80,14 +81,16 @@ export const SortableGrid = () => {
 				if (activeRowIndex === -1 && overRowIndex !== -1) {
 					const newItems = items.map((row) => [...row]);
 					// Insert active.id before over.id
-					newItems[overRowIndex].splice(overColIndex, 0, active.id);
+					newItems[overRowIndex].splice(overColIndex, 0, active.id as string);
 					return newItems;
 				}
 
 				// Normal swap if both items are in the list
 				if (overRowIndex !== -1 && activeRowIndex !== -1) {
 					const newItems = items.map((row) => [...row]);
+					// @ts-ignore
 					newItems[overRowIndex][overColIndex] = active.id;
+					// @ts-ignore
 					newItems[activeRowIndex][activeColIndex] = over.id;
 					return newItems;
 				}
@@ -120,6 +123,7 @@ export const SortableGrid = () => {
 				<div className="flex w-full flex-col gap-4">
 					<SortableContext items={items.flat()} strategy={rectSwappingStrategy}>
 						{items.map((row, idx) => (
+							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 							<div key={idx} className="flex w-full gap-4">
 								{row.map((id) => (
 									<SortableItem key={id} id={id} value={id} />
@@ -130,7 +134,9 @@ export const SortableGrid = () => {
 							{activeId ? (
 								<SortableItem
 									isOverlay
+									// @ts-ignore
 									id={items.filter((id) => id === activeId)}
+									// @ts-ignore
 									value={items.filter((id) => id === activeId)}
 								/>
 							) : null}

@@ -38,7 +38,7 @@ export function SortableItem({ id, value, isOverlay }: TaskCardProps) {
 	};
 
 	const state = useAppState();
-	const variants = cva("w-full h-fit rounded-lg border-2", {
+	const variants = cva("h-fit w-full rounded-lg border-2", {
 		variants: {
 			drop: { default: "" },
 			dragging: {

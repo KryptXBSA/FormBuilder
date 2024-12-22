@@ -15,6 +15,7 @@ import {
 } from "./templates";
 import { formToZodSchema } from "./utils";
 
+
 registerPartials();
 
 Handlebars.registerHelper("ifEquals", function (arg1, arg2, options) {
