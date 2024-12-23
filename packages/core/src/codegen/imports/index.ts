@@ -16,7 +16,7 @@ import {
 	radioImport,
 	textareaImport,
 } from "./";
-import { getRequiredComponents } from "@/utils";
+import { getRequiredComponents } from "formbuilder-core";
 
 export function generateImports(fields: FormField[]) {
 	let imports = initialImports;

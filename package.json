@@ -3,6 +3,7 @@
 	"private": true,
 	"scripts": {
 		"dev-web": "cd apps/web && bun dev",
+		"start-web": "cd apps/web && bun run build && bun run start",
 		"lint": "bunx @biomejs/biome lint",
 		"lint:fix": "bunx @biomejs/biome lint . --apply-unsafe",
 		"format": "bunx @biomejs/biome format . --write",

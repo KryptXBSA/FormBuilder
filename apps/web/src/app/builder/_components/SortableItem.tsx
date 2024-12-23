@@ -38,7 +38,7 @@ export function SortableItem({ id, value, isOverlay }: TaskCardProps) {
 	};
 
 	const state = useAppState();
-	const variants = cva("h-fit w-full rounded-lg border-2", {
+	const variants = cva("h-[53px] h-fit min-w-[380px] rounded-lg border-2", {
 		variants: {
 			drop: { default: "" },
 			dragging: {
@@ -66,8 +66,8 @@ export function SortableItem({ id, value, isOverlay }: TaskCardProps) {
 					<FormFieldContent id={id} />
 				</div>
 			) : (
-				<div className="w-full">
-					<AddNewFieldArrows />
+				<div className="">
+					<AddNewFieldArrows id={id} />
 				</div>
 			)}
 		</>

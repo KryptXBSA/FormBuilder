@@ -25,19 +25,16 @@ import {
 import { SortableItem } from "./SortableItem";
 import { NewField } from "./NewField";
 import { MouseSensor } from "./CustomSensor";
-import { randNum } from "formbuilder-core";
+import { useAppState } from "@/state/state";
 
 export const SortableGrid = () => {
 	const [activeId, setActiveId] = useState<UniqueIdentifier>();
-	const [items, setItems] = useState([
-		["0", "98"],
-		["1", "33", "34"],
-		["2"],
-		["3"],
-		["4"],
-		["5"],
-		["6"],
-	]);
+	const state = useAppState();
+	const items = state.temp_items;
+	function setItems(items: string[][]) {
+		state.setAppState({ temp_items: items });
+	}
+	// const [items, setItems] = useState(state.temp_items);
 	const sensors = useSensors(
 		useSensor(MouseSensor),
 		useSensor(KeyboardSensor, {
@@ -109,22 +106,12 @@ export const SortableGrid = () => {
 			onDragMove={handleDragEnd}
 			onDragStart={handleDragStart}
 		>
-			<div className="flex w-full flex-row-reverse">
-				<div className="flex flex-col">
-					<h3 className="scroll-m-20 px-10 font-semibold text-2xl tracking-tight">
-						Add new fields
-					</h3>
-					<div className="flex flex-col gap-4">
-						<NewField text="432" />
-						<NewField text="123" />
-						<NewField text="22" />
-					</div>
-				</div>
-				<div className="flex w-full flex-col gap-4">
+			<div className="flex w-full justify-center">
+				<div className="flex w-fit max-w-[1100px] flex-col gap-2 overflow-x-auto rounded-lg border-2 border-slate-500 bg-secondary p-4">
 					<SortableContext items={items.flat()} strategy={rectSwappingStrategy}>
 						{items.map((row, idx) => (
 							// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-							<div key={idx} className="flex w-full gap-4">
+							<div key={idx} className="flex gap-2">
 								{row.map((id) => (
 									<SortableItem key={id} id={id} value={id} />
 								))}
