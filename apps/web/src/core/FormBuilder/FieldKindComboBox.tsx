@@ -1,6 +1,6 @@
 "use client";
 
-import type { FieldKind, FormSchema } from "@/schema";
+import type { FieldKind, FormSchema } from "formbuilder-core";
 import { CommandList } from "cmdk";
 import { useFormContext } from "react-hook-form";
 import { AiOutlineCheck } from "react-icons/ai";

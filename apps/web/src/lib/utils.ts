@@ -1,4 +1,4 @@
-import type { FormField } from "@/schema";
+import type { FormField } from "formbuilder-core";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 

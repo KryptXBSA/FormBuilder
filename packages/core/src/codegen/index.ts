@@ -1,8 +1,7 @@
-import type { FormField, FormSchema } from "@/schema";
-import { $appState } from "@/state/state";
+import type { FormSchema } from "@/types";
 import Handlebars from "handlebars";
 
-import { generateImports } from "./generateImports";
+import { generateImports } from "./imports/index";
 import {
 	booleanInputTemplate,
 	comboboxInputTemplate,
@@ -15,6 +14,7 @@ import {
 	textareaInputTemplate,
 } from "./templates";
 import { formToZodSchema } from "./utils";
+
 
 registerPartials();
 
@@ -29,13 +29,13 @@ Handlebars.registerHelper("ifNotEquals", function (arg1, arg2, options) {
 
 Handlebars.registerHelper("defaultValues", (fields) => {
 	let output = "{\n";
-	fields.forEach((field: FormField) => {
+	for (const field of fields) {
 		if (field.kind === "string") {
 			output += `${field.key}: "${field.defaultValue || ""}",\n`;
 		} else if (field.kind === "number") {
 			output += `${field.key}: ${field.defaultValue || 1},\n`;
 		}
-	});
+	}
 	output += "}";
 	return new Handlebars.SafeString(output);
 });
@@ -46,11 +46,8 @@ export function generateCode(form: FormSchema) {
 	const zodFormSchema = formToZodSchema(form);
 	const mainCode = main({ ...form, zodFormSchema });
 
-	console.log("ff", form, "main", mainCode);
-	const generatedCode =
-		generateImports(
-			$appState.get().forms[$appState.get().selectedForm].fields,
-		) + mainCode;
+	// console.log("ff", form, "main", mainCode);
+	const generatedCode = generateImports(form.fields) + mainCode;
 	return generatedCode;
 }
 

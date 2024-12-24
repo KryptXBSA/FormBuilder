@@ -1,10 +1,10 @@
 {
-	"name": "shadcn-formbuilder",
-	"version": "0.5",
+	"name": "formbuilder-cli",
+	"version": "0.5.0",
 	"devDependencies": {
 		"@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  }
+	},
+	"peerDependencies": {
+		"typescript": "^5.7.2"
+	}
 }

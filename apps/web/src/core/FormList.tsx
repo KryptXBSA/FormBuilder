@@ -11,8 +11,9 @@ export function FormList() {
 		<ul className="mt-20 flex flex-col gap-2">
 			{forms?.map((f, idx) => (
 				<li className="flex gap-2" key={idx}>
-					<Button className="w-32" onClick={() => selectForm(idx)}>
+					<Button className="w-32 flex flex-col" onClick={() => selectForm(idx)}>
 						<p>{f.name}</p>
+						{f.framework}
 					</Button>
 					<Button variant="ghost" className="hover:bg-red-500">
 						<FiTrash size={24} onClick={() => deleteForm(idx)} />
@@ -21,7 +22,16 @@ export function FormList() {
 			))}
 			<Button
 				className="w-32"
-				onClick={() => newForm({ name: "My Form", fields: [] })}
+				// TODO: add framework
+				onClick={() =>
+					newForm({
+						id: 1,
+						settings: { importAlias: "a", mode: "a" },
+						name: "My Form",
+						fields: [],
+						framework: "react",
+					})
+				}
 			>
 				<FiPlus size={22} />
 				New Form

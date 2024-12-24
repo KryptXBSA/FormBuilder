@@ -1,4 +1,4 @@
-import type { EnumValue, FormSchema } from "@/schema";
+import type { EnumValue, FormSchema } from "formbuilder-core";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";

@@ -1,6 +1,6 @@
 "use client";
 
-import type { FormSchema } from "@/schema";
+import type { FormSchema } from "formbuilder-core";
 import { useFormContext } from "react-hook-form";
 
 import {

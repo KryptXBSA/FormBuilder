@@ -1,4 +1,4 @@
-import type { FormField } from "@/schema";
+import type { FormField } from "@/types";
 
 export function getRequiredComponents(fields: FormField[]) {
 	let requiredComponents = [];

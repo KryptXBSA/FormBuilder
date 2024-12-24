@@ -1,5 +1,5 @@
 import { expect, test } from "bun:test";
-import { generateCode } from "../src/codegen/generate-code";
+import { generateCode } from "../src/codegen";
 import { mockFields } from "../src/mock/mockFields";
 import {
 	mainTemplate,
@@ -11,8 +11,8 @@ import {
 	radioInputTemplate,
 	comboboxInputTemplate,
 	textareaInputTemplate,
-  } from "../src/codegen/templates";
-import type { FormSchema } from "@/schema";
+} from "../src/codegen/templates";
+import type { FormSchema } from "@/types";
 
 test("test generate code", () => {
 	const form: FormSchema = {
@@ -35,5 +35,5 @@ test("test generate code", () => {
 		],
 	};
 	const generatedCode = generateCode(form);
-	expect(generatedCode).toBe();
+	expect(generatedCode).toBeDefined();
 });

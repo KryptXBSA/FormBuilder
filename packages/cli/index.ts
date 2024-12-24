@@ -1,1 +1,1 @@
-console.log("Hello via Bun!");
+// TODO: Implement CLI
