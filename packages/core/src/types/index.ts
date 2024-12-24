@@ -41,12 +41,21 @@ export interface FormField {
 export interface Settings {
 	importAlias: string;
 	mode: string;
+	noDescription:boolean
+	noPlaceholder:boolean
 }
 
+export type FormFramework =
+	| "next"
+	| "react"
+	| "svelte"
+	| "vue"
+	| "solid"
+	| "astro";
 export interface FormSchema {
 	id: number;
 	settings: Settings;
-	framework: "next" | "react" | "svelte" | "vue" | "solid" | "astro";
+	framework: FormFramework;
 	name: string;
 	fields: FormField[];
 }

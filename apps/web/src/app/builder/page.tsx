@@ -6,7 +6,12 @@ import { FormList } from "@/core/FormList";
 import { Preview } from "@/core/Preview";
 import { SortableGrid } from "./_components/SortableGrid";
 import { NewField } from "./_components/NewField";
+import { SettingsToggle } from "./_components/FormSettings/SettingsToggle";
+import SettingsForm from "./_components/FormSettings";
+
 export default function Builder() {
+	const [showSettings, setShowSettings] = useState(false);
+
 	return (
 		<section className="mx-auto max-w-[1500px] py-10">
 			<div className="flex w-full gap-6">
@@ -17,8 +22,9 @@ export default function Builder() {
 						<TabsTrigger value="preview">Preview</TabsTrigger>
 						<TabsTrigger value="code">Code</TabsTrigger>
 					</TabsList>
-					<TabsContent className="flex w-full flex-row" value="editor">
-						<SortableGrid />
+					<TabsContent className="" value="editor">
+						<SettingsToggle showSettings={showSettings} setShowSettings={setShowSettings} />
+						{showSettings ? <SettingsForm /> : <SortableGrid />}
 					</TabsContent>
 					<TabsContent value="preview">
 						<Preview />
@@ -27,7 +33,6 @@ export default function Builder() {
 						<Preview />
 					</TabsContent>
 				</Tabs>
-
 				<div className="mt-10 flex flex-col">
 					<h3 className="scroll-m-20 font-semibold text-2xl tracking-tight">
 						Add new fields

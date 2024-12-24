@@ -1,6 +1,6 @@
 "use client";
 import { mockFields } from "@/mock/mockFields";
-import type { FormSchema, FormField } from "formbuilder-core";
+import type { FormSchema, FormField, FormFramework } from "formbuilder-core";
 import { persistentAtom } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
 import { randNum } from "@/utils/randNum";
@@ -50,6 +50,8 @@ export function useAppState() {
 		setAppState,
 		addItem,
 		removeItem,
+		updateFormSettings,
+		updateFormFramework,
 	};
 }
 function setAppState(state: Partial<State>) {
@@ -162,5 +164,26 @@ export function removeItem(id: string) {
 	$appState.set({
 		...$appState.get(),
 		temp_items: newTempItems,
+	});
+}
+
+export function updateFormSettings(newSettings: Partial<FormSchema['settings']>) {
+	const currentForms = $appState.get().forms;
+	currentForms[$appState.get().selectedForm].settings = {
+		...currentForms[$appState.get().selectedForm].settings,
+		...newSettings,
+	};
+	$appState.set({
+		...$appState.get(),
+		forms: currentForms,
+	});
+}
+
+function updateFormFramework(newFramework: FormFramework) {
+	const currentForms = $appState.get().forms;
+	currentForms[$appState.get().selectedForm].framework = newFramework;
+	$appState.set({
+		...$appState.get(),
+		forms: currentForms,
 	});
 }
