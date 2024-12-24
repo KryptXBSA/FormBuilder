@@ -14,14 +14,21 @@
 	"linter": {
 		"ignore": ["node_modules", ".next", "drizzle-migrations"],
 		"rules": {
+			"complexity": { "noForEach": "off" },
 			"style": {
 				"noNonNullAssertion": { "level": "off" },
 				"useImportType": { "level": "warn" }
 			},
 			"suspicious": {
-				"noArrayIndexKey": { "level": "warn" }
+				"noExplicitAny": "off",
+				"noArrayIndexKey": { "level": "off" }
+			},
+			"correctness": {
+				"useJsxKeyInIterable": "off",
+				"useExhaustiveDependencies": "off"
 			},
 			"a11y": {
+				"useSemanticElements": "off",
 				"noSvgWithoutTitle": {
 					"level": "off"
 				}

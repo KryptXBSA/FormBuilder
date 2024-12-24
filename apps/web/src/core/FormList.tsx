@@ -11,7 +11,7 @@ export function FormList() {
 		<ul className="mt-20 flex flex-col gap-2">
 			{forms?.map((f, idx) => (
 				<li className="flex gap-2" key={idx}>
-					<Button className="w-32 flex flex-col" onClick={() => selectForm(idx)}>
+					<Button className="flex w-32 flex-col" onClick={() => selectForm(idx)}>
 						<p>{f.name}</p>
 						{f.framework}
 					</Button>

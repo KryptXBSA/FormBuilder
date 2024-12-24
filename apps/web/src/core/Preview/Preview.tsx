@@ -121,6 +121,7 @@ export function Preview() {
 		console.log("fff", form.getValues());
 
 		for (const key in values) {
+			// biome-ignore lint/suspicious/noPrototypeBuiltins: <explanation>
 			if (values.hasOwnProperty(key)) {
 				// @ts-ignore
 				result += `${key}: ${values[key]}\n`;
@@ -137,7 +138,7 @@ export function Preview() {
 				className="w-1/2 space-y-8"
 			>
 				{formFields.map((f) => (
-					<>
+					<div key={f.id}>
 						{f.kind === "string" && StringField(f)}
 						{f.kind === "number" && NumberField(f)}
 						{f.kind === "date" && DateField(f)}
@@ -146,7 +147,7 @@ export function Preview() {
 						{f.style === "select" && SelectField(f)}
 						{f.style === "combobox" && ComboboxField(f)}
 						{f.kind === "textarea" && TextareaField(f)}
-					</>
+					</div>
 				))}
 				<Button onClick={() => form.getValues()}>Submit</Button>
 
@@ -238,7 +239,7 @@ export function Preview() {
 							</FormControl>
 							<SelectContent>
 								{f.enumValues?.map((v, i) => (
-									<SelectItem key={i} value={v.value}>
+									<SelectItem key={v.id} value={v.value}>
 										{v.label}
 									</SelectItem>
 								))}
@@ -267,7 +268,7 @@ export function Preview() {
 							>
 								{f.enumValues?.map((v, i) => (
 									<FormItem
-										key={i}
+										key={v.id}
 										className="flex items-center space-x-3 space-y-0"
 									>
 										<FormControl>

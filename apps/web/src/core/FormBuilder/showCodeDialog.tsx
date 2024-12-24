@@ -5,7 +5,6 @@ import { UseFormReturn, useFormContext } from "react-hook-form";
 type ShowCodeDialogProps = {
 	setDialogOpen: Dispatch<SetStateAction<boolean>>;
 	setGeneratedCode: Dispatch<SetStateAction<string>>;
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	toast: any;
 };
 
