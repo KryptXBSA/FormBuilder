@@ -2,7 +2,7 @@ import type { FormField } from "@/types";
 
 export const mockFields: FormField[] = [
 	{
-		id: "username",
+		id: "usernamee",
 		label: "Username",
 		placeholder: "username",
 		key: "username",
