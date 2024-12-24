@@ -33,6 +33,7 @@
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
+    "date-fns": "^4.1.0",
     "handlebars": "^4.7.8",
     "immer": "^10.0.2",
     "json-schema-to-zod": "^1.1.1",
