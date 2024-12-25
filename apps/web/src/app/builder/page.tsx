@@ -23,7 +23,10 @@ export default function Builder() {
 						<TabsTrigger value="code">Code</TabsTrigger>
 					</TabsList>
 					<TabsContent className="" value="editor">
-						<SettingsToggle showSettings={showSettings} setShowSettings={setShowSettings} />
+						<SettingsToggle
+							showSettings={showSettings}
+							setShowSettings={setShowSettings}
+						/>
 						{showSettings ? <SettingsForm /> : <SortableGrid />}
 					</TabsContent>
 					<TabsContent value="preview">
@@ -33,14 +36,16 @@ export default function Builder() {
 						<Preview />
 					</TabsContent>
 				</Tabs>
-				<div className="mt-10 flex flex-col">
+				<div className="mt-10 flex w-40 flex-col">
 					<h3 className="scroll-m-20 font-semibold text-2xl tracking-tight">
-						Add new fields
+						Add Field
 					</h3>
 					<div className="flex flex-col gap-4">
-						<NewField text="432" />
-						<NewField text="123" />
-						<NewField text="22" />
+						<NewField kind="string" />
+						<NewField kind="number" />
+						<NewField kind="boolean" />
+						<NewField kind="enum" />
+						<NewField kind="date" />
 					</div>
 				</div>
 			</div>

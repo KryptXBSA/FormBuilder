@@ -28,6 +28,7 @@
 				"useExhaustiveDependencies": "off"
 			},
 			"a11y": {
+				"useKeyWithClickEvents": "off",
 				"useSemanticElements": "off",
 				"noSvgWithoutTitle": {
 					"level": "off"

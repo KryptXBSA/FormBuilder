@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { addItem } from "@/state/state";
+import { useAppState } from "@/state/state";
 import {
 	ArrowBigUpDash,
 	ArrowBigDownDash,
@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 
 export function AddNewFieldArrows({ id }: { id: string }) {
+	const { addItem } = useAppState();
 	return (
 		<div className="flex h-[53px] w-[380px] items-center justify-between">
 			<Button

@@ -18,7 +18,30 @@ export default function SettingsForm() {
 
 			<div>
 				<h4 className="scroll-m-20 font-semibold text-xl tracking-tight">
-        Form Mode
+					Form Submission
+				</h4>
+
+				<RadioGroup className="flex" defaultValue="comfortable">
+					<div
+						onClick={(e) => console.log("eee", e)}
+						className="flex items-center space-x-2"
+					>
+						<RadioGroupItem value="Server Actions" id="r1" />
+						<Label htmlFor="r1">Server Actions</Label>
+					</div>
+					<div className="flex items-center space-x-2">
+						<RadioGroupItem value="comfortable" id="r2" />
+						<Label htmlFor="r2">Client Side</Label>
+					</div>
+					<div className="flex items-center space-x-2">
+						<RadioGroupItem value="compact" id="r3" />
+						<Label htmlFor="r3">client side</Label>
+					</div>
+				</RadioGroup>
+			</div>
+			<div>
+				<h4 className="scroll-m-20 font-semibold text-xl tracking-tight">
+					Form Mode
 				</h4>
 
 				<RadioGroup className="flex" defaultValue="comfortable">

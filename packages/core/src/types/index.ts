@@ -1,3 +1,5 @@
+import type { Prettify } from "./prettify";
+
 export const fieldKind = [
 	"string",
 	"number",
@@ -8,22 +10,22 @@ export const fieldKind = [
 ] as const;
 export type FieldKind = (typeof fieldKind)[number];
 
-export interface EnumValue {
+export type EnumValue = {
 	label: string;
 	value: string;
 	id: string;
-}
+};
 
 export const enumStyleValues = ["radio", "select", "combobox"] as const;
 export type EnumStyleValues = (typeof enumStyleValues)[number];
 
-export interface ValidationOptions {
+export type ValidationOptions = {
 	format?: "email" | "string" | "password";
 	min: number;
 	max: number;
-}
+};
 
-export interface FormField {
+export type FormField = {
 	id: string;
 	label: string;
 	desc?: string;
@@ -36,14 +38,14 @@ export interface FormField {
 	enumValues?: EnumValue[];
 	enumName?: string;
 	validation?: ValidationOptions;
-}
+};
 // TODO: add more settings and framework independent settings
-export interface Settings {
+export type Settings = {
 	importAlias: string;
 	mode: string;
-	noDescription:boolean
-	noPlaceholder:boolean
-}
+	noDescription: boolean;
+	noPlaceholder: boolean;
+};
 
 export type FormFramework =
 	| "next"
@@ -52,10 +54,10 @@ export type FormFramework =
 	| "vue"
 	| "solid"
 	| "astro";
-export interface FormSchema {
+export type FormSchema = Prettify<{
 	id: number;
 	settings: Settings;
 	framework: FormFramework;
 	name: string;
-	fields: FormField[];
-}
+	fields: FormField[][];
+}>;

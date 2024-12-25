@@ -23,18 +23,14 @@ import {
 } from "@dnd-kit/sortable";
 
 import { SortableItem } from "./SortableItem";
-import { NewField } from "./NewField";
 import { MouseSensor } from "./CustomSensor";
 import { useAppState } from "@/state/state";
+import type { FormField } from "formbuilder-core";
 
 export const SortableGrid = () => {
 	const [activeId, setActiveId] = useState<UniqueIdentifier>();
 	const state = useAppState();
-	const items = state.temp_items;
-	function setItems(items: string[][]) {
-		state.setAppState({ temp_items: items });
-	}
-	// const [items, setItems] = useState(state.temp_items);
+	const items = state.currentForm.fields;
 	const sensors = useSensors(
 		useSensor(MouseSensor),
 		useSensor(KeyboardSensor, {
@@ -43,7 +39,6 @@ export const SortableGrid = () => {
 	);
 
 	const handleDragStart = (event: DragStartEvent) => {
-		console.log("active", event.active.id);
 		setActiveId(event.active.id);
 	};
 
@@ -53,47 +48,45 @@ export const SortableGrid = () => {
 		if (!over) return;
 
 		if (active.id !== over.id) {
-			setItems((items) => {
-				let overRowIndex = -1;
-				let overColIndex = -1;
-				let activeRowIndex = -1;
-				let activeColIndex = -1;
+			let overRowIndex = -1;
+			let overColIndex = -1;
+			let activeRowIndex = -1;
+			let activeColIndex = -1;
 
-				// Find indices
-				for (let i = 0; i < items.length; i++) {
-					const overIdx = items[i].indexOf(over.id as string);
-					const activeIdx = items[i].indexOf(active.id as string);
+			// Find indices
+			for (let i = 0; i < items.length; i++) {
+				const overIdx = items[i].findIndex((field) => field.id === over.id);
+				const activeIdx = items[i].findIndex((field) => field.id === active.id);
 
-					if (overIdx !== -1) {
-						overRowIndex = i;
-						overColIndex = overIdx;
-					}
-					if (activeIdx !== -1) {
-						activeRowIndex = i;
-						activeColIndex = activeIdx;
-					}
+				if (overIdx !== -1) {
+					overRowIndex = i;
+					overColIndex = overIdx;
 				}
-
-				// If active is not in the list but we found over position
-				if (activeRowIndex === -1 && overRowIndex !== -1) {
-					const newItems = items.map((row) => [...row]);
-					// Insert active.id before over.id
-					newItems[overRowIndex].splice(overColIndex, 0, active.id as string);
-					return newItems;
+				if (activeIdx !== -1) {
+					activeRowIndex = i;
+					activeColIndex = activeIdx;
 				}
+			}
 
-				// Normal swap if both items are in the list
-				if (overRowIndex !== -1 && activeRowIndex !== -1) {
-					const newItems = items.map((row) => [...row]);
-					// @ts-ignore
-					newItems[overRowIndex][overColIndex] = active.id;
-					// @ts-ignore
-					newItems[activeRowIndex][activeColIndex] = over.id;
-					return newItems;
-				}
+			// If active is not in the list but we found over position
+			if (activeRowIndex === -1 && overRowIndex !== -1) {
+				const newItems = items.map((row) => [...row]);
+				// Insert active.id before over.id
+				// newItems[overRowIndex].splice(overColIndex, 0, active.id as string);
+				return newItems;
+			}
 
-				return items;
-			});
+			// Normal swap if both items are in the list
+			if (overRowIndex !== -1 && activeRowIndex !== -1) {
+				const newItems = items.map((row) => [...row]);
+				// @ts-ignore
+				newItems[overRowIndex][overColIndex] = active.id;
+				// @ts-ignore
+				newItems[activeRowIndex][activeColIndex] = over.id;
+				return newItems;
+			}
+
+			return items;
 		}
 		console.log("items", items);
 	};
@@ -111,8 +104,12 @@ export const SortableGrid = () => {
 					<SortableContext items={items.flat()} strategy={rectSwappingStrategy}>
 						{items.map((row, idx) => (
 							<div key={idx} className="flex gap-2">
-								{row.map((id) => (
-									<SortableItem key={id} id={id} value={id} />
+								{row.map((formField) => (
+									<SortableItem
+										key={formField.id}
+										id={formField.id}
+										value={formField.id}
+									/>
 								))}
 							</div>
 						))}
