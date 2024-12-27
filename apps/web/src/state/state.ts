@@ -10,6 +10,8 @@ import {
 	newEnumField,
 	newNumberField,
 	newStringField,
+	type FormVariant,
+	type ChosenField,
 } from "formbuilder-core";
 import { persistentAtom } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
@@ -20,14 +22,14 @@ export type State = {
 	selectedForm: number;
 	forms: FormSchema[];
 	renderContent: boolean;
-	chosenField: FieldKind;
+	chosenField: ChosenField | null;
 };
 
 export const $appState = persistentAtom<State>(
 	"state",
 	{
-		renderContent: false,
-		chosenField: "string",
+		renderContent: true,
+		chosenField: null,
 		selectedForm: 0,
 		forms: [mockForm],
 	},
@@ -39,6 +41,7 @@ export const $appState = persistentAtom<State>(
 
 export function useAppState() {
 	return {
+		chosenField: useStore($appState).chosenField,
 		renderContent: useStore($appState).renderContent,
 		currentForm: useStore($appState).forms[useStore($appState).selectedForm],
 		selectedForm: useStore($appState).selectedForm,
@@ -98,9 +101,9 @@ function updateFormName(newName: string) {
 	});
 }
 
-function createNewField(chosenField: FieldKind): FormField {
-	switch (chosenField) {
-		case "string":
+function createNewField(chosenField: ChosenField): FormField {
+	switch (chosenField.kind) {
+		case "text":
 			return newStringField();
 		case "number":
 			return newNumberField();
@@ -110,8 +113,8 @@ function createNewField(chosenField: FieldKind): FormField {
 			return newEnumField();
 		case "date":
 			return newDateField();
-		case "textarea":
-			return newTextAreaField();
+		// case "text":
+		// 	return newTextAreaField();
 		default:
 			return newBooleanField(); // Return undefined if chosenField is not recognized
 	}
@@ -124,6 +127,7 @@ function addItem(id: string, direction: "up" | "down" | "left" | "right") {
 	const fields = currentForm.fields;
 	const index = findFieldIndex(fields, id);
 	if (!index) return;
+	if (!chosenField) return;
 
 	const newItem = createNewField(chosenField);
 	if (!newItem) return;

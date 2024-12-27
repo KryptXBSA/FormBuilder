@@ -34,7 +34,10 @@ export function FormFieldContent({ id }: { id: string }) {
 						>
 							<Trash />
 						</Button>
-						<AccordionTrigger asChild className="flex justify-between">
+						<AccordionTrigger
+							asChild
+							className="flex justify-between"
+						>
 							<Button
 								data-no-dnd={true}
 								variant={"ghost"}

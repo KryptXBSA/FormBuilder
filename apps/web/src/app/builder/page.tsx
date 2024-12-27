@@ -5,12 +5,18 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FormList } from "@/core/FormList";
 import { Preview } from "@/core/Preview";
 import { SortableGrid } from "./_components/SortableGrid";
-import { NewField } from "./_components/NewField";
+import { AddField } from "./_components/AddField";
 import { SettingsToggle } from "./_components/FormSettings/SettingsToggle";
 import SettingsForm from "./_components/FormSettings";
-
+import { fieldKind } from "formbuilder-core";
 export default function Builder() {
 	const [showSettings, setShowSettings] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
+
+	const fields = fieldKind.map((v) => ({
+		label: v.charAt(0).toUpperCase() + v.slice(1),
+		kind: v,
+	}));
 
 	return (
 		<section className="mx-auto max-w-[1500px] py-10">
@@ -36,18 +42,7 @@ export default function Builder() {
 						<Preview />
 					</TabsContent>
 				</Tabs>
-				<div className="mt-10 flex w-40 flex-col">
-					<h3 className="scroll-m-20 font-semibold text-2xl tracking-tight">
-						Add Field
-					</h3>
-					<div className="flex flex-col gap-4">
-						<NewField kind="string" />
-						<NewField kind="number" />
-						<NewField kind="boolean" />
-						<NewField kind="enum" />
-						<NewField kind="date" />
-					</div>
-				</div>
+				<AddField fields={fields} />
 			</div>
 		</section>
 	);

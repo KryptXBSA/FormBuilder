@@ -1,11 +1,22 @@
 import type { Prettify } from "./prettify";
-import type { FormField } from "./field";
+import type { FieldKind, FormVariant, FormField } from "./field";
+
+export type FormFramework =
+	| "next"
+	| "react"
+	| "svelte"
+	| "vue"
+	| "solid"
+	| "astro";
+
+export type ChosenField = { kind: FieldKind; variant: FormVariant };
 
 export type FormSchema = Prettify<{
 	id: number;
-	settings: Settings;
 	name: string;
+	framework: FormFramework;
 	fields: FormField[][];
+	settings: Settings;
 }>;
 
 export type Settings = {
@@ -13,7 +24,6 @@ export type Settings = {
 	importAliasUtils: string;
 	noDescription: boolean;
 	noPlaceholder: boolean;
-	framework: "next" | "react" | "svelte" | "vue" | "solid" | "astro";
 	frameworkSettings?: FrameworkSettings;
 };
 
