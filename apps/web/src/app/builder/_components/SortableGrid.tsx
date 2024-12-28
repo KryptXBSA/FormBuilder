@@ -44,8 +44,6 @@ export const SortableGrid = () => {
 	const handleDragEnd = (event: DragEndEvent) => {
 		// setActiveId(null);
 		const { active, over } = event;
-		console.log("active", active);
-		console.log("over", over);
 		if (!over) return;
 
 		if (active.id !== over.id) {
@@ -85,11 +83,11 @@ export const SortableGrid = () => {
 
 				newItems[activeRowIndex][activeColIndex] =
 					items[overRowIndex][overColIndex];
-				console.log("should be here", newItems);
-				return newItems;
+				// console.log("should be here", newItems);
+				state.updateFormFields(newItems);
+				// return newItems;
 			}
 
-			console.log("xxw", items);
 			// return items;
 		}
 		// console.log("items xxxxxxx", items);
