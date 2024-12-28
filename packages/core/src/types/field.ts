@@ -61,8 +61,8 @@ export type TextField = BaseField & {
 };
 
 export type TextValidation = {
-	minLength?: number;
-	maxLength?: number;
+	min?: number;
+	max?: number;
 	pattern?: string;
 	email?: boolean;
 	url?: boolean;

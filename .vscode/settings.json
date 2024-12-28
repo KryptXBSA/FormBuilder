@@ -9,5 +9,8 @@
 	},
 	"workbench.editor.enablePreview": false,
 	"workbench.editor.wrapTabs": true,
-	"workbench.editor.tabSizing": "fit"
+	"workbench.editor.tabSizing": "fit",
+	"[typescript]": {
+		"editor.defaultFormatter": "vscode.typescript-language-features"
+	}
 }

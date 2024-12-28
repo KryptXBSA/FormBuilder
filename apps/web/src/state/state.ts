@@ -126,6 +126,7 @@ function addItem(id: string, direction: "up" | "down" | "left" | "right") {
 	const currentForm = currentForms[$appState.get().selectedForm];
 	const fields = currentForm.fields;
 	const index = findFieldIndex(fields, id);
+
 	if (!index) return;
 	if (!chosenField) return;
 
@@ -168,6 +169,7 @@ function addItem(id: string, direction: "up" | "down" | "left" | "right") {
 	$appState.set({
 		...$appState.get(),
 		renderContent: true,
+		chosenField: null,
 		forms: currentForms,
 	});
 }

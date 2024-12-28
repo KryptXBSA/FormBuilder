@@ -25,7 +25,6 @@ import {
 import { SortableItem } from "./SortableItem";
 import { MouseSensor } from "./CustomSensor";
 import { useAppState } from "@/state/state";
-import type { FormField } from "formbuilder-core";
 
 export const SortableGrid = () => {
 	const [activeId, setActiveId] = useState<UniqueIdentifier>();
@@ -45,6 +44,8 @@ export const SortableGrid = () => {
 	const handleDragEnd = (event: DragEndEvent) => {
 		// setActiveId(null);
 		const { active, over } = event;
+		console.log("active", active);
+		console.log("over", over);
 		if (!over) return;
 
 		if (active.id !== over.id) {
@@ -69,26 +70,29 @@ export const SortableGrid = () => {
 			}
 
 			// If active is not in the list but we found over position
-			if (activeRowIndex === -1 && overRowIndex !== -1) {
-				const newItems = items.map((row) => [...row]);
-				// Insert active.id before over.id
-				// newItems[overRowIndex].splice(overColIndex, 0, active.id as string);
-				return newItems;
-			}
+			// if (activeRowIndex === -1 && overRowIndex !== -1) {
+			// 	const newItems = items.map((row) => [...row]);
+			// 	// Insert active.id before over.id
+			// 	// newItems[overRowIndex].splice(overColIndex, 0, active.id as string);
+			// 	return newItems;
+			// }
 
 			// Normal swap if both items are in the list
 			if (overRowIndex !== -1 && activeRowIndex !== -1) {
 				const newItems = items.map((row) => [...row]);
-				// @ts-ignore
-				newItems[overRowIndex][overColIndex] = active.id;
-				// @ts-ignore
-				newItems[activeRowIndex][activeColIndex] = over.id;
+				newItems[overRowIndex][overColIndex] =
+					items[activeRowIndex][activeColIndex];
+
+				newItems[activeRowIndex][activeColIndex] =
+					items[overRowIndex][overColIndex];
+				console.log("should be here", newItems);
 				return newItems;
 			}
 
-			return items;
+			console.log("xxw", items);
+			// return items;
 		}
-		console.log("items", items);
+		// console.log("items xxxxxxx", items);
 	};
 
 	return (
@@ -96,7 +100,7 @@ export const SortableGrid = () => {
 			sensors={sensors}
 			collisionDetection={rectIntersection}
 			onDragEnd={handleDragEnd}
-			onDragMove={handleDragEnd}
+			// onDragMove={handleDragEnd}
 			onDragStart={handleDragStart}
 		>
 			<div className="flex w-full justify-center">
