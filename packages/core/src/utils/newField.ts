@@ -1,15 +1,20 @@
-import type { FormField } from "@/types";
+import type {
+	BooleanFieldVariant, DateFieldVariant, EnumFieldVariant,
+	FormField, FormVariant, NumberFieldVariant,
+	TextFieldVariant
+} from "@/types/field";
 
 import { randNum } from "./randNum";
 
-export function newStringField(): FormField {
+export function newTextField(variant: FormVariant): FormField {
 	return {
 		id: `id${randNum()}`,
 		key: `key${randNum()}`,
 		label: "My string",
 		desc: "Description",
 		placeholder: "Placeholder",
-		kind: "string",
+		kind: "text",
+		variant: variant as TextFieldVariant,
 		defaultValue: "string",
 		required: true,
 		validation: {
@@ -18,7 +23,7 @@ export function newStringField(): FormField {
 		},
 	};
 }
-export function newNumberField(): FormField {
+export function newNumberField(variant: NumberFieldVariant): FormField {
 	return {
 		id: `id${randNum()}`,
 		key: `key${randNum()}`,
@@ -26,8 +31,7 @@ export function newNumberField(): FormField {
 		desc: "Description",
 		placeholder: "Placeholder",
 		kind: "number",
-		enumName: "myEnum",
-		enumValues: [],
+		variant: variant as NumberFieldVariant,
 		defaultValue: 1,
 		required: true,
 		validation: {
@@ -36,7 +40,7 @@ export function newNumberField(): FormField {
 		},
 	};
 }
-export function newBooleanField(): FormField {
+export function newBooleanField(variant: BooleanFieldVariant): FormField {
 	return {
 		id: `id${randNum()}`,
 		key: `key${randNum()}`,
@@ -44,25 +48,13 @@ export function newBooleanField(): FormField {
 		desc: "Description",
 		placeholder: "Placeholder",
 		kind: "boolean",
+		variant: variant as BooleanFieldVariant,
 		defaultValue: true,
 		required: true,
 	};
 }
-export function newEnumField(): FormField {
-	return {
-		id: `id${randNum()}`,
-		key: `key${randNum()}`,
-		label: "My enum",
-		desc: "Description",
-		placeholder: "Placeholder",
-		kind: "enum",
-		style: "combobox",
-		enumName: `myEnum${randNum()}`,
-		enumValues: [{ id: Date.now().toString(), label: "label", value: "value" }],
-		required: true,
-	};
-}
-export function newDateField(): FormField {
+
+export function newDateField(variant: DateFieldVariant): FormField {
 	return {
 		id: `id${randNum()}`,
 		key: `key${randNum()}`,
@@ -70,22 +62,22 @@ export function newDateField(): FormField {
 		desc: "Description",
 		placeholder: "Pick a date",
 		kind: "date",
+		variant: variant as DateFieldVariant,
 		required: true,
 	};
 }
-export function newTextAreaField(): FormField {
+
+export function newEnumField(variant: EnumFieldVariant): FormField {
 	return {
 		id: `id${randNum()}`,
 		key: `key${randNum()}`,
-		label: "My textarea",
+		label: "My enum",
 		desc: "Description",
 		placeholder: "Placeholder",
-		kind: "textarea",
-		defaultValue: "textarea",
+		kind: "enum",
+		variant: variant as EnumFieldVariant,
+		enumName: `myEnum${randNum()}`,
+		enumValues: [{ id: Date.now().toString(), label: "label", value: "value" }],
 		required: true,
-		validation: {
-			min: 1,
-			max: 255,
-		},
 	};
-} //
+}

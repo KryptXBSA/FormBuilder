@@ -11,7 +11,10 @@ export function FormList() {
 		<ul className="mt-20 flex flex-col gap-2">
 			{forms?.map((f, idx) => (
 				<li className="flex gap-2" key={idx}>
-					<Button className="flex w-32 flex-col" onClick={() => selectForm(idx)}>
+					<Button
+						className="flex w-32 flex-col"
+						onClick={() => selectForm(idx)}
+					>
 						<p>{f.name}</p>
 						{f.framework}
 					</Button>
@@ -26,9 +29,30 @@ export function FormList() {
 				onClick={() =>
 					newForm({
 						id: 1,
-						settings: { importAlias: "a", mode: "a" },
+						settings: { importAliasComponents: "a", importAliasUtils: "a" },
 						name: "My Form",
-						fields: [],
+						fields: [
+							[
+								{
+									id: "textField1",
+									kind: "text",
+									label: "First Text Field",
+									key: "firstTextField",
+									required: true,
+									variant: "input",
+									placeholder: "Enter first text",
+								},
+								{
+									id: "textField2",
+									kind: "text",
+									label: "First Text Field",
+									key: "firstTextField",
+									required: true,
+									variant: "input",
+									placeholder: "Enter first text",
+								},
+							],
+						],
 						framework: "react",
 					})
 				}

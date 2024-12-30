@@ -9,6 +9,7 @@ import {
 	fileFieldVariants,
 	selectionFieldVariants,
 	type FieldKind,
+	FormFramework,
 } from "formbuilder-core";
 import {
 	Accordion,
@@ -19,15 +20,7 @@ import {
 import { cn } from "@/lib/utils";
 import { ChevronDown, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const variantMap = {
-	text: textFieldVariants,
-	number: numberFieldVariants,
-	boolean: booleanFieldVariants,
-	date: dateFieldVariants,
-	file: fileFieldVariants,
-	enum: selectionFieldVariants,
-} as const;
+import { getVariantMap } from "@/utils/getVariantMap";
 
 export function AddFieldAccordion({
 	field,
@@ -38,6 +31,7 @@ export function AddFieldAccordion({
 	};
 }) {
 	const state = useAppState();
+	const variantMap = getVariantMap(state.currentForm.framework);
 	const [isOpen, setIsOpen] = React.useState(false);
 	return (
 		<AccordionItem

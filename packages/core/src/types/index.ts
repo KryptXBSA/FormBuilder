@@ -1,5 +1,5 @@
 import type { Prettify } from "./prettify";
-import type { FieldKind, FormVariant, FormField } from "./field";
+import type { FormField, FrameworkFieldKinds, FrameworkFieldKinds } from "./field";
 
 export type FormFramework =
 	| "next"
@@ -9,21 +9,28 @@ export type FormFramework =
 	| "solid"
 	| "astro";
 
-export type ChosenField = { kind: FieldKind; variant: FormVariant };
+export type ChosenField<F extends FormFramework> = {
+	kind: FrameworkFieldKinds[F];
+	variant: FrameworkFieldKinds<F, FrameworkFieldKinds[F]>;
+};
 
-export type FormSchema = Prettify<{
+export type FormSchema<F extends FormFramework = FormFramework> = Prettify<{
 	id: number;
 	name: string;
-	framework: FormFramework;
-	fields: FormField[][];
-	settings: Settings;
+	framework: F;
+	fields: FormField<F>[][];
+	settings: Settings & {
+		frameworkSettings?: {
+			[K in F]: FrameworkSettings[K];
+		};
+	};
 }>;
 
 export type Settings = {
 	importAliasComponents: string;
 	importAliasUtils: string;
-	noDescription: boolean;
-	noPlaceholder: boolean;
+	noDescription?: boolean;
+	noPlaceholder?: boolean;
 	frameworkSettings?: FrameworkSettings;
 };
 

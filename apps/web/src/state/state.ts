@@ -4,39 +4,38 @@ import {
 	type FormField,
 	type FormFramework,
 	newBooleanField,
-	type FieldKind,
 	newDateField,
-	newTextAreaField,
 	newEnumField,
 	newNumberField,
-	newStringField,
-	type FormVariant,
+	newTextField,
 	type ChosenField,
 } from "formbuilder-core";
 import { persistentAtom } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
 import { findFieldIndex } from "@/utils/findFieldIndex";
 import { mockForm } from "@/mock/mockForm";
+import { newStringField } from "@/utils/newField";
 
-export type State = {
+type State<F extends FormFramework = FormFramework> = {
 	selectedForm: number;
-	forms: FormSchema[];
+	forms: FormSchema<F>[];
 	renderContent: boolean;
-	chosenField: ChosenField | null;
+	chosenField: ChosenField<F> | null;
 };
 
-export const $appState = persistentAtom<State>(
+type MockFormFramework = typeof mockForm['framework'];
+export const $appState = persistentAtom<State<MockFormFramework>>(
 	"state",
 	{
 		renderContent: true,
 		chosenField: null,
 		selectedForm: 0,
-		forms: [mockForm],
+		forms: [mockForm as FormSchema<MockFormFramework>],
 	},
 	{
 		encode: JSON.stringify,
 		decode: JSON.parse,
-	},
+	}
 );
 
 export function useAppState() {
@@ -69,10 +68,9 @@ function newForm(f: FormSchema) {
 		forms: currentForms.concat(f),
 	});
 }
-
-function updateFormFields(p: FormField[][]) {
+function updateFormFields<F extends FormFramework>(fields: FormField<F>[][]) {
 	const newForms = $appState.get().forms;
-	newForms[$appState.get().selectedForm].fields = p;
+	newForms[$appState.get().selectedForm].fields = fields;
 	$appState.set({
 		...$appState.get(),
 		forms: newForms,
@@ -100,24 +98,42 @@ function updateFormName(newName: string) {
 		forms: currentForms,
 	});
 }
+function createNewField<F extends FormFramework>(
+	chosenField: ChosenField<F>
+): FormField<F> {
+	const currentForm = $appState.get().forms[$appState.get().selectedForm];
+	const { noDescription, noPlaceholder } = currentForm.settings;
 
-function createNewField(chosenField: ChosenField): FormField {
-	switch (chosenField.kind) {
-		case "text":
-			return newStringField();
-		case "number":
-			return newNumberField();
-		case "boolean":
-			return newBooleanField();
-		case "enum":
-			return newEnumField();
-		case "date":
-			return newDateField();
-		// case "text":
-		// 	return newTextAreaField();
-		default:
-			return newBooleanField(); // Return undefined if chosenField is not recognized
-	}
+	// TODO: newField.ts is broken after the new types
+	// switch (chosenField.kind) {
+	// 	case "text":
+	// 		return newStringField();
+	// 	case "number":
+	// 		return newNumberField();
+	// 	case "boolean":
+	// 		return newBooleanField();
+	// 	case "enum":
+	// 		return newEnumField();
+	// 	case "date":
+	// 		return newDateField();
+	// 	case "file":
+	// 		return newFile();
+	// }
+	// Create a base field specific to the framework and kind
+	const baseField: Partial<FormField<F>> = {
+		id: crypto.randomUUID(),
+		label: `New ${chosenField.kind} Field`,
+		key: `new_${chosenField.kind}_${Date.now()}`,
+		required: false,
+		kind: chosenField.kind,
+		variant: chosenField.variant,
+	};
+
+	// Apply settings
+	if (!noDescription) baseField.desc = "";
+	if (!noPlaceholder) baseField.placeholder = "";
+
+	return baseField as FormField<F>;
 }
 
 function addItem(id: string, direction: "up" | "down" | "left" | "right") {
@@ -164,7 +180,6 @@ function addItem(id: string, direction: "up" | "down" | "left" | "right") {
 			newFields[row].splice(col + 1, 0, newItem);
 			break;
 	}
-
 	currentForm.fields = newFields;
 	$appState.set({
 		...$appState.get(),

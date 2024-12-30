@@ -1,30 +1,25 @@
 import { useState } from "react";
 import {
 	DndContext,
-	closestCenter,
 	KeyboardSensor,
-	PointerSensor,
 	useSensor,
 	useSensors,
 	DragOverlay,
-	closestCorners,
 	rectIntersection,
 	type DragEndEvent,
 	type DragStartEvent,
 	type UniqueIdentifier,
 } from "@dnd-kit/core";
 import {
-	arrayMove,
 	SortableContext,
 	sortableKeyboardCoordinates,
 	rectSwappingStrategy,
-	rectSortingStrategy,
-	arraySwap,
 } from "@dnd-kit/sortable";
 
 import { SortableItem } from "./SortableItem";
 import { MouseSensor } from "./CustomSensor";
 import { useAppState } from "@/state/state";
+import type { FieldVariant, FormFramework, FrameworkFieldKinds, FrameworkFieldVariants } from "formbuilder-core";
 
 export const SortableGrid = () => {
 	const [activeId, setActiveId] = useState<UniqueIdentifier>();
@@ -110,7 +105,9 @@ export const SortableGrid = () => {
 									<SortableItem
 										key={formField.id}
 										id={formField.id}
-										value={formField.id}
+										label={findLabel<typeof state.currentForm.framework>(
+											formField.variant,
+										)}
 									/>
 								))}
 							</div>
@@ -132,3 +129,11 @@ export const SortableGrid = () => {
 		</DndContext>
 	);
 };
+
+function findLabel<F extends FormFramework, K extends FrameworkFieldKinds>(variant: FrameworkFieldVariants<F,K<F>>): string {
+	variant
+	const foundVariant = allFieldVariants.find(
+		(field) => field.value === variant,
+	);
+	return foundVariant?.label!;
+}

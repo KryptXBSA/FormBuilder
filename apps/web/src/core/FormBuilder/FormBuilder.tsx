@@ -8,7 +8,7 @@ import {
 	newDateField,
 	newEnumField,
 	newNumberField,
-	newStringField,
+	newTextField,
 	newTextAreaField,
 } from "formbuilder-core";
 import { zodResolver } from "@hookform/resolvers/zod";

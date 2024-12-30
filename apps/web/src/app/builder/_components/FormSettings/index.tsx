@@ -15,7 +15,12 @@ export default function SettingsForm() {
 				value={state.currentForm.name}
 				onChange={(newValue) => state.updateFormName(newValue)}
 			/>
-
+			<div className="max-w-sm">
+				<h4 className="scroll-m-20 font-semibold text-xl tracking-tight">
+					Framework
+				</h4>
+				<FrameworkCombobox />
+			</div>
 			<div>
 				<h4 className="scroll-m-20 font-semibold text-xl tracking-tight">
 					Form Submission
@@ -62,9 +67,9 @@ export default function SettingsForm() {
 
 			<FormInput
 				label="Import Alias"
-				value={state.currentForm.settings.importAlias}
+				value={state.currentForm.settings.importAliasUtils}
 				onChange={(newValue) =>
-					state.updateFormSettings({ importAlias: newValue })
+					state.updateFormSettings({ importAliasUtils: newValue })
 				}
 			/>
 
@@ -100,13 +105,6 @@ export default function SettingsForm() {
 						}
 					/>
 				</div>
-			</div>
-
-			<div className="max-w-sm">
-				<h4 className="scroll-m-20 font-semibold text-xl tracking-tight">
-					Framework
-				</h4>
-				<FrameworkCombobox />
 			</div>
 		</div>
 	);

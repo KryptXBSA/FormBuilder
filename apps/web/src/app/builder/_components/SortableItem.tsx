@@ -6,20 +6,13 @@ import { useAppState } from "@/state/state";
 import { FormFieldContent } from "./FormFieldContent";
 import { AddNewFieldArrows } from "./AddNewFieldArrows";
 
-interface TaskCardProps {
+interface FormFieldProps {
 	id: string;
-	value: string;
+	label: string;
 	isOverlay?: boolean;
 }
 
-export type TaskType = "Task";
-
-// export interface TaskDragData {
-//   type: TaskType;
-//   task: Task;
-// }
-
-export function SortableItem({ id, value, isOverlay }: TaskCardProps) {
+export function SortableItem({ id, label, isOverlay }: FormFieldProps) {
 	const {
 		setNodeRef,
 		attributes,
@@ -63,7 +56,7 @@ export function SortableItem({ id, value, isOverlay }: TaskCardProps) {
 						}),
 					)}
 				>
-					<FormFieldContent id={id} />
+					<FormFieldContent id={id} label={label} />
 				</div>
 			) : (
 				<div className="">
