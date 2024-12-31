@@ -1,5 +1,6 @@
 import type { Prettify } from "./prettify";
-import type { FormField, FrameworkFieldKinds, FrameworkFieldKinds } from "./field";
+import type { FormField } from "./field";
+import type { FrameworkFieldVariants, FrameworkFieldKinds } from "./fieldVariants";
 
 export type FormFramework =
 	| "next"
@@ -11,7 +12,7 @@ export type FormFramework =
 
 export type ChosenField<F extends FormFramework> = {
 	kind: FrameworkFieldKinds[F];
-	variant: FrameworkFieldKinds<F, FrameworkFieldKinds[F]>;
+	variant: FrameworkFieldVariants[F];
 };
 
 export type FormSchema<F extends FormFramework = FormFramework> = Prettify<{
@@ -19,11 +20,7 @@ export type FormSchema<F extends FormFramework = FormFramework> = Prettify<{
 	name: string;
 	framework: F;
 	fields: FormField<F>[][];
-	settings: Settings & {
-		frameworkSettings?: {
-			[K in F]: FrameworkSettings[K];
-		};
-	};
+	settings: Settings
 }>;
 
 export type Settings = {
@@ -36,11 +33,11 @@ export type Settings = {
 
 export type FrameworkSettings = {
 	next?: {
-		useServerActions: boolean;
+		useServerActions?: boolean;
 		apiRoute?: string;
 	};
 	react?: {
-		stateManager: "context" | "redux" | "none";
+		stateManager?: "context" | "redux" | "none";
 	};
 	svelte?: {
 		kit: boolean;
