@@ -2,16 +2,6 @@
 import * as React from "react";
 import { useAppState } from "@/state/state";
 import {
-	textFieldVariants,
-	numberFieldVariants,
-	booleanFieldVariants,
-	dateFieldVariants,
-	fileFieldVariants,
-	selectionFieldVariants,
-	type FieldKind,
-	FormFramework,
-} from "formbuilder-core";
-import {
 	Accordion,
 	AccordionContent,
 	AccordionItem,
@@ -20,18 +10,23 @@ import {
 import { cn } from "@/lib/utils";
 import { ChevronDown, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getVariantMap } from "@/utils/getVariantMap";
+import {
+	allFieldVariants,
+	type FormFramework,
+	type FrameworkFieldKinds,
+} from "formbuilder-core";
+import { findKindByVariantAndFramework } from "@/utils/findKindByVariantAndFramework";
 
-export function AddFieldAccordion({
+export function AddFieldAccordion<F extends FormFramework>({
 	field,
 }: {
 	field: {
 		label: string;
-		kind: FieldKind;
+		kind: FrameworkFieldKinds[F];
 	};
 }) {
 	const state = useAppState();
-	const variantMap = getVariantMap(state.currentForm.framework);
+	const variantMap = allFieldVariants[state.currentForm.framework];
 	const [isOpen, setIsOpen] = React.useState(false);
 	return (
 		<AccordionItem
@@ -61,7 +56,12 @@ export function AddFieldAccordion({
 					{variantMap[field.kind]?.map((variant) => (
 						<React.Fragment key={variant.value}>
 							{!state.renderContent &&
-							state.chosenField?.variant === variant.value ? (
+							state.chosenField?.variant === variant.value &&
+							state.chosenField?.kind ===
+								findKindByVariantAndFramework(
+									state.chosenField?.variant,
+									state.currentForm.framework,
+								) ? (
 								<Button
 									variant="destructive"
 									// className="hover:bg-red-500 bg-red-500 transition-colors duration-300"

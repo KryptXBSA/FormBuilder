@@ -158,6 +158,72 @@ export const astroFieldVariants = {
     enum: enumVariants,
 } as const;
 
+export const allFieldVariantsWithKinds = {
+    next: Object.fromEntries(nextFieldKinds.map(kind => [
+        kind, {
+            kind,
+            variant: nextFieldVariants[kind],
+        }
+    ])),
+    react: Object.fromEntries(reactFieldKinds.map(kind => [
+        kind, {
+            kind,
+            variant: reactFieldVariants[kind],
+        }
+    ])),
+    vue: Object.fromEntries(vueFieldKinds.map(kind => [
+        kind, {
+            kind,
+            variant: vueFieldVariants[kind],
+        }
+    ])),
+    svelte: Object.fromEntries(svelteFieldKinds.map(kind => [
+        kind, {
+            kind,
+            variant: svelteFieldVariants[kind],
+        }
+    ])),
+    solid: Object.fromEntries(solidFieldKinds.map(kind => [
+        kind, {
+            kind,
+            variant: solidFieldVariants[kind],
+        }
+    ])),
+    astro: Object.fromEntries(astroFieldKinds.map(kind => [
+        kind, {
+            kind,
+            variant: astroFieldVariants[kind],
+        }
+    ])),
+} as const;
+
+export const allFieldVariantsByKind = {
+   ...nextFieldVariants,
+   ...reactFieldVariants,
+   ...vueFieldVariants,
+   ...svelteFieldVariants,
+   ...solidFieldVariants,
+   ...astroFieldVariants,
+} as const;
+
+export const allFieldVariants = {
+    next: nextFieldVariants,
+    react: reactFieldVariants,
+    vue: vueFieldVariants,
+    svelte: svelteFieldVariants,
+    solid: solidFieldVariants,
+    astro: astroFieldVariants,
+} as const;
+
+export const allFieldKinds = {
+    next: nextFieldKinds,
+    react: reactFieldKinds,
+    vue: vueFieldKinds,
+    svelte: svelteFieldKinds,
+    solid: solidFieldKinds,
+    astro: astroFieldKinds,
+} as const;
+
 export type FrameworkFieldKinds = {
     next: typeof nextFieldKinds[number];
     react: typeof reactFieldKinds[number];

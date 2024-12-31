@@ -45,7 +45,6 @@ export function AddNewFieldArrows({ id }: { id: string }) {
 			>
 				<ArrowBigRightDash className="h-5 w-5" />
 				{/* TODO: This is only shown at dev  */}
-				{id}
 			</Button>
 		</div>
 	);

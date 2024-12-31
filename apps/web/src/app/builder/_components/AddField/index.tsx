@@ -1,32 +1,17 @@
 "use client";
 import * as React from "react";
-import { useAppState } from "@/state/state";
-import {
-	textFieldVariants,
-	numberFieldVariants,
-	booleanFieldVariants,
-	dateFieldVariants,
-	fileFieldVariants,
-	selectionFieldVariants,
-	type FieldKind,
-} from "formbuilder-core";
 import {
 	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
 } from "@/components/ui/accordion";
-import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import type { FormFramework, FrameworkFieldKinds } from "formbuilder-core";
 import { AddFieldAccordion } from "./AddFieldAccordion";
 
-export function AddField({
+export function AddField<F extends FormFramework>({
 	fields,
 }: {
 	fields: {
 		label: string;
-		kind: FieldKind;
+		kind: FrameworkFieldKinds[F];
 	}[];
 }) {
 	return (

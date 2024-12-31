@@ -8,12 +8,14 @@ import { SortableGrid } from "./_components/SortableGrid";
 import { AddField } from "./_components/AddField";
 import { SettingsToggle } from "./_components/FormSettings/SettingsToggle";
 import SettingsForm from "./_components/FormSettings";
-import { fieldKind } from "formbuilder-core";
+import { allFieldKinds } from "formbuilder-core";
+import { useAppState } from "@/state/state";
+
 export default function Builder() {
 	const [showSettings, setShowSettings] = useState(false);
-	const [isOpen, setIsOpen] = useState(false);
+	const state = useAppState();
 
-	const fields = fieldKind.map((v) => ({
+	const fields = allFieldKinds[state.currentForm.framework].map((v) => ({
 		label: v.charAt(0).toUpperCase() + v.slice(1),
 		kind: v,
 	}));

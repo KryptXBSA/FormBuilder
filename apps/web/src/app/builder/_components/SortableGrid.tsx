@@ -19,7 +19,13 @@ import {
 import { SortableItem } from "./SortableItem";
 import { MouseSensor } from "./CustomSensor";
 import { useAppState } from "@/state/state";
-import type { FieldVariant, FormFramework, FrameworkFieldKinds, FrameworkFieldVariants } from "formbuilder-core";
+import {
+	allFieldVariants,
+	allFieldVariantsByKind,
+	type FormFramework,
+	type FrameworkFieldKinds,
+	type FrameworkFieldVariants,
+} from "formbuilder-core";
 
 export const SortableGrid = () => {
 	const [activeId, setActiveId] = useState<UniqueIdentifier>();
@@ -107,6 +113,7 @@ export const SortableGrid = () => {
 										id={formField.id}
 										label={findLabel<typeof state.currentForm.framework>(
 											formField.variant,
+											formField.kind
 										)}
 									/>
 								))}
@@ -130,9 +137,11 @@ export const SortableGrid = () => {
 	);
 };
 
-function findLabel<F extends FormFramework, K extends FrameworkFieldKinds>(variant: FrameworkFieldVariants<F,K<F>>): string {
-	variant
-	const foundVariant = allFieldVariants.find(
+function findLabel<F extends FormFramework>(
+	variant: FrameworkFieldVariants[F],
+	kind: FrameworkFieldKinds[F],
+): string {
+	const foundVariant = allFieldVariantsByKind[kind].find(
 		(field) => field.value === variant,
 	);
 	return foundVariant?.label!;

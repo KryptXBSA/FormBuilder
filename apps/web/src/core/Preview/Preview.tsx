@@ -107,7 +107,6 @@ export function Preview() {
 			}
 		}
 		// formSchema = z.object({})
-		console.log("ffff", form.getValues(), formSchema.strip());
 	}, [selectedForm]);
 
 	const form = useForm<z.infer<any>>({
@@ -118,7 +117,6 @@ export function Preview() {
 	function onSubmit() {
 		const values = form.getValues();
 		let result = "Submitted Values:\n";
-		console.log("fff", form.getValues());
 
 		for (const key in values) {
 			// biome-ignore lint/suspicious/noPrototypeBuiltins: <explanation>
