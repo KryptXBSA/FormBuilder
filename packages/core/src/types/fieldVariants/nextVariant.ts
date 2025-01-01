@@ -1,0 +1,60 @@
+export const textVariants = [
+    { label: "Input", value: "next-shadcn-text-input" },
+    { label: "Textarea", value: "next-shadcn-text-textarea" },
+    { label: "Rich Text Editor", value: "next-shadcn-text-rich-text" },
+    { label: "Markdown Editor", value: "next-shadcn-text-markdown" },
+    { label: "Code Editor", value: "next-shadcn-text-code" },
+    { label: "Password Input", value: "next-shadcn-text-password" },
+    { label: "Auto-resizing Textarea", value: "next-shadcn-text-autosize-textarea" },
+    { label: "OTP Input", value: "next-shadcn-text-input-otp" },
+    { label: "Input Mask", value: "next-shadcn-text-input-mask" }
+] as const;
+
+export const numberVariants = [
+    { label: "Number Input", value: "next-shadcn-number-input" },
+    { label: "Slider", value: "next-shadcn-number-slider" },
+    { label: "Rating", value: "next-shadcn-number-rating" },
+    { label: "OTP", value: "next-shadcn-number-otp" },
+    { label: "Stepper", value: "next-shadcn-number-stepper" }
+] as const;
+
+export const booleanVariants = [
+    { label: "Checkbox", value: "next-shadcn-boolean-checkbox" },
+    { label: "Switch", value: "next-shadcn-boolean-switch" },
+    { label: "Toggle", value: "next-shadcn-boolean-toggle" },
+] as const;
+
+export const dateVariants = [
+    { label: "Date Picker", value: "next-shadcn-date-date" },
+    { label: "Date & Time Picker", value: "next-shadcn-date-datetime" },
+    { label: "Time Picker", value: "next-shadcn-date-time" },
+    { label: "Date Range Picker", value: "next-shadcn-date-daterange" },
+    { label: "Calendar Picker", value: "next-shadcn-date-calendar-picker" },
+    { label: "Date Range Calendar", value: "next-shadcn-date-date-range-picker" },
+] as const;
+
+export const fileVariants = [
+    { label: "Single File Upload", value: "next-shadcn-file-single" },
+    { label: "Multiple File Upload", value: "next-shadcn-file-multiple" },
+    { label: "Drag & Drop Zone", value: "next-shadcn-file-drag-drop" },
+    { label: "Avatar Upload", value: "next-shadcn-file-avatar" },
+    { label: "Image Gallery", value: "next-shadcn-file-image-gallery" },
+] as const;
+
+export const enumVariants = [
+    { label: "Select Dropdown", value: "next-shadcn-enum-select" },
+    { label: "Combobox", value: "next-shadcn-enum-combobox" },
+    { label: "Radio Group", value: "next-shadcn-enum-radio" },
+    { label: "Checkbox Group", value: "next-shadcn-enum-checkbox" },
+    { label: "Segmented Control", value: "next-shadcn-enum-segmented" },
+    { label: "Chips Input", value: "next-shadcn-enum-chips" },
+] as const;
+
+export const nextFieldVariants = {
+    text: textVariants,
+    number: numberVariants,
+    boolean: booleanVariants,
+    date: dateVariants,
+    file: fileVariants,
+    enum: enumVariants,
+} as const; 

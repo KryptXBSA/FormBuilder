@@ -15,7 +15,6 @@ import {
 	type FormFramework,
 	type FrameworkFieldKinds,
 } from "formbuilder-core";
-import { findKindByVariantAndFramework } from "@/utils/findKindByVariantAndFramework";
 
 export function AddFieldAccordion<F extends FormFramework>({
 	field,
@@ -56,12 +55,7 @@ export function AddFieldAccordion<F extends FormFramework>({
 					{variantMap[field.kind]?.map((variant) => (
 						<React.Fragment key={variant.value}>
 							{!state.renderContent &&
-							state.chosenField?.variant === variant.value &&
-							state.chosenField?.kind ===
-								findKindByVariantAndFramework(
-									state.chosenField?.variant,
-									state.currentForm.framework,
-								) ? (
+							state.chosenField?.variant === variant.value ? (
 								<Button
 									variant="destructive"
 									// className="hover:bg-red-500 bg-red-500 transition-colors duration-300"

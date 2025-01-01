@@ -113,7 +113,7 @@ export const SortableGrid = () => {
 										id={formField.id}
 										label={findLabel<typeof state.currentForm.framework>(
 											formField.variant,
-											formField.kind
+											formField.kind,
 										)}
 									/>
 								))}
@@ -141,8 +141,11 @@ function findLabel<F extends FormFramework>(
 	variant: FrameworkFieldVariants[F],
 	kind: FrameworkFieldKinds[F],
 ): string {
+	console.log("vvvvv", variant, kind);
+	console.log("allllllllll",allFieldVariantsByKind);
 	const foundVariant = allFieldVariantsByKind[kind].find(
 		(field) => field.value === variant,
 	);
+	console.log("xxxxxxxvvvvvvvv2", allFieldVariantsByKind[kind]);
 	return foundVariant?.label!;
 }

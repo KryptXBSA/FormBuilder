@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { removeItem } from "@/state/state";
 
 export function FormFieldContent({ id, label }: { id: string; label: string }) {
+	console.log("idddddddddd",label,id);
+	
 	return (
 		<div>
 			<div className={cn("flex justify-between gap-2 p-2")}>
