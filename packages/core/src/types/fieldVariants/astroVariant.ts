@@ -1,3 +1,8 @@
+export const headingVariants = [
+    { label: "Heading", value: "astro-shadcn-heading-simple" },
+    { label: "Heading Anchor", value: "astro-shadcn-heading-anchor" },
+] as const;
+
 export const textVariants = [
     { label: "Input", value: "astro-shadcn-text-input" },
     { label: "Textarea", value: "astro-shadcn-text-textarea" },
@@ -51,6 +56,7 @@ export const enumVariants = [
 ] as const;
 
 export const astroFieldVariants = {
+    heading: headingVariants,
     text: textVariants,
     number: numberVariants,
     boolean: booleanVariants,

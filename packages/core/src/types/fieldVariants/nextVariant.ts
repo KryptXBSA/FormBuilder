@@ -1,3 +1,8 @@
+export const headingVariants = [
+    { label: "Heading", value: "next-shadcn-heading-simple" },
+    { label: "Heading Anchor", value: "next-shadcn-heading-anchor" },
+] as const;
+
 export const textVariants = [
     { label: "Input", value: "next-shadcn-text-input" },
     { label: "Textarea", value: "next-shadcn-text-textarea" },
@@ -51,6 +56,7 @@ export const enumVariants = [
 ] as const;
 
 export const nextFieldVariants = {
+    heading: headingVariants,
     text: textVariants,
     number: numberVariants,
     boolean: booleanVariants,

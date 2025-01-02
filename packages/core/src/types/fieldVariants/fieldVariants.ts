@@ -1,3 +1,4 @@
+import type { FormFramework } from "..";
 import { astroFieldVariants } from "./astroVariant";
 import { nextFieldVariants } from "./nextVariant";
 import { reactFieldVariants } from "./reactVariant";
@@ -6,6 +7,7 @@ import { svelteFieldVariants } from "./svelteVariant";
 import { vueFieldVariants } from "./vueVariant";
 
 export const nextFieldKinds = [
+    "heading",
     "text",
     "number",
     "boolean",
@@ -15,6 +17,7 @@ export const nextFieldKinds = [
 ] as const;
 
 export const reactFieldKinds = [
+    "heading",
     "text",
     "number",
     "boolean",
@@ -24,6 +27,7 @@ export const reactFieldKinds = [
 ] as const;
 
 export const vueFieldKinds = [
+    "heading",
     "text",
     "number",
     "boolean",
@@ -42,6 +46,7 @@ export const svelteFieldKinds = [
 ] as const;
 
 export const solidFieldKinds = [
+    "heading",
     "text",
     "number",
     "boolean",
@@ -51,6 +56,7 @@ export const solidFieldKinds = [
 ] as const;
 
 export const astroFieldKinds = [
+    "heading",
     "text",
     "number",
     "boolean",
@@ -58,6 +64,8 @@ export const astroFieldKinds = [
     "file",
     "enum",
 ] as const;
+
+export type Kind = FrameworkFieldKinds[FormFramework]
 
 // export const allFieldVariantsWithKinds = {
 //     next: Object.fromEntries(nextFieldKinds.map(kind => [
@@ -83,6 +91,14 @@ export const astroFieldKinds = [
 // } as const;
 
 export const allFieldVariantsByKind = {
+    heading: [
+        ...nextFieldVariants.heading,
+        ...reactFieldVariants.heading,
+        ...vueFieldVariants.heading,
+        ...svelteFieldVariants.heading,
+        ...solidFieldVariants.heading,
+        ...astroFieldVariants.heading,
+    ],
     text: [
         ...nextFieldVariants.text,
         ...reactFieldVariants.text,

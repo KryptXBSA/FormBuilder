@@ -5,14 +5,16 @@ import { cn } from "@/lib/utils";
 import { useAppState } from "@/state/state";
 import { FormFieldContent } from "./FormFieldContent";
 import { AddNewFieldArrows } from "./AddNewFieldArrows";
+import type { Kind } from "formbuilder-core";
 
 interface FormFieldProps {
 	id: string;
 	label: string;
 	isOverlay?: boolean;
+	kind: Kind;
 }
 
-export function SortableItem({ id, label, isOverlay }: FormFieldProps) {
+export function SortableItem({ id, label, isOverlay, kind }: FormFieldProps) {
 	const {
 		setNodeRef,
 		attributes,
@@ -56,7 +58,7 @@ export function SortableItem({ id, label, isOverlay }: FormFieldProps) {
 						}),
 					)}
 				>
-					<FormFieldContent id={id} label={label} />
+					<FormFieldContent kind={kind} id={id} label={label} />
 				</div>
 			) : (
 				<div className="">

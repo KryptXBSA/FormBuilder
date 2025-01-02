@@ -1,3 +1,8 @@
+export const headingVariants = [
+    { label: "Heading", value: "svelte-shadcn-heading-simple" },
+    { label: "Heading Anchor", value: "svelte-shadcn-heading-anchor" },
+] as const;
+
 export const textVariants = [
     { label: "Input", value: "svelte-shadcn-text-input" },
     { label: "Textarea", value: "svelte-shadcn-text-textarea" },
@@ -51,6 +56,7 @@ export const enumVariants = [
 ] as const;
 
 export const svelteFieldVariants = {
+    heading:headingVariants,
     text: textVariants,
     number: numberVariants,
     boolean: booleanVariants,

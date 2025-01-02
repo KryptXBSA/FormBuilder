@@ -1,3 +1,8 @@
+export const headingVariants = [
+    { label: "Heading", value: "react-shadcn-heading-simple" },
+    { label: "Heading Anchor", value: "react-shadcn-heading-anchor" },
+] as const;
+
 export const textVariants = [
     { label: "Input", value: "react-shadcn-text-input" },
     { label: "Textarea", value: "react-shadcn-text-textarea" },
@@ -51,6 +56,7 @@ export const enumVariants = [
 ] as const;
 
 export const reactFieldVariants = {
+    heading:headingVariants,
     text: textVariants,
     number: numberVariants,
     boolean: booleanVariants,

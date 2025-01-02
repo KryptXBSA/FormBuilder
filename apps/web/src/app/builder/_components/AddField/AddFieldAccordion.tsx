@@ -12,16 +12,18 @@ import { ChevronDown, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
 	allFieldVariants,
+	type Kind,
 	type FormFramework,
 	type FrameworkFieldKinds,
 } from "formbuilder-core";
+import { colorMap } from "@/lib/colorMap";
 
-export function AddFieldAccordion<F extends FormFramework>({
+export function AddFieldAccordion({
 	field,
 }: {
 	field: {
 		label: string;
-		kind: FrameworkFieldKinds[F];
+		kind: Kind;
 	};
 }) {
 	const state = useAppState();
@@ -47,7 +49,22 @@ export function AddFieldAccordion<F extends FormFramework>({
 					"border-b-2": isOpen,
 				})}
 			>
-				{field.label}
+				<div
+					className={cn(
+						"flex items-center gap-2 px-2",
+						colorMap[field.kind].label,
+					)}
+				>
+					{field.label}
+					<div
+						className={cn(
+							"flex h-4 w-4 items-center justify-center rounded-full border p-2 text-center text-sm",
+							colorMap[field.kind].border,
+						)}
+					>
+						<span>{variantMap[field.kind].length}</span>
+					</div>
+				</div>
 				<ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
 			</AccordionTrigger>
 			<AccordionContent className="p-1">
