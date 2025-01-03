@@ -3,15 +3,20 @@
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FormList } from "@/core/FormList";
-import { Preview } from "@/core/Preview";
+import { Preview } from "@/app/builder/_components/Preview";
 import { SortableGrid } from "./_components/SortableGrid";
 import { AddField } from "./_components/AddField";
 import { SettingsToggle } from "./_components/FormSettings/SettingsToggle";
 import SettingsForm from "./_components/FormSettings";
 import { allFieldKinds } from "formbuilder-core";
 import { useAppState } from "@/state/state";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import initializeAppState from "@/hooks/initializeAppState";
 
 export default function Builder() {
+	const [loaded, setLoaded] = useState(false);
+	initializeAppState(loaded, setLoaded);
+
 	const [showSettings, setShowSettings] = useState(false);
 	const state = useAppState();
 
@@ -19,6 +24,13 @@ export default function Builder() {
 		label: v.charAt(0).toUpperCase() + v.slice(1),
 		kind: v,
 	}));
+	if (!loaded)
+		return (
+			<div className="flex h-96 w-full flex-col items-center justify-center">
+				<AiOutlineLoading3Quarters className="h-16 w-16 animate-spin text-blue-500" />
+				<p>Loading...</p>
+			</div>
+		);
 
 	return (
 		<section className="mx-auto max-w-[1500px] py-10">

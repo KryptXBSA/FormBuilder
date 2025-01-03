@@ -1,14 +1,17 @@
 "use client";
 
 import React, { useEffect } from "react";
-import type { FormField as FF } from "formbuilder-core";
+import type {
+	FormField as FF,
+	FormFramework,
+	TextField,
+} from "formbuilder-core";
 import { useAppState } from "@/state/state";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { AlertCircle, CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -29,7 +32,7 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Input as ShadcnInput } from "@/components/ui/input";
 import {
 	Popover,
 	PopoverContent,
@@ -44,79 +47,76 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
+import {
+	InputOTP,
+	AutoResizeTextarea,
+	Input,
+	Textarea,
+	InputTag,
+	PasswordStrengthIndicator,
+} from "./component-variants/text";
 
 export function Preview() {
-	const { forms, selectedForm } = useAppState();
-	const formFields = forms[selectedForm].fields;
+	const { currentForm } = useAppState();
+	const formFields = currentForm.fields;
 
-	const formSchema = z.object({});
+	const createFieldSchema = (row: FF<FormFramework>) => {
+		switch (row.kind) {
+			case "text":
+				if (row.variant === "next-originui-text-inputtag")
+					return {
+						[row.key]: z.array(
+							z.object({
+								id: z.string(),
+								text: z.string(),
+							}),
+						),
+					};
 
-	useEffect(() => {
-		for (const f of formFields) {
-			switch (f.kind) {
-				case "string":
-					if (f.validation?.format === "email") {
-						Object.assign(formSchema, {
-							[f.key]: z.string().email().min(1).max(9999999999),
-						});
-					} else {
-						Object.assign(formSchema, {
-							[f.key]: z.string().email().min(1).max(9999999999),
-						});
-					}
-					break;
-				case "number":
-					Object.assign(formSchema, {
-						[f.key]: z.coerce
-							.number()
-							.min(f.validation?.min || 1)
-							.max(f.validation?.max || 9999999999),
-					});
-					break;
-				case "boolean":
-					Object.assign(
-						formSchema,
-
-						{
-							[f.key]: z.boolean(),
-						},
-					);
-					break;
-				case "date":
-					Object.assign(formSchema, {
-						[f.key]: z.date(),
-					});
-
-					break;
-				case "enum":
-					Object.assign(formSchema, {
-						[f.key]: z.string(),
-					});
-					break;
-				case "textarea":
-					Object.assign(formSchema, {
-						[f.key]: z
-							.string()
-							.min(f.validation?.min || 1)
-							.max(f.validation?.max || 9999999999),
-					});
-
-					break;
-				default:
-			}
+				return row.validation?.email
+					? { [row.key]: z.string().email().min(1).max(9999999999) }
+					: { [row.key]: z.string().min(1).max(9999999999) };
+			case "number":
+				return {
+					[row.key]: z.coerce
+						.number()
+						.min(row.validation?.min || 1)
+						.max(row.validation?.max || 9999999999),
+				};
+			case "boolean":
+				return { [row.key]: z.boolean() };
+			case "date":
+				return { [row.key]: z.date() };
+			case "file":
+				return {
+					[row.key]: z.instanceof(File).refine((file) => file.size < 7000000, {
+						message: "File must be less than 7MB.",
+					}),
+				};
+			case "enum":
+				return { [row.key]: z.string() };
+			default:
+				return {};
 		}
-		// formSchema = z.object({})
-	}, [selectedForm]);
+	};
+
+	const ff = currentForm.fields.reduce((acc, col) => {
+		col.forEach((row) => {
+			Object.assign(acc, createFieldSchema(row));
+		});
+		return acc;
+	}, {});
+	const formSchema = z.object(ff);
 
 	const form = useForm<z.infer<any>>({
-		// const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 	});
 
+	// TODO: Replace alert with toast
 	function onSubmit() {
 		const values = form.getValues();
 		let result = "Submitted Values:\n";
+		console.log("valls", values);
 
 		for (const key in values) {
 			// biome-ignore lint/suspicious/noPrototypeBuiltins: <explanation>
@@ -125,7 +125,6 @@ export function Preview() {
 				result += `${key}: ${values[key]}\n`;
 			}
 		}
-		console.log(result);
 		alert(result);
 	}
 	return (
@@ -133,18 +132,45 @@ export function Preview() {
 			<form
 				noValidate
 				onSubmit={form.handleSubmit(onSubmit)}
-				className="w-1/2 space-y-8"
+				className="-1/2 space-y-4"
 			>
-				{formFields.map((f) => (
-					<div key={f.id}>
-						{f.kind === "string" && StringField(f)}
-						{f.kind === "number" && NumberField(f)}
-						{f.kind === "date" && DateField(f)}
-						{f.kind === "boolean" && BooleanField(f)}
-						{f.style === "radio" && RadioField(f)}
-						{f.style === "select" && SelectField(f)}
-						{f.style === "combobox" && ComboboxField(f)}
-						{f.kind === "textarea" && TextareaField(f)}
+				{formFields.map((row, i) => (
+					<div className="flex flex-row gap-4" key={i}>
+						{row.map((col) => (
+							<div key={col.id}>
+								{col.kind === "text" &&
+									col.variant === "next-shadcn-text-input" && <Input f={col} />}
+								{col.kind === "text" &&
+									col.variant === "next-shadcn-text-textarea" && (
+										<Textarea f={col} />
+									)}
+								{col.kind === "text" &&
+									col.variant ===
+										"next-shadcnexpansion-text-autoresizetextarea" && (
+										<AutoResizeTextarea f={col} />
+									)}
+								{col.kind === "text" &&
+									col.variant === "next-shadcn-text-inputotp" && (
+										<InputOTP f={col} />
+									)}
+								{col.kind === "text" &&
+									col.variant === "next-originui-text-inputtag" && (
+										<InputTag f={col} />
+									)}
+								{col.kind === "text" &&
+									col.variant === "next-originui-text-password" && (
+										<PasswordStrengthIndicator f={col} />
+									)}
+								{/* {col.kind === "text" && TextField(col)}
+								{col.kind === "number" && NumberField(col)}
+								{col.kind === "date" && DateField(col)}
+								{col.kind === "boolean" && BooleanField(col)}
+								{col.style === "radio" && RadioField(col)}
+								{col.style === "select" && SelectField(col)}
+								{col.style === "combobox" && ComboboxField(col)}
+								{col.kind === "textarea" && TextareaField(col)} */}
+							</div>
+						))}
 					</div>
 				))}
 				<Button onClick={() => form.getValues()}>Submit</Button>
@@ -358,7 +384,11 @@ export function Preview() {
 					<FormItem>
 						<FormLabel>{f.label}</FormLabel>
 						<FormControl>
-							<Input type="number" placeholder={f.placeholder} {...field} />
+							<ShadcnInput
+								type="number"
+								placeholder={f.placeholder}
+								{...field}
+							/>
 						</FormControl>
 						<FormDescription>{f.desc}</FormDescription>
 						<FormMessage />
@@ -367,7 +397,7 @@ export function Preview() {
 			/>
 		);
 	}
-	function StringField(f: FF) {
+	function TextField(f: TextField<FormFramework>) {
 		return (
 			<FormField
 				control={form.control}
@@ -376,15 +406,23 @@ export function Preview() {
 					<FormItem>
 						<FormLabel>{f.label}</FormLabel>
 						<FormControl>
-							{f.validation?.format === "email" ? (
-								<Input type="email" placeholder={f.placeholder} {...field} />
+							{f.validation!.email === "email" ? (
+								<ShadcnInput
+									type="email"
+									placeholder={f.placeholder}
+									{...field}
+								/>
 							) : f.validation?.format === "password" ? (
-								<Input type="password" placeholder={f.placeholder} {...field} />
+								<ShadcnInput
+									type="password"
+									placeholder={f.placeholder}
+									{...field}
+								/>
 							) : (
-								<Input placeholder={f.placeholder} {...field} />
+								<ShadcnInput placeholder={f.placeholder} {...field} />
 							)}
 						</FormControl>
-						<FormDescription>{f.desc}</FormDescription>
+						<FormDescription>{f.description}</FormDescription>
 						<FormMessage />
 					</FormItem>
 				)}
@@ -400,11 +438,11 @@ export function Preview() {
 					<FormItem>
 						<FormLabel>{f.label}</FormLabel>
 						<FormControl>
-							<Textarea
+							{/* <Textarea
 								placeholder={f.placeholder}
 								className="resize-none"
 								{...field}
-							/>
+							/> */}
 						</FormControl>
 						<FormDescription>{f.desc}</FormDescription>
 						<FormMessage />

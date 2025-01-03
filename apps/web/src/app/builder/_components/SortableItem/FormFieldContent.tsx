@@ -3,8 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { Settings, Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { removeItem } from "@/state/state";
-import type { FormFramework, Kind } from "formbuilder-core";
-import { colorMap } from "@/lib/colorMap";
+import type { Kind } from "formbuilder-core";
+import { colorMap } from "@/constants";
 
 export function FormFieldContent({
 	id,

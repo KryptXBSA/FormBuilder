@@ -62,7 +62,7 @@ export function SortableItem({ id, label, isOverlay, kind }: FormFieldProps) {
 				</div>
 			) : (
 				<div className="">
-					<AddNewFieldArrows id={id} />
+					<AddNewFieldArrows kind={kind} id={id} />
 				</div>
 			)}
 		</>

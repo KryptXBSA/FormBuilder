@@ -47,7 +47,7 @@ export const mockForm: FormSchema = {
 			{
 				id: "bool",
 				label: "Security emails",
-				desc: "Receive emails about your account security.",
+				description: "Receive emails about your account security.",
 				key: "securityEmails",
 				defaultValue: false,
 				kind: "boolean",
@@ -60,7 +60,7 @@ export const mockForm: FormSchema = {
 				id: "dateee",
 				label: "Date of birth",
 				placeholder: "Pick a date",
-				desc: "Your date of birth is used to calculate your age.",
+				description: "Your date of birth is used to calculate your age.",
 				key: "dateOfBirth",
 				kind: "date",
 				variant: "next-shadcn-date-calendar-picker",
@@ -93,7 +93,7 @@ export const mockForm: FormSchema = {
 			{
 				id: "enum",
 				label: "Language",
-				desc: "This is the language that will be used in the dashboard.",
+				description: "This is the language that will be used in the dashboard.",
 				key: "language",
 				enumName: "language",
 				enumValues: [
@@ -108,7 +108,7 @@ export const mockForm: FormSchema = {
 			{
 				id: "enummm",
 				label: "Language",
-				desc: "Select a language",
+				description: "Select a language",
 				placeholder: "Select a value",
 				key: "languageSelect",
 				enumValues: [

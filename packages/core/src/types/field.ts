@@ -2,6 +2,7 @@ import type { FormFramework } from "./index";
 import type { FrameworkFieldVariants } from "./fieldVariants";
 
 export type FormField<F extends FormFramework> =
+	| HeadingField<F>
 	| TextField<F>
 	| NumberField<F>
 	| BooleanField<F>
@@ -14,7 +15,7 @@ export type BaseField = {
 	label: string;
 	key: string;
 	required: boolean;
-	desc?: string;
+	description?: string;
 	placeholder?: string;
 	disabled?: boolean;
 	hidden?: boolean;
@@ -23,11 +24,18 @@ export type BaseField = {
 	message?: string;
 };
 
+export type HeadingField<F extends FormFramework> = BaseField & {
+	kind: "heading";
+	variant: FrameworkFieldVariants[F];
+	defaultValue?: string;
+	validation?: TextValidation;
+};
+
 export type TextField<F extends FormFramework> = BaseField & {
 	kind: "text";
 	variant: FrameworkFieldVariants[F];
 	defaultValue?: string;
-	validation?: TextValidation;
+	validation: TextValidation;
 };
 
 export type NumberField<F extends FormFramework> = BaseField & {

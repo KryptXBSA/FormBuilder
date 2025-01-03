@@ -6,13 +6,14 @@ export const headingVariants = [
 export const textVariants = [
     { label: "Input", value: "next-shadcn-text-input" },
     { label: "Textarea", value: "next-shadcn-text-textarea" },
-    { label: "Rich Text Editor", value: "next-shadcn-text-rich-text" },
-    { label: "Markdown Editor", value: "next-shadcn-text-markdown" },
-    { label: "Code Editor", value: "next-shadcn-text-code" },
-    { label: "Password Input", value: "next-shadcn-text-password" },
-    { label: "Auto-resizing Textarea", value: "next-shadcn-text-autosize-textarea" },
-    { label: "OTP Input", value: "next-shadcn-text-input-otp" },
-    { label: "Input Mask", value: "next-shadcn-text-input-mask" }
+    // { label: "Rich Text Editor", value: "next-shadcn-text-rich-text" },
+    // { label: "Markdown Editor", value: "next-shadcn-text-markdown" },
+    // { label: "Code Editor", value: "next-shadcn-text-code" },
+    { label: "Password Strength Indicator", value: "next-originui-text-password" },
+    { label: "Auto-resizing Textarea", value: "next-shadcnexpansion-text-autoresizetextarea" },
+    { label: "Input OTP", value: "next-shadcn-text-inputotp" },
+    // { label: "Input Mask", value: "next-shadcn-text-input-mask" },
+    { label: "Input Tag", value: "next-originui-text-inputtag" }
 ] as const;
 
 export const numberVariants = [

@@ -16,7 +16,7 @@ import {
 	type FormFramework,
 	type FrameworkFieldKinds,
 } from "formbuilder-core";
-import { colorMap } from "@/lib/colorMap";
+import { colorMap } from "@/constants";
 
 export function AddFieldAccordion({
 	field,

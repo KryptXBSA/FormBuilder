@@ -15,6 +15,7 @@ import { useStore } from "@nanostores/react";
 import { findFieldIndex } from "@/utils/findFieldIndex";
 import { mockForm } from "@/mock/mockForm";
 import { newStringField } from "@/utils/newField";
+import { LOCALSTORAGE_KEY } from "@/constants";
 
 type State<F extends FormFramework = FormFramework> = {
 	selectedForm: number;
@@ -25,7 +26,7 @@ type State<F extends FormFramework = FormFramework> = {
 
 type MockFormFramework = typeof mockForm['framework'];
 export const $appState = persistentAtom<State<MockFormFramework>>(
-	"state",
+	LOCALSTORAGE_KEY,
 	{
 		renderContent: true,
 		chosenField: null,
@@ -130,7 +131,7 @@ function createNewField<F extends FormFramework>(
 	};
 
 	// Apply settings
-	if (!noDescription) baseField.desc = "";
+	if (!noDescription) baseField.description = "";
 	if (!noPlaceholder) baseField.placeholder = "";
 
 	return baseField as FormField<F>;
@@ -157,7 +158,11 @@ function addItem(id: string, direction: "up" | "down" | "left" | "right") {
 			if (row === 0) {
 				newFields.unshift([newItem]);
 			} else {
-				newFields[row - 1].push(newItem);
+				if (chosenField.kind === "heading") {
+					newFields.splice(row, 0, [newItem]);
+				} else {
+					newFields[row - 1].push(newItem);
+				}
 			}
 			break;
 		// TODO: down for the last row is broken
@@ -165,7 +170,11 @@ function addItem(id: string, direction: "up" | "down" | "left" | "right") {
 			if (row === newFields.length - 1) {
 				newFields.push([newItem]);
 			} else {
-				newFields[row + 1].push(newItem);
+				if (chosenField.kind === "heading") {
+					newFields.splice(row + 1, 0, [newItem]);
+				} else {
+					newFields[row + 1].push(newItem);
+				}
 			}
 			break;
 		// TODO: Left is broken
