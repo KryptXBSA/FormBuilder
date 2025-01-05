@@ -37,6 +37,7 @@ export function newNumberField(variant: NumberFieldVariant): FormField {
 		validation: {
 			min: 1,
 			max: 9999999999,
+			step: 1
 		},
 	};
 }

@@ -56,6 +56,9 @@ import {
 	PasswordStrengthIndicator,
 } from "./component-variants/text";
 import { Heading } from "./component-variants/heading/Heading";
+import { DualSlider } from "./component-variants/number/dual-slider";
+import { NumberInput } from "./component-variants/number/number";
+import { PhoneNumber } from "./component-variants/number/phone-number";
 
 export function Preview() {
 	const { currentForm } = useAppState();
@@ -78,6 +81,15 @@ export function Preview() {
 					? { [row.key]: z.string().email().min(1).max(9999999999) }
 					: { [row.key]: z.string().min(1).max(9999999999) };
 			case "number":
+				// TODO: fix value for dual slider and number
+				if (row.variant === "next-shadcn-number-slider")
+					return {
+						[row.key]: z.array(z.number()),
+					};
+				if (row.variant === "next-shadcn-number-phone")
+					return {
+						[row.key]: z.coerce.string(),
+					};
 				return {
 					[row.key]: z.coerce
 						.number()
@@ -107,6 +119,7 @@ export function Preview() {
 		});
 		return acc;
 	}, {});
+	console.log("ff", ff);
 	const formSchema = z.object(ff);
 
 	const form = useForm<z.infer<any>>({
@@ -138,14 +151,18 @@ export function Preview() {
 				{formFields.map((row, i) => (
 					<div className="flex flex-row gap-4" key={i}>
 						{row.map((col) => (
-							<div key={col.id}>
+							<div className="w-full" key={col.id}>
 								{col.kind === "heading" &&
 									col.variant === "next-shadcn-heading-simple" && (
 										<Heading useAnchor={false} headingLevel="H3" />
 									)}
 								{col.kind === "heading" &&
 									col.variant === "next-shadcn-heading-anchor" && (
-										<Heading anchorValue="azaz" useAnchor={true} headingLevel="H3" />
+										<Heading
+											anchorValue="azaz"
+											useAnchor={true}
+											headingLevel="H3"
+										/>
 									)}
 								{col.kind === "text" &&
 									col.variant === "next-shadcn-text-input" && <Input f={col} />}
@@ -169,6 +186,22 @@ export function Preview() {
 								{col.kind === "text" &&
 									col.variant === "next-originui-text-password" && (
 										<PasswordStrengthIndicator f={col} />
+									)}
+								{col.kind === "number" &&
+									col.variant === "next-shadcn-number-input" && (
+										<NumberInput f={col} />
+									)}
+								{col.kind === "number" &&
+									//  TODO: subvariant for slider, can be dual or single
+									col.variant === "next-shadcn-number-phone" && (
+										<PhoneNumber f={col} />
+										// <Slider f={col} />
+									)}
+								{col.kind === "number" &&
+									//  TODO: subvariant for slider, can be dual or single
+									col.variant === "next-shadcn-number-slider" && (
+										<DualSlider f={col} />
+										// <Slider f={col} />
 									)}
 								{/* {col.kind === "text" && TextField(col)}
 								{col.kind === "number" && NumberField(col)}

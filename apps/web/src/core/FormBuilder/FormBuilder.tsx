@@ -9,7 +9,6 @@ import {
 	newEnumField,
 	newNumberField,
 	newTextField,
-	newTextAreaField,
 } from "formbuilder-core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
