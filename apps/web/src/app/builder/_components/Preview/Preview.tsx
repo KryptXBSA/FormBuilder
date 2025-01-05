@@ -55,6 +55,7 @@ import {
 	InputTag,
 	PasswordStrengthIndicator,
 } from "./component-variants/text";
+import { Heading } from "./component-variants/heading/Heading";
 
 export function Preview() {
 	const { currentForm } = useAppState();
@@ -138,6 +139,14 @@ export function Preview() {
 					<div className="flex flex-row gap-4" key={i}>
 						{row.map((col) => (
 							<div key={col.id}>
+								{col.kind === "heading" &&
+									col.variant === "next-shadcn-heading-simple" && (
+										<Heading useAnchor={false} headingLevel="H3" />
+									)}
+								{col.kind === "heading" &&
+									col.variant === "next-shadcn-heading-anchor" && (
+										<Heading anchorValue="azaz" useAnchor={true} headingLevel="H3" />
+									)}
 								{col.kind === "text" &&
 									col.variant === "next-shadcn-text-input" && <Input f={col} />}
 								{col.kind === "text" &&

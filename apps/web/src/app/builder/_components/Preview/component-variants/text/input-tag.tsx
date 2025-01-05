@@ -44,6 +44,7 @@ export function InputTag({ f }: { f: TextField<FormFramework> }) {
 								id="input-56"
 								tags={exampleTags}
 								setTags={(newTags) => {
+									field.onChange(newTags);
 									setExampleTags(newTags);
 								}}
 								placeholder="Add a tag"
