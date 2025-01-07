@@ -18,8 +18,12 @@ export function FormList() {
 						<p>{f.name}</p>
 						{f.framework}
 					</Button>
-					<Button variant="ghost" className="hover:bg-red-500">
-						<FiTrash size={24} onClick={() => deleteForm(idx)} />
+					<Button
+						onClick={() => deleteForm(idx)}
+						variant="ghost"
+						className="hover:bg-red-500"
+					>
+						<FiTrash size={24} />
 					</Button>
 				</li>
 			))}
@@ -37,10 +41,11 @@ export function FormList() {
 									id: "textField1",
 									kind: "text",
 									label: "First Text Field",
-									key: "firstTextField",
+									key: "firstTextFieldz",
 									required: true,
-									variant: "input",
+									variant: "next-shadcn-text-input",
 									placeholder: "Enter first text",
+									validation: { min: 1, max: 10 },
 								},
 								{
 									id: "textField2",
@@ -48,12 +53,13 @@ export function FormList() {
 									label: "First Text Field",
 									key: "firstTextField",
 									required: true,
-									variant: "input",
+									variant: "next-shadcn-text-input",
+									validation: { min: 1, max: 10 },
 									placeholder: "Enter first text",
 								},
 							],
 						],
-						framework: "react",
+						framework: "next",
 					})
 				}
 			>

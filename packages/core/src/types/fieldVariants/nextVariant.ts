@@ -28,16 +28,11 @@ export const numberVariants = [
 export const booleanVariants = [
     { label: "Checkbox", value: "next-shadcn-boolean-checkbox" },
     { label: "Switch", value: "next-shadcn-boolean-switch" },
-    { label: "Toggle", value: "next-shadcn-boolean-toggle" },
 ] as const;
 
 export const dateVariants = [
     { label: "Date Picker", value: "next-shadcn-date-date" },
-    { label: "Date & Time Picker", value: "next-shadcn-date-datetime" },
-    { label: "Time Picker", value: "next-shadcn-date-time" },
-    { label: "Date Range Picker", value: "next-shadcn-date-daterange" },
-    { label: "Calendar Picker", value: "next-shadcn-date-calendar-picker" },
-    { label: "Date Range Calendar", value: "next-shadcn-date-date-range-picker" },
+    { label: "Date Range Picker", value: "next-shadcn-date-daterange" }
 ] as const;
 
 export const fileVariants = [

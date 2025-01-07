@@ -44,7 +44,9 @@ export function PhoneNumber({ f }: { f: NumberField<FormFramework> }) {
 					<FormLabel>{f.label}</FormLabel>
 					<FormControl>
 						<PhoneInput
+							smartCaret={true}
 							{...field}
+							international
 							// value={phoneNumber}
 							// onChange={setPhoneNumber}
 							placeholder={f.placeholder}

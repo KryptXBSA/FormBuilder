@@ -8,7 +8,7 @@ import type {
 } from "formbuilder-core";
 import { useAppState } from "@/state/state";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
+import { addDays, format } from "date-fns";
 import { AlertCircle, CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -46,7 +46,6 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import {
 	InputOTP,
 	AutoResizeTextarea,
@@ -59,11 +58,57 @@ import { Heading } from "./component-variants/heading/Heading";
 import { DualSlider } from "./component-variants/number/dual-slider";
 import { NumberInput } from "./component-variants/number/number";
 import { PhoneNumber } from "./component-variants/number/phone-number";
+import { Checkbox } from "./component-variants/boolean/checkbox";
+import { Switch } from "./component-variants/boolean/switch";
+import { DatePicker } from "./component-variants/date/date";
+import { DateRangePicker } from "./component-variants/date/daterange";
 
 export function Preview() {
 	const { currentForm } = useAppState();
-	const formFields = currentForm.fields;
 
+	const getDefaultValues = (row: FF<FormFramework>) => {
+		switch (row.kind) {
+			case "text":
+				if (row.variant === "next-originui-text-inputtag")
+					return {
+						[row.key]: [],
+					};
+
+				return row.validation?.email ? { [row.key]: "" } : { [row.key]: "" };
+			case "number":
+				// TODO: fix value for dual slider and number
+				if (row.variant === "next-shadcn-number-slider")
+					return {
+						[row.key]: [0, 0],
+					};
+				if (row.variant === "next-shadcn-number-phone")
+					return {
+						[row.key]: z.coerce.string(),
+					};
+				return {
+					[row.key]: 0,
+				};
+			case "boolean":
+				return { [row.key]: false };
+			case "date":
+				if (row.variant === "next-shadcn-date-daterange") {
+					return {
+						[row.key]: { from: new Date(), to: addDays(new Date(), 20) },
+					};
+				}
+				return { [row.key]: new Date() };
+			case "file":
+				return {
+					[row.key]: z.instanceof(File).refine((file) => file.size < 7000000, {
+						message: "File must be less than 7MB.",
+					}),
+				};
+			case "enum":
+				return { [row.key]: "" };
+			default:
+				return {};
+		}
+	};
 	const createFieldSchema = (row: FF<FormFramework>) => {
 		switch (row.kind) {
 			case "text":
@@ -99,6 +144,9 @@ export function Preview() {
 			case "boolean":
 				return { [row.key]: z.boolean() };
 			case "date":
+				if (row.variant === "next-shadcn-date-daterange") {
+					return { [row.key]: z.object({ from: z.date(), to: z.date() }) };
+				}
 				return { [row.key]: z.date() };
 			case "file":
 				return {
@@ -119,12 +167,21 @@ export function Preview() {
 		});
 		return acc;
 	}, {});
-	console.log("ff", ff);
-	const formSchema = z.object(ff);
 
+	const defaultValues = currentForm.fields.reduce((acc, col) => {
+		col.forEach((row) => {
+			Object.assign(acc, getDefaultValues(row));
+		});
+		return acc;
+	}, {});
+
+	const formSchema = z.object(ff);
+	console.log("defaultvalues", defaultValues);
 	const form = useForm<z.infer<any>>({
 		resolver: zodResolver(formSchema),
+		defaultValues: defaultValues,
 	});
+	console.log("foem", form.getValues());
 
 	// TODO: Replace alert with toast
 	function onSubmit() {
@@ -148,7 +205,7 @@ export function Preview() {
 				onSubmit={form.handleSubmit(onSubmit)}
 				className="-1/2 space-y-4"
 			>
-				{formFields.map((row, i) => (
+				{currentForm.fields.map((row, i) => (
 					<div className="flex flex-row gap-4" key={i}>
 						{row.map((col) => (
 							<div className="w-full" key={col.id}>
@@ -202,6 +259,23 @@ export function Preview() {
 									col.variant === "next-shadcn-number-slider" && (
 										<DualSlider f={col} />
 										// <Slider f={col} />
+									)}
+								{/* TODO: center the component if it is checkbox */}
+								{col.kind === "boolean" &&
+									col.variant === "next-shadcn-boolean-checkbox" && (
+										<Checkbox f={col} />
+									)}
+								{col.kind === "boolean" &&
+									col.variant === "next-shadcn-boolean-switch" && (
+										<Switch f={col} />
+									)}
+								{col.kind === "date" &&
+									col.variant === "next-shadcn-date-date" && (
+										<DatePicker f={col} />
+									)}
+								{col.kind === "date" &&
+									col.variant === "next-shadcn-date-daterange" && (
+										<DateRangePicker f={col} />
 									)}
 								{/* {col.kind === "text" && TextField(col)}
 								{col.kind === "number" && NumberField(col)}
@@ -364,7 +438,7 @@ export function Preview() {
 							<FormDescription>{f.desc}</FormDescription>
 						</div>
 						<FormControl>
-							<Switch checked={field.value} onCheckedChange={field.onChange} />
+							{/* <Switch checked={field.value} onCheckedChange={field.onChange} /> */}
 						</FormControl>
 					</FormItem>
 				)}

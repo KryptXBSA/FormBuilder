@@ -10,6 +10,7 @@ export type FormField<F extends FormFramework> =
 	| FileField<F>
 	| EnumField<F>;
 
+// TODO: error message, success message
 export type BaseField = {
 	id: string;
 	label: string;
