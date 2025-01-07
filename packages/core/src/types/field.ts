@@ -7,7 +7,7 @@ export type FormField<F extends FormFramework> =
 	| NumberField<F>
 	| BooleanField<F>
 	| DateField<F>
-	| FileField<F>
+	// | FileField<F>
 	| EnumField<F>;
 
 // TODO: error message, success message
@@ -60,12 +60,12 @@ export type DateField<F extends FormFramework> = BaseField & {
 	validation?: DateValidation;
 };
 
-export type FileField<F extends FormFramework> = BaseField & {
-	kind: "file";
-	variant: FrameworkFieldVariants[F];
-	defaultValue?: File;
-	validation?: DateValidation;
-};
+// export type FileField<F extends FormFramework> = BaseField & {
+// 	kind: "file";
+// 	variant: FrameworkFieldVariants[F];
+// 	defaultValue?: File;
+// 	validation?: DateValidation;
+// };
 
 export type EnumField<F extends FormFramework> = BaseField & {
 	kind: "enum";

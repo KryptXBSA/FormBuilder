@@ -1,51 +1,14 @@
 "use client";
-
-import React, { useEffect } from "react";
-import type {
-	FormField as FF,
-	FormFramework,
-	TextField,
-} from "formbuilder-core";
+import React from "react";
+import type { FormField as FF, FormFramework } from "formbuilder-core";
 import { useAppState } from "@/state/state";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addDays, format } from "date-fns";
-import { AlertCircle, CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
+import { addDays } from "date-fns";
+import { AlertCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { cn } from "@/lib/utils";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-	Command,
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-} from "@/components/ui/command";
-import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
-import { Input as ShadcnInput } from "@/components/ui/input";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
+import { Form } from "@/components/ui/form";
 import {
 	InputOTP,
 	AutoResizeTextarea,
@@ -62,6 +25,11 @@ import { Checkbox } from "./component-variants/boolean/checkbox";
 import { Switch } from "./component-variants/boolean/switch";
 import { DatePicker } from "./component-variants/date/date";
 import { DateRangePicker } from "./component-variants/date/daterange";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Combobox } from "./component-variants/enum/combobox";
+import { Select } from "./component-variants/enum/select";
+import { RadioGroup } from "./component-variants/enum/radio";
+import { ButtonGroup } from "./component-variants/enum/button";
 
 export function Preview() {
 	const { currentForm } = useAppState();
@@ -97,12 +65,10 @@ export function Preview() {
 					};
 				}
 				return { [row.key]: new Date() };
-			case "file":
-				return {
-					[row.key]: z.instanceof(File).refine((file) => file.size < 7000000, {
-						message: "File must be less than 7MB.",
-					}),
-				};
+			// case "file":
+			// 	return {
+			// 		[row.key]: null,
+			// 	};
 			case "enum":
 				return { [row.key]: "" };
 			default:
@@ -148,12 +114,13 @@ export function Preview() {
 					return { [row.key]: z.object({ from: z.date(), to: z.date() }) };
 				}
 				return { [row.key]: z.date() };
-			case "file":
-				return {
-					[row.key]: z.instanceof(File).refine((file) => file.size < 7000000, {
-						message: "File must be less than 7MB.",
-					}),
-				};
+			// case "file":
+			// 	return {
+			// 		[row.key]: z.instanceof(File),
+			// .refine((file) => file.size < 7000000, {
+			// 	message: "File must be less than 7MB.",
+			// })
+			// };
 			case "enum":
 				return { [row.key]: z.string() };
 			default:
@@ -176,18 +143,15 @@ export function Preview() {
 	}, {});
 
 	const formSchema = z.object(ff);
-	console.log("defaultvalues", defaultValues);
 	const form = useForm<z.infer<any>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: defaultValues,
 	});
-	console.log("foem", form.getValues());
 
 	// TODO: Replace alert with toast
 	function onSubmit() {
 		const values = form.getValues();
 		let result = "Submitted Values:\n";
-		console.log("valls", values);
 
 		for (const key in values) {
 			// biome-ignore lint/suspicious/noPrototypeBuiltins: <explanation>
@@ -277,14 +241,44 @@ export function Preview() {
 									col.variant === "next-shadcn-date-daterange" && (
 										<DateRangePicker f={col} />
 									)}
-								{/* {col.kind === "text" && TextField(col)}
-								{col.kind === "number" && NumberField(col)}
-								{col.kind === "date" && DateField(col)}
-								{col.kind === "boolean" && BooleanField(col)}
-								{col.style === "radio" && RadioField(col)}
-								{col.style === "select" && SelectField(col)}
-								{col.style === "combobox" && ComboboxField(col)}
-								{col.kind === "textarea" && TextareaField(col)} */}
+
+								{col.kind === "enum" &&
+									col.variant === "next-shadcn-enum-combobox" && (
+										<Combobox f={col} />
+									)}
+								{col.kind === "enum" &&
+									col.variant === "next-shadcn-enum-select" && (
+										<Select f={col} />
+									)}
+								{col.kind === "enum" &&
+									col.variant === "next-shadcn-enum-radio" && (
+										<RadioGroup f={col} />
+									)}
+								{col.kind === "enum" &&
+									col.variant === "next-shadcn-enum-button" && (
+										<ButtonGroup f={col} />
+									)}
+								{/* {col.kind === "enum" &&
+									col.variant === "next-shadcn-enum-combobox" && (
+										<DateRangePicker f={col} />
+									)}
+								{col.kind === "enum" &&
+									col.variant === "next-shadcn-enum-combobox" && (
+										<DateRangePicker f={col} />
+									)}
+								{col.kind === "enum" &&
+									col.variant === "next-shadcn-enum-combobox" && (
+										<DateRangePicker f={col} />
+									)}
+								{col.kind === "enum" &&
+									col.variant === "next-shadcn-enum-combobox" && (
+										<DateRangePicker f={col} />
+									)} */}
+
+								{/* {col.kind === "file" &&
+									col.variant === "next-shadcn-file-single" && (
+										<FileInput f={col} />
+									)} */}
 							</div>
 						))}
 					</div>
@@ -301,270 +295,4 @@ export function Preview() {
 			</form>
 		</Form>
 	);
-	function ComboboxField(f: FF) {
-		return (
-			<FormField
-				control={form.control}
-				name={f.key}
-				render={({ field }) => (
-					<FormItem className="flex flex-col">
-						<FormLabel>{f.label}</FormLabel>
-						<Popover>
-							<PopoverTrigger asChild>
-								<FormControl>
-									<Button
-										variant="outline"
-										role="combobox"
-										className={cn(
-											"w-[200px] justify-between",
-											!field.value && "text-muted-foreground",
-										)}
-									>
-										{field.value
-											? f.enumValues?.find((item) => item.value === field.value)
-													?.label
-											: "Select item"}
-										<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-									</Button>
-								</FormControl>
-							</PopoverTrigger>
-							<PopoverContent className="w-[200px] p-0">
-								<Command>
-									<CommandInput placeholder={`Search ${f.enumName}...`} />
-									<CommandEmpty>No {f.enumName} found.</CommandEmpty>
-									<CommandGroup>
-										{f.enumValues?.map((item) => (
-											<CommandItem
-												value={item.label}
-												key={item.value}
-												onSelect={() => {
-													form.setValue(f.key, item.value);
-												}}
-											>
-												<Check
-													className={cn(
-														"mr-2 h-4 w-4",
-														item.value === field.value
-															? "opacity-100"
-															: "opacity-0",
-													)}
-												/>
-												{item.label}
-											</CommandItem>
-										))}
-									</CommandGroup>
-								</Command>
-							</PopoverContent>
-						</Popover>
-						<FormDescription>{f.desc}</FormDescription>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-		);
-	}
-	function SelectField(f: FF) {
-		return (
-			<FormField
-				control={form.control}
-				name={f.key}
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>{f.label}</FormLabel>
-						<Select onValueChange={field.onChange} defaultValue={field.value}>
-							<FormControl>
-								<SelectTrigger>
-									<SelectValue placeholder={f.placeholder} />
-								</SelectTrigger>
-							</FormControl>
-							<SelectContent>
-								{f.enumValues?.map((v, i) => (
-									<SelectItem key={v.id} value={v.value}>
-										{v.label}
-									</SelectItem>
-								))}
-							</SelectContent>
-						</Select>
-						<FormDescription>{f.desc}</FormDescription>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-		);
-	}
-	function RadioField(f: FF) {
-		return (
-			<FormField
-				control={form.control}
-				name={f.key}
-				render={({ field }) => (
-					<FormItem className="space-y-3">
-						<FormLabel>{f.label}</FormLabel>
-						<FormControl>
-							<RadioGroup
-								onValueChange={field.onChange}
-								defaultValue={field.value}
-								className="flex flex-col space-y-1"
-							>
-								{f.enumValues?.map((v, i) => (
-									<FormItem
-										key={v.id}
-										className="flex items-center space-x-3 space-y-0"
-									>
-										<FormControl>
-											<RadioGroupItem value={v.value} />
-										</FormControl>
-										<FormLabel className="font-normal">{v.label}</FormLabel>
-									</FormItem>
-								))}
-							</RadioGroup>
-						</FormControl>
-						<FormDescription>{f.desc}</FormDescription>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-		);
-	}
-	function BooleanField(f: FF) {
-		return (
-			<FormField
-				control={form.control}
-				name={f.key}
-				render={({ field }) => (
-					<FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-						<div className="space-y-0.5">
-							<FormLabel className="text-base">{f.label}</FormLabel>
-							<FormDescription>{f.desc}</FormDescription>
-						</div>
-						<FormControl>
-							{/* <Switch checked={field.value} onCheckedChange={field.onChange} /> */}
-						</FormControl>
-					</FormItem>
-				)}
-			/>
-		);
-	}
-	function DateField(f: FF) {
-		return (
-			<FormField
-				control={form.control}
-				name={f.key}
-				render={({ field }) => (
-					<FormItem className="flex flex-col">
-						<FormLabel>{f.label}</FormLabel>
-						<Popover>
-							<PopoverTrigger asChild>
-								<FormControl>
-									<Button
-										variant={"outline"}
-										className={cn(
-											"w-[240px] pl-3 text-left font-normal",
-											!field.value && "text-muted-foreground",
-										)}
-									>
-										{field.value ? (
-											format(field.value, "PPP")
-										) : (
-											<span>{f.placeholder}</span>
-										)}
-										<CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-									</Button>
-								</FormControl>
-							</PopoverTrigger>
-							<PopoverContent className="w-auto p-0" align="start">
-								<Calendar
-									mode="single"
-									selected={field.value}
-									onSelect={field.onChange}
-									// disabled={(date) =>
-									//   date > new Date() || date < new Date("1900-01-01")
-									// }
-									initialFocus
-								/>
-							</PopoverContent>
-						</Popover>
-						<FormDescription>{f.desc}</FormDescription>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-		);
-	}
-	function NumberField(f: FF) {
-		return (
-			<FormField
-				control={form.control}
-				name={f.key}
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>{f.label}</FormLabel>
-						<FormControl>
-							<ShadcnInput
-								type="number"
-								placeholder={f.placeholder}
-								{...field}
-							/>
-						</FormControl>
-						<FormDescription>{f.desc}</FormDescription>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-		);
-	}
-	function TextField(f: TextField<FormFramework>) {
-		return (
-			<FormField
-				control={form.control}
-				name={f.key}
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>{f.label}</FormLabel>
-						<FormControl>
-							{f.validation!.email === "email" ? (
-								<ShadcnInput
-									type="email"
-									placeholder={f.placeholder}
-									{...field}
-								/>
-							) : f.validation?.format === "password" ? (
-								<ShadcnInput
-									type="password"
-									placeholder={f.placeholder}
-									{...field}
-								/>
-							) : (
-								<ShadcnInput placeholder={f.placeholder} {...field} />
-							)}
-						</FormControl>
-						<FormDescription>{f.description}</FormDescription>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-		);
-	}
-	function TextareaField(f: FF) {
-		return (
-			<FormField
-				control={form.control}
-				name={f.key}
-				render={({ field }) => (
-					<FormItem>
-						<FormLabel>{f.label}</FormLabel>
-						<FormControl>
-							{/* <Textarea
-								placeholder={f.placeholder}
-								className="resize-none"
-								{...field}
-							/> */}
-						</FormControl>
-						<FormDescription>{f.desc}</FormDescription>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-		);
-	}
 }

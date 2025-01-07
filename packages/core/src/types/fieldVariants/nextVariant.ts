@@ -35,21 +35,19 @@ export const dateVariants = [
     { label: "Date Range Picker", value: "next-shadcn-date-daterange" }
 ] as const;
 
-export const fileVariants = [
-    { label: "Single File Upload", value: "next-shadcn-file-single" },
-    { label: "Multiple File Upload", value: "next-shadcn-file-multiple" },
-    { label: "Drag & Drop Zone", value: "next-shadcn-file-drag-drop" },
-    { label: "Avatar Upload", value: "next-shadcn-file-avatar" },
-    { label: "Image Gallery", value: "next-shadcn-file-image-gallery" },
-] as const;
+// export const fileVariants = [
+    // { label: "File Upload", value: "next-shadcn-file-single" },
+    // { label: "Multiple File Upload", value: "next-shadcn-file-multiple" },
+    // { label: "Drag & Drop Zone", value: "next-shadcn-file-drag-drop" },
+    // { label: "Avatar Upload", value: "next-shadcn-file-avatar" },
+    // { label: "Image Gallery", value: "next-shadcn-file-image-gallery" },
+// ] as const;
 
 export const enumVariants = [
-    { label: "Select Dropdown", value: "next-shadcn-enum-select" },
     { label: "Combobox", value: "next-shadcn-enum-combobox" },
+    { label: "Select Dropdown", value: "next-shadcn-enum-select" },
     { label: "Radio Group", value: "next-shadcn-enum-radio" },
-    { label: "Checkbox Group", value: "next-shadcn-enum-checkbox" },
-    { label: "Segmented Control", value: "next-shadcn-enum-segmented" },
-    { label: "Chips Input", value: "next-shadcn-enum-chips" },
+    { label: "Button Group", value: "next-shadcn-enum-button" },
 ] as const;
 
 export const nextFieldVariants = {
@@ -58,6 +56,6 @@ export const nextFieldVariants = {
     number: numberVariants,
     boolean: booleanVariants,
     date: dateVariants,
-    file: fileVariants,
+    // file: fileVariants,
     enum: enumVariants,
 } as const; 

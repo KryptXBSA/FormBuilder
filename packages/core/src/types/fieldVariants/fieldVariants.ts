@@ -12,7 +12,7 @@ export const nextFieldKinds = [
     "number",
     "boolean",
     "date",
-    "file",
+    // "file",
     "enum",
 ] as const;
 
@@ -22,7 +22,7 @@ export const reactFieldKinds = [
     "number",
     "boolean",
     "date",
-    "file",
+    // "file",
     "enum",
 ] as const;
 
@@ -32,7 +32,7 @@ export const vueFieldKinds = [
     "number",
     "boolean",
     "date",
-    "file",
+    // "file",
     "enum",
 ] as const;
 
@@ -41,7 +41,7 @@ export const svelteFieldKinds = [
     "number",
     "boolean",
     "date",
-    "file",
+    // "file",
     "enum",
 ] as const;
 
@@ -51,7 +51,7 @@ export const solidFieldKinds = [
     "number",
     "boolean",
     "date",
-    "file",
+    // "file",
     "enum",
 ] as const;
 
@@ -61,7 +61,7 @@ export const astroFieldKinds = [
     "number",
     "boolean",
     "date",
-    "file",
+    // "file",
     "enum",
 ] as const;
 
@@ -131,14 +131,14 @@ export const allFieldVariantsByKind = {
         ...solidFieldVariants.date,
         ...astroFieldVariants.date,
     ],
-    file: [
-        ...nextFieldVariants.file,
-        ...reactFieldVariants.file,
-        ...vueFieldVariants.file,
-        ...svelteFieldVariants.file,
-        ...solidFieldVariants.file,
-        ...astroFieldVariants.file,
-    ],
+    // file: [
+    //     ...nextFieldVariants.file,
+    //     ...reactFieldVariants.file,
+    //     ...vueFieldVariants.file,
+    //     ...svelteFieldVariants.file,
+    //     ...solidFieldVariants.file,
+    //     ...astroFieldVariants.file,
+    // ],
     enum: [
         ...nextFieldVariants.enum,
         ...reactFieldVariants.enum,
