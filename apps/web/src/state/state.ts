@@ -19,6 +19,7 @@ import { LOCALSTORAGE_KEY } from "@/constants";
 
 type State<F extends FormFramework = FormFramework> = {
 	selectedForm: number;
+	packageManager: "npm" | "yarn" | "pnpm" | "bun"
 	forms: FormSchema<F>[];
 	renderContent: boolean;
 	chosenField: ChosenField<F> | null;
@@ -28,6 +29,7 @@ type MockFormFramework = typeof mockForm['framework'];
 export const $appState = persistentAtom<State<MockFormFramework>>(
 	LOCALSTORAGE_KEY,
 	{
+		packageManager:"bun",
 		renderContent: true,
 		chosenField: null,
 		selectedForm: 0,
@@ -41,6 +43,7 @@ export const $appState = persistentAtom<State<MockFormFramework>>(
 
 export function useAppState() {
 	return {
+		packageManager: useStore($appState).packageManager,
 		chosenField: useStore($appState).chosenField,
 		renderContent: useStore($appState).renderContent,
 		currentForm: useStore($appState).forms[useStore($appState).selectedForm],
@@ -61,7 +64,6 @@ export function useAppState() {
 function setAppState(state: Partial<State>) {
 	$appState.set({ ...$appState.get(), ...state });
 }
-
 function newForm(f: FormSchema) {
 	const currentForms = $appState.get().forms;
 	$appState.set({

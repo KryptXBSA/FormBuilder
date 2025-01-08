@@ -12,6 +12,7 @@ import { allFieldKinds } from "formbuilder-core";
 import { useAppState } from "@/state/state";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import initializeAppState from "@/hooks/initializeAppState";
+import { Code } from "./_components/Code";
 
 export default function Builder() {
 	const [loaded, setLoaded] = useState(false);
@@ -53,7 +54,7 @@ export default function Builder() {
 						<Preview />
 					</TabsContent>
 					<TabsContent value="code">
-						<Preview />
+						<Code />
 					</TabsContent>
 				</Tabs>
 				<AddField fields={fields} />

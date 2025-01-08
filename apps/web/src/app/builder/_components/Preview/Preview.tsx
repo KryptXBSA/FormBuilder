@@ -51,7 +51,7 @@ export function Preview() {
 					};
 				if (row.variant === "next-shadcn-number-phone")
 					return {
-						[row.key]: z.coerce.string(),
+						[row.key]: "",
 					};
 				return {
 					[row.key]: 0,
