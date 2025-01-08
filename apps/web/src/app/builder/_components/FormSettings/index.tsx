@@ -6,7 +6,7 @@ import { updateFormSettings, useAppState } from "@/state/state";
 import { FrameworkCombobox } from "./FrameworkCombobox";
 import { Switch } from "@/components/ui/switch";
 
-export default function SettingsForm() {
+export default function FormSettings() {
 	const state = useAppState();
 	return (
 		<div className="flex flex-col gap-8 px-24">
@@ -15,61 +15,19 @@ export default function SettingsForm() {
 				value={state.currentForm.name}
 				onChange={(newValue) => state.updateFormName(newValue)}
 			/>
-			<div className="max-w-sm">
-				<h4 className="scroll-m-20 font-semibold text-xl tracking-tight">
-					Framework
-				</h4>
-				<FrameworkCombobox />
-			</div>
-			<div>
-				<h4 className="scroll-m-20 font-semibold text-xl tracking-tight">
-					Form Submission
-				</h4>
-
-				<RadioGroup className="flex" defaultValue="comfortable">
-					<div
-						onClick={(e) => console.log("eee", e)}
-						className="flex items-center space-x-2"
-					>
-						<RadioGroupItem value="Server Actions" id="r1" />
-						<Label htmlFor="r1">Server Actions</Label>
-					</div>
-					<div className="flex items-center space-x-2">
-						<RadioGroupItem value="comfortable" id="r2" />
-						<Label htmlFor="r2">Client Side</Label>
-					</div>
-					<div className="flex items-center space-x-2">
-						<RadioGroupItem value="compact" id="r3" />
-						<Label htmlFor="r3">client side</Label>
-					</div>
-				</RadioGroup>
-			</div>
-			<div>
-				<h4 className="scroll-m-20 font-semibold text-xl tracking-tight">
-					Form Mode
-				</h4>
-
-				<RadioGroup className="flex" defaultValue="comfortable">
-					<div className="flex items-center space-x-2">
-						<RadioGroupItem value="Server Actions" id="r1" />
-						<Label htmlFor="r1">Default</Label>
-					</div>
-					<div className="flex items-center space-x-2">
-						<RadioGroupItem value="comfortable" id="r2" />
-						<Label htmlFor="r2">Comfortable</Label>
-					</div>
-					<div className="flex items-center space-x-2">
-						<RadioGroupItem value="compact" id="r3" />
-						<Label htmlFor="r3">Compact</Label>
-					</div>
-				</RadioGroup>
-			</div>
 
 			<FormInput
-				label="Import Alias"
+				label="Import Alias Utils"
 				value={state.currentForm.settings.importAliasUtils}
 				onChange={(newValue) =>
 					state.updateFormSettings({ importAliasUtils: newValue })
+				}
+			/>
+			<FormInput
+				label="Import Alias Components"
+				value={state.currentForm.settings.importAliasComponents}
+				onChange={(newValue) =>
+					state.updateFormSettings({ importAliasComponents: newValue })
 				}
 			/>
 

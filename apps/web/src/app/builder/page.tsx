@@ -7,18 +7,18 @@ import { Preview } from "@/app/builder/_components/Preview";
 import { SortableGrid } from "./_components/SortableGrid";
 import { AddField } from "./_components/AddField";
 import { SettingsToggle } from "./_components/FormSettings/SettingsToggle";
-import SettingsForm from "./_components/FormSettings";
+import FormSettings from "./_components/FormSettings";
 import { allFieldKinds } from "formbuilder-core";
 import { useAppState } from "@/state/state";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import initializeAppState from "@/hooks/initializeAppState";
 import { Code } from "./_components/Code";
+import { FieldSettings } from "./_components/FieldSettings";
 
 export default function Builder() {
 	const [loaded, setLoaded] = useState(false);
 	initializeAppState(loaded, setLoaded);
 
-	const [showSettings, setShowSettings] = useState(false);
 	const state = useAppState();
 
 	const fields = allFieldKinds[state.currentForm.framework].map((v) => ({
@@ -45,10 +45,19 @@ export default function Builder() {
 					</TabsList>
 					<TabsContent className="" value="editor">
 						<SettingsToggle
-							showSettings={showSettings}
-							setShowSettings={setShowSettings}
+							onClick={() =>
+								state.setAppState({
+									showSettings: state.showSettings === "form" ? null : "form",
+								})
+							}
 						/>
-						{showSettings ? <SettingsForm /> : <SortableGrid />}
+						{state.showSettings === "form" ? (
+							<FormSettings />
+						) : state.showSettings ? (
+							<FieldSettings />
+						) : (
+							<SortableGrid />
+						)}
 					</TabsContent>
 					<TabsContent value="preview">
 						<Preview />
