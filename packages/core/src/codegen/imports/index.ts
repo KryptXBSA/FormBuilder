@@ -6,7 +6,7 @@ export * from "./combobox";
 export * from "./radio";
 export * from "./textarea";
 
-import type { FormField } from "@/types";
+import type { FormField, FormFramework } from "formbuilder-core";
 import {
 	initialImports,
 	switchImport,
@@ -18,9 +18,9 @@ import {
 } from "./";
 import { getRequiredComponents } from "formbuilder-core";
 
-export function generateImports(fields: FormField[]) {
+export function generateImports<F extends FormFramework>(framework: FormFramework, fields: FormField<F>[][]) {
 	let imports = initialImports;
-	for (const i of getRequiredComponents(fields)) {
+	for (const i of getRequiredComponents(framework, fields)) {
 		if (i === "date") imports += dateImport;
 		if (i === "switch") imports += switchImport;
 		if (i === "radio-group") imports += radioImport;

@@ -1,4 +1,4 @@
-import type { FormSchema } from "@/types";
+import type { FormFramework, FormSchema } from "@/types";
 import Handlebars from "handlebars";
 
 import { generateImports } from "./imports/index";
@@ -42,12 +42,13 @@ Handlebars.registerHelper("defaultValues", (fields) => {
 
 const main = Handlebars.compile(mainTemplate);
 
-export function generateCode(form: FormSchema) {
+export function generateCode(framework: FormFramework, form: FormSchema) {
 	const zodFormSchema = formToZodSchema(form);
 	const mainCode = main({ ...form, zodFormSchema });
 
 	// console.log("ff", form, "main", mainCode);
-	const generatedCode = generateImports(form.fields) + mainCode;
+	const generatedCode = generateImports(framework, form.fields) 
+	// + mainCode;
 	return generatedCode;
 }
 
