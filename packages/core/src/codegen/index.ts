@@ -2,22 +2,14 @@ import type { FormFramework, FormSchema } from "@/types";
 import Handlebars from "handlebars";
 import { generateImports } from "./imports/generateImports";
 import {
-	booleanInputTemplate,
-	comboboxInputTemplate,
-	dateInputTemplate,
 	mainTemplate,
-	numberInputTemplate,
-	radioInputTemplate,
-	selectInputTemplate,
-	stringInputTemplate,
-	textareaInputTemplate,
 } from "./templates";
 import { formToZodSchema } from "./utils";
 import * as prettier from "prettier/standalone";
 import * as parserTypeScript from "prettier/parser-typescript";
 import * as prettierPluginEstree from "prettier/plugins/estree";
-
-registerPartials();
+import { COMPONENTS } from "../components/components";
+import type { FormField } from "@/types/field";
 
 Handlebars.registerHelper("ifEquals", function (arg1, arg2, options) {
 	//@ts-ignore
@@ -28,6 +20,12 @@ Handlebars.registerHelper("ifNotEquals", function (arg1, arg2, options) {
 	return arg1 !== arg2 ? options.fn(this) : options.inverse(this);
 });
 
+// Handlebars.registerHelper("eq", function (arg1, arg2, options) {
+// 	//@ts-ignore
+// 	return arg1 === arg2 ? options.fn(this) : options.inverse(this);
+// });
+
+// TODOfix default values
 Handlebars.registerHelper("defaultValues", (fields) => {
 	let output = "{\n";
 	for (const field of fields) {
@@ -41,15 +39,46 @@ Handlebars.registerHelper("defaultValues", (fields) => {
 	return new Handlebars.SafeString(output);
 });
 
+// biome-ignore lint/complexity/useArrowFunction: <explanation>
+Handlebars.registerHelper("lookupComponent", function (field) {
+	const componentKey = `${field.variant}`;
+
+	if (!COMPONENTS[componentKey]) {
+		console.warn(`No component found for: ${componentKey}`);
+		return "";
+	}
+
+	let templateText = COMPONENTS[componentKey].template;
+	const entities: Record<string, string> = {
+		"&#96;": "`",
+		"&#36;": "$",
+		"&quot;": '"',
+		"&apos;": "'",
+		"&lt;": "<",
+		"&gt;": ">",
+		"&amp;": "&"
+	};
+
+	templateText = templateText.replace(/(&[#\w]+;)/g, entity => entities[entity] || entity);
+
+	const template = Handlebars.compile(templateText);
+	return new Handlebars.SafeString(template(field));
+});
+
 const main = Handlebars.compile(mainTemplate);
 
 export async function generateCode(framework: FormFramework, form: FormSchema) {
-	// const zodFormSchema = formToZodSchema(form);
-	// const mainCode = main({ ...form, zodFormSchema });
+	const zodFormSchema = formToZodSchema(form);
+	// TODO: maybe flat is wrong? because of the nested fields and the way they should rendered (flex)
+	// YEP!
+	const flattedFields = form.fields.flat();
+	const mainCode = main({ ...form, fields: flattedFields, zodFormSchema });
 
-	let generatedCode = "";
-	const imports = Handlebars.compile(generateImports(framework, form.fields))
-	generatedCode += imports({ importAliasUtils: form.settings.importAliasUtils, importAliasComponents: form.settings.importAliasComponents, });
+	const imports = Handlebars.compile(generateImports(framework, form.fields));
+	const generatedCode = imports({
+		importAliasUtils: form.settings.importAliasUtils,
+		importAliasComponents: form.settings.importAliasComponents
+	}) + mainCode;
 
 	const formattedCode = await prettier.format(generatedCode, {
 		parser: "typescript",
@@ -59,15 +88,4 @@ export async function generateCode(framework: FormFramework, form: FormSchema) {
 		plugins: [parserTypeScript, prettierPluginEstree],
 	});
 	return formattedCode;
-}
-
-function registerPartials() {
-	Handlebars.registerPartial("numberInput", numberInputTemplate);
-	Handlebars.registerPartial("dateInput", dateInputTemplate);
-	Handlebars.registerPartial("booleanInput", booleanInputTemplate);
-	Handlebars.registerPartial("stringInput", stringInputTemplate);
-	Handlebars.registerPartial("radioInput", radioInputTemplate);
-	Handlebars.registerPartial("selectInput", selectInputTemplate);
-	Handlebars.registerPartial("comboboxInput", comboboxInputTemplate);
-	Handlebars.registerPartial("textareaInput", textareaInputTemplate);
 }

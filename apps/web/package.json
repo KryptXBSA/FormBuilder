@@ -43,6 +43,7 @@
 		"emblor": "^1.4.7",
 		"formbuilder-core": "workspace:*",
 		"handlebars": "^4.7.8",
+		"handlebars-loader": "^1.7.3",
 		"immer": "^10.1.1",
 		"input-otp": "^1.4.1",
 		"json-schema-to-zod": "^2.5.0",

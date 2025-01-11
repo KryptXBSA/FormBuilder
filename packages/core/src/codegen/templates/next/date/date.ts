@@ -1,4 +1,4 @@
-export const dateInputTemplate = `
+export const date = `
 <FormField
           control={form.control}
   name="{{key}}"
@@ -29,15 +29,12 @@ export const dateInputTemplate = `
                     mode="single"
                     selected={field.value}
                     onSelect={field.onChange}
-                    // disabled={(date) =>
-                    //   date > new Date() || date < new Date("1900-01-01")
-                    // }
                     initialFocus
                   />
                 </PopoverContent>
               </Popover>
               <FormDescription>
-{{desc}}
+{{description}}
               </FormDescription>
               <FormMessage />
             </FormItem>

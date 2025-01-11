@@ -1,4 +1,4 @@
-export const selectInputTemplate = `
+export const select = `
   <FormField
           control={form.control}
           name="{{key}}"
@@ -18,7 +18,7 @@ export const selectInputTemplate = `
                 </SelectContent>
               </Select>
               <FormDescription>
-              {{desc}}
+              {{description}}
               </FormDescription>
               <FormMessage />
             </FormItem>

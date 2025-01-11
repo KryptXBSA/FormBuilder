@@ -126,7 +126,6 @@ function createNewField<F extends FormFramework>(
 ): FormField<F> {
 	const currentForm = $appState.get().forms[$appState.get().selectedForm];
 	const { noDescription, noPlaceholder } = currentForm.settings;
-
 	// TODO: newField.ts is broken after the new types
 	// switch (chosenField.kind) {
 	// 	case "text":
@@ -151,6 +150,9 @@ function createNewField<F extends FormFramework>(
 		kind: chosenField.kind,
 		variant: chosenField.variant,
 	};
+	if (chosenField.kind === "enum") {
+		(baseField as any).enumName = "myEnum";
+	}
 
 	// Apply settings
 	if (!noDescription) baseField.description = "";

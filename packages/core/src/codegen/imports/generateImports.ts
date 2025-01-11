@@ -8,18 +8,17 @@ export function generateImports<F extends FormFramework>(framework: FormFramewor
 	let imports = initialImports;
 	const addedVariants: Set<string> = new Set();
 
-	for (const row of fields) {
-		for (const col of row) {
-			if (!addedVariants.has(col.variant)) {
-				if (col.kind === "heading") {
-					imports += COMPONENTS[col.variant].imports.replace("{{headingLevel}}", col.headingLevel!);
-				} else {
-					imports += COMPONENTS[col.variant].imports;
-				}
-				addedVariants.add(col.variant);
+
+	fields.flat().forEach((field) => {
+		if (!addedVariants.has(field.variant)) {
+			if (field.kind === "heading") {
+				imports += COMPONENTS[field.variant].imports.replace("{{headingLevel}}", field.headingLevel!);
+			} else {
+				imports += COMPONENTS[field.variant].imports;
 			}
+			addedVariants.add(field.variant);
 		}
-	}
+	});
 
 	return imports;
 }

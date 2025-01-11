@@ -1,4 +1,4 @@
-export const textareaInputTemplate = `
+export const textarea = `
 <FormField
   control={form.control}
   name="{{key}}"
@@ -13,7 +13,7 @@ export const textareaInputTemplate = `
         />
       </FormControl>
       <FormDescription>
-        {{desc}}
+        {{description}}
       </FormDescription>
       <FormMessage />
     </FormItem>

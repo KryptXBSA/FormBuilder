@@ -1,4 +1,4 @@
-export const comboboxInputTemplate = `
+export const combobox = `
 <FormField
           control={form.control}
           name="{{key}}"
@@ -54,7 +54,7 @@ export const comboboxInputTemplate = `
                 </PopoverContent>
               </Popover>
               <FormDescription>
-              {{desc}}
+              {{description}}
               </FormDescription>
               <FormMessage />
             </FormItem>

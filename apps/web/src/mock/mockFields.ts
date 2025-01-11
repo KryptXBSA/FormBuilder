@@ -1,6 +1,6 @@
 import type { FormField } from "formbuilder-core";
 
-export const mockFields: FormField[] = [
+export const mockFields: FormField<"nextjs">[] = [
 	{
 		id: "username",
 		label: "Username",

@@ -1,4 +1,4 @@
-export const stringInputTemplate = `
+export const input = `
 <FormField
   control={form.control}
   name="{{key}}"
@@ -8,14 +8,12 @@ export const stringInputTemplate = `
       <FormControl>
           {{#ifEquals validation.format "email"}}
         <Input type="email" placeholder="{{label}}" {...field} />
-        {{else ifEquals validation.format "password"}}
-          <Input type="password" placeholder="{{label}}" {...field} />
         {{else}}
         <Input  placeholder="{{placeholder}}" {...field} />
           {{/ifEquals}}
       </FormControl>
       <FormDescription>
-        {{desc}}
+        {{description}}
       </FormDescription>
       <FormMessage />
     </FormItem>

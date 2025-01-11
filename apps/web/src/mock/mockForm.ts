@@ -3,8 +3,8 @@ import type { FormSchema } from "formbuilder-core";
 export const mockForm: FormSchema = {
 	id: 1,
 	settings: {
-		importAliasComponents: "aa",
-		importAliasUtils: "az",
+		importAliasComponents: "@/components/ui",
+		importAliasUtils: "@/lib/utils",
 		noDescription: false,
 		noPlaceholder: false,
 	},
@@ -39,7 +39,7 @@ export const mockForm: FormSchema = {
 				label: "Email",
 				key: "email",
 				kind: "text",
-				variant: "next-shadcn-text-markdown",
+				variant: "next-shadcn-text-input",
 				required: true,
 				defaultValue: "",
 				validation: { min: 1, max: 255, email: true },
@@ -51,7 +51,7 @@ export const mockForm: FormSchema = {
 				key: "securityEmails",
 				defaultValue: false,
 				kind: "boolean",
-				variant: "next-shadcn-boolean-toggle",
+				variant: "next-shadcn-boolean-switch",
 				required: true,
 			},
 		],
@@ -63,7 +63,7 @@ export const mockForm: FormSchema = {
 				description: "Your date of birth is used to calculate your age.",
 				key: "dateOfBirth",
 				kind: "date",
-				variant: "next-shadcn-date-calendar-picker",
+				variant: "next-shadcn-date-date",
 				required: true,
 			},
 			{

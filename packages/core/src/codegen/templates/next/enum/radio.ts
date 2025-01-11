@@ -1,4 +1,4 @@
-export const radioInputTemplate = `
+export const radio = `
  <FormField
           control={form.control}
           name="{{key}}"
@@ -24,7 +24,7 @@ export const radioInputTemplate = `
                 </RadioGroup>
               </FormControl>
               <FormDescription>
-              {{desc}}
+              {{description}}
               </FormDescription>
               <FormMessage />
             </FormItem>
