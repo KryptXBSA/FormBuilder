@@ -8,7 +8,7 @@ import {
 	selectImport,
 	comboboxImport,
 	radioImport,
-} from "../src/codegen/imports";
+} from "../src/codegen/imports/generateImports";
 import type { FormField } from "../src/types";
 
 describe("generateImports", () => {

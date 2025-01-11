@@ -91,7 +91,6 @@ export const SortableGrid = () => {
 
 			// return items;
 		}
-		// console.log("items xxxxxxx", items);
 	};
 
 	return (

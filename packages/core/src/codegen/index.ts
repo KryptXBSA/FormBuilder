@@ -1,7 +1,6 @@
 import type { FormFramework, FormSchema } from "@/types";
 import Handlebars from "handlebars";
-
-import { generateImports } from "./imports/index";
+import { generateImports } from "./imports/generateImports";
 import {
 	booleanInputTemplate,
 	comboboxInputTemplate,
@@ -14,7 +13,9 @@ import {
 	textareaInputTemplate,
 } from "./templates";
 import { formToZodSchema } from "./utils";
-
+import * as prettier from "prettier/standalone";
+import * as parserTypeScript from "prettier/parser-typescript";
+import * as prettierPluginEstree from "prettier/plugins/estree";
 
 registerPartials();
 
@@ -42,14 +43,22 @@ Handlebars.registerHelper("defaultValues", (fields) => {
 
 const main = Handlebars.compile(mainTemplate);
 
-export function generateCode(framework: FormFramework, form: FormSchema) {
-	const zodFormSchema = formToZodSchema(form);
-	const mainCode = main({ ...form, zodFormSchema });
+export async function generateCode(framework: FormFramework, form: FormSchema) {
+	// const zodFormSchema = formToZodSchema(form);
+	// const mainCode = main({ ...form, zodFormSchema });
 
-	// console.log("ff", form, "main", mainCode);
-	const generatedCode = generateImports(framework, form.fields) 
-	// + mainCode;
-	return generatedCode;
+	let generatedCode = "";
+	const imports = Handlebars.compile(generateImports(framework, form.fields))
+	generatedCode += imports({ importAliasUtils: form.settings.importAliasUtils, importAliasComponents: form.settings.importAliasComponents, });
+
+	const formattedCode = await prettier.format(generatedCode, {
+		parser: "typescript",
+		semi: true,
+		singleQuote: false,
+		tabWidth: 2,
+		plugins: [parserTypeScript, prettierPluginEstree],
+	});
+	return formattedCode;
 }
 
 function registerPartials() {

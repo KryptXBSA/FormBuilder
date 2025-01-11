@@ -1,9 +1,9 @@
-export const initialImports = `'use client'
+export const initialImports = `"use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { useForm } from "react-hook-form"
-import { Button } from "@/components/ui/button"
+import { Button } from "{{importAliasComponents}}/button"
 import {
   Form,
   FormControl,
@@ -13,6 +13,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { cn } from "@/lib/utils"
-import { Input } from "@/components/ui/input"
+import { cn } from "{{importAliasUtils}}"
+import { Input } from "{{importAliasComponents}}/input"
 `;

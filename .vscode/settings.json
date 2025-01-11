@@ -12,5 +12,6 @@
 	"workbench.editor.tabSizing": "fit",
 	"[typescript]": {
 		"editor.defaultFormatter": "vscode.typescript-language-features"
-	}
+	},
+	"editor.wordWrap": "on"
 }

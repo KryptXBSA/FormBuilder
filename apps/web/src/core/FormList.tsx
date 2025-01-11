@@ -33,7 +33,7 @@ export function FormList() {
 				onClick={() =>
 					newForm({
 						id: 1,
-						settings: { importAliasComponents: "a", importAliasUtils: "a" },
+						settings: { importAliasComponents: "@/components/ui", importAliasUtils: "@/utils" },
 						name: "My Form",
 						fields: [
 							[

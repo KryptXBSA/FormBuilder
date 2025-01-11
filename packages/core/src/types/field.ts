@@ -27,6 +27,7 @@ export type BaseField = {
 
 export type HeadingField<F extends FormFramework> = BaseField & {
 	kind: "heading";
+	headingLevel?: "H1" | "H2" | "H3" | "H4" | "H5" | "H6";
 	variant: FrameworkFieldVariants[F];
 	defaultValue?: string;
 	validation?: TextValidation;

@@ -1,10 +1,11 @@
 "use client";
-import type React from "react";
 import { H4 } from "@/components/ui/heading-with-anchor";
 import { CodeHighlight } from "@/components/code-highlight";
 import { CodeBlockCommand } from "@/components/code-block-command";
 import { useAppState } from "@/state/state";
 import { generateCode, getRequiredComponents } from "formbuilder-core";
+import type React from "react";
+import { useEffect, useState } from "react";
 
 interface StepperProps {
 	children?: React.ReactNode;
@@ -29,6 +30,15 @@ const Stepper = ({ title, children, step }: StepperProps) => {
 
 export function CodeSteppers() {
 	const state = useAppState();
+	const [generatedCode, setGeneratedCode] = useState<string>("");
+
+	useEffect(() => {
+		generateCode(state.currentForm.framework, state.currentForm).then(
+			(code) => {
+				setGeneratedCode(code);
+			},
+		);
+	}, [state.currentForm]);
 
 	let requiredComponents = "shadcn-ui@latest add ";
 	for (const i of getRequiredComponents(
@@ -56,13 +66,7 @@ export function CodeSteppers() {
 					title="Copy and paste the following code into your project."
 					step={2}
 				>
-					<CodeHighlight
-						code={generateCode(
-							state.currentForm.framework,
-							state.currentForm.fields,
-						)}
-						withExpand
-					/>
+					<CodeHighlight code={generatedCode} withExpand />
 				</Stepper>
 				<Stepper
 					title="Update the import paths to match your project setup."
