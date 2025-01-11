@@ -7,14 +7,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FormBuilder } from "@/core/FormBuilder";
 import { FormList } from "@/core/FormList";
 import { FormName } from "@/core/FormName";
-import { Preview } from "@/core/Preview";
-import NewVersionDialog from "./NewVersionDialog";
+import { Preview } from "@/app/builder/_components/Preview";
 
 export default function IndexPage() {
 	const [loaded, setLoaded] = useState(false);
-	const [dialogOpen, setDialogOpen] = useState(false);
 
-	initializeAppState(setLoaded, setDialogOpen);
+	initializeAppState(loaded, setLoaded);
 
 	if (!loaded)
 		return (
@@ -26,7 +24,6 @@ export default function IndexPage() {
 
 	return (
 		<section className="mx-auto max-w-[1500px] py-10">
-			<NewVersionDialog open={dialogOpen} setOpen={setDialogOpen} />
 			<div className="flex w-full gap-6">
 				<FormList />
 				<Tabs defaultValue="editor" className="w-full">

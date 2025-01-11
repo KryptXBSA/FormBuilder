@@ -11,12 +11,19 @@ export function FormList() {
 		<ul className="mt-20 flex flex-col gap-2">
 			{forms?.map((f, idx) => (
 				<li className="flex gap-2" key={idx}>
-					<Button className="flex w-32 flex-col" onClick={() => selectForm(idx)}>
+					<Button
+						className="flex w-32 flex-col"
+						onClick={() => selectForm(idx)}
+					>
 						<p>{f.name}</p>
 						{f.framework}
 					</Button>
-					<Button variant="ghost" className="hover:bg-red-500">
-						<FiTrash size={24} onClick={() => deleteForm(idx)} />
+					<Button
+						onClick={() => deleteForm(idx)}
+						variant="ghost"
+						className="hover:bg-red-500"
+					>
+						<FiTrash size={24} />
 					</Button>
 				</li>
 			))}
@@ -26,10 +33,36 @@ export function FormList() {
 				onClick={() =>
 					newForm({
 						id: 1,
-						settings: { importAlias: "a", mode: "a" },
+						settings: {
+							importAliasComponents: "@/components/ui",
+							importAliasUtils: "@/utils",
+						},
 						name: "My Form",
-						fields: [],
-						framework: "react",
+						fields: [
+							[
+								{
+									id: "textField1",
+									kind: "text",
+									label: "First Text Field",
+									key: "firstTextFieldz",
+									required: true,
+									variant: "next-shadcn-text-input",
+									placeholder: "Enter first text",
+									validation: { min: 1, max: 10 },
+								},
+								{
+									id: "textField2",
+									kind: "text",
+									label: "First Text Field",
+									key: "firstTextField",
+									required: true,
+									variant: "next-shadcn-text-input",
+									validation: { min: 1, max: 10 },
+									placeholder: "Enter first text",
+								},
+							],
+						],
+						framework: "next",
 					})
 				}
 			>

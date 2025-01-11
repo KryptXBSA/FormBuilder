@@ -1,33 +1,41 @@
 "use client";
-import { mockFields } from "@/mock/mockFields";
-import type { FormSchema, FormField, FormFramework } from "formbuilder-core";
+import {
+	type FormSchema,
+	type FormField,
+	type FormFramework,
+	newBooleanField,
+	newDateField,
+	newEnumField,
+	newNumberField,
+	newTextField,
+	type ChosenField,
+} from "formbuilder-core";
 import { persistentAtom } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
-import { randNum } from "@/utils/randNum";
 import { findFieldIndex } from "@/utils/findFieldIndex";
+import { mockForm } from "@/mock/mockForm";
+import { newStringField } from "@/utils/newField";
+import { LOCALSTORAGE_KEY } from "@/constants";
 
-export type State = {
+type State<F extends FormFramework = FormFramework> = {
 	selectedForm: number;
-	temp_items: string[][];
-	forms: FormSchema[];
+	showSettings: string | "form" | null;
+	packageManager: "npm" | "yarn" | "pnpm" | "bun";
+	forms: FormSchema<F>[];
 	renderContent: boolean;
+	chosenField: ChosenField<F> | null;
 };
 
-export const $appState = persistentAtom<State>(
-	"state",
+type MockFormFramework = (typeof mockForm)["framework"];
+export const $appState = persistentAtom<State<MockFormFramework>>(
+	LOCALSTORAGE_KEY,
 	{
-		temp_items: [["0", "98"], ["1", "33"], ["2"], ["3"], ["4"], ["5"], ["6"]],
-		renderContent: false,
+		packageManager: "bun",
+		renderContent: true,
+		chosenField: null,
+		showSettings: null,
 		selectedForm: 0,
-		forms: [
-			{
-				id: 1,
-				settings: { importAlias: "a", mode: "a" },
-				name: "My Form",
-				fields: mockFields,
-				framework: "react",
-			},
-		],
+		forms: [mockForm as FormSchema<MockFormFramework>],
 	},
 	{
 		encode: JSON.stringify,
@@ -37,13 +45,16 @@ export const $appState = persistentAtom<State>(
 
 export function useAppState() {
 	return {
-		temp_items: useStore($appState).temp_items,
+		packageManager: useStore($appState).packageManager,
+		chosenField: useStore($appState).chosenField,
+		showSettings: useStore($appState).showSettings,
 		renderContent: useStore($appState).renderContent,
 		currentForm: useStore($appState).forms[useStore($appState).selectedForm],
 		selectedForm: useStore($appState).selectedForm,
 		forms: useStore($appState).forms,
 		selectForm,
 		deleteForm,
+		updateField,
 		updateFormName,
 		updateFormFields,
 		newForm,
@@ -57,7 +68,6 @@ export function useAppState() {
 function setAppState(state: Partial<State>) {
 	$appState.set({ ...$appState.get(), ...state });
 }
-
 function newForm(f: FormSchema) {
 	const currentForms = $appState.get().forms;
 	$appState.set({
@@ -65,10 +75,28 @@ function newForm(f: FormSchema) {
 		forms: currentForms.concat(f),
 	});
 }
-
-function updateFormFields(p: FormField[]) {
+function updateField<F extends FormFramework>(field: Partial<FormField<F>>) {
 	const newForms = $appState.get().forms;
-	newForms[$appState.get().selectedForm].fields = p;
+
+	const { col, row } = findFieldIndex(
+		newForms[$appState.get().selectedForm].fields,
+		$appState.get().showSettings!,
+	)!;
+	const fieldData = newForms[$appState.get().selectedForm].fields[row][col];
+	// @ts-ignore
+	newForms[$appState.get().selectedForm].fields[row][col] = {
+		...fieldData,
+		...field,
+	};
+
+	$appState.set({
+		...$appState.get(),
+		forms: newForms,
+	});
+}
+function updateFormFields<F extends FormFramework>(fields: FormField<F>[][]) {
+	const newForms = $appState.get().forms;
+	newForms[$appState.get().selectedForm].fields = fields;
 	$appState.set({
 		...$appState.get(),
 		forms: newForms,
@@ -82,8 +110,7 @@ function selectForm(selectedForm: number) {
 function deleteForm(idx: number) {
 	if ($appState.get().forms.length === 1) return $appState.get();
 	$appState.set({
-		temp_items: [],
-		renderContent: true,
+		...$appState.get(),
 		forms: $appState.get().forms.filter((_f, i) => i !== idx),
 		selectedForm: 0,
 	});
@@ -97,77 +124,133 @@ function updateFormName(newName: string) {
 		forms: currentForms,
 	});
 }
+function createNewField<F extends FormFramework>(
+	chosenField: ChosenField<F>,
+): FormField<F> {
+	const currentForm = $appState.get().forms[$appState.get().selectedForm];
+	const { noDescription, noPlaceholder } = currentForm.settings;
+	// TODO: newField.ts is broken after the new types
+	// switch (chosenField.kind) {
+	// 	case "text":
+	// 		return newStringField();
+	// 	case "number":
+	// 		return newNumberField();
+	// 	case "boolean":
+	// 		return newBooleanField();
+	// 	case "enum":
+	// 		return newEnumField();
+	// 	case "date":
+	// 		return newDateField();
+	// 	case "file":
+	// 		return newFile();
+	// }
+	// Create a base field specific to the framework and kind
+	const baseField: Partial<FormField<F>> = {
+		id: crypto.randomUUID(),
+		label: `New ${chosenField.kind} Field`,
+		key: `new_${chosenField.kind}_${Date.now()}`,
+		required: false,
+		kind: chosenField.kind,
+		variant: chosenField.variant,
+	};
+	if (chosenField.kind === "enum") {
+		(baseField as any).enumName = "myEnum";
+	}
 
-export function addItem(
-	id: string,
-	direction: "up" | "down" | "left" | "right",
-) {
-	const temp_items = $appState.get().temp_items;
-	const index = findFieldIndex(temp_items, id);
-	console.log("index", index);
+	// Apply settings
+	if (!noDescription) baseField.description = "";
+	if (!noPlaceholder) baseField.placeholder = "";
+
+	return baseField as FormField<F>;
+}
+
+function addItem(id: string, direction: "up" | "down" | "left" | "right") {
+	const currentForms = $appState.get().forms;
+	const chosenField = $appState.get().chosenField;
+	const currentForm = currentForms[$appState.get().selectedForm];
+	const fields = currentForm.fields;
+	const index = findFieldIndex(fields, id);
+
 	if (!index) return;
+	if (!chosenField) return;
 
-	const newItem = randNum().toString();
+	const newItem = createNewField(chosenField);
+	if (!newItem) return;
+
 	const { row, col } = index;
-	const newTempItems = [...temp_items];
+	const newFields = [...fields];
 
 	switch (direction) {
 		case "up":
 			if (row === 0) {
-				newTempItems.unshift([newItem]);
+				newFields.unshift([newItem]);
 			} else {
-				newTempItems[row - 1].push(newItem);
+				if (chosenField.kind === "heading") {
+					newFields.splice(row, 0, [newItem]);
+				} else {
+					newFields[row - 1].push(newItem);
+				}
 			}
 			break;
+		// TODO: down for the last row is broken
 		case "down":
-			if (row === newTempItems.length - 1) {
-				newTempItems.push([newItem]);
+			if (row === newFields.length - 1) {
+				newFields.push([newItem]);
 			} else {
-				newTempItems[row + 1].push(newItem);
+				if (chosenField.kind === "heading") {
+					newFields.splice(row + 1, 0, [newItem]);
+				} else {
+					newFields[row + 1].push(newItem);
+				}
 			}
 			break;
 		// TODO: Left is broken
 		case "left":
 			if (col === 0) {
-				newTempItems[row].unshift(newItem);
+				newFields[row].unshift(newItem);
 			} else {
-				newTempItems[row].splice(col - 1, 0, newItem);
+				newFields[row].splice(col - 1, 0, newItem);
 			}
 			break;
 		case "right":
-			newTempItems[row].splice(col + 1, 0, newItem);
+			newFields[row].splice(col + 1, 0, newItem);
 			break;
 	}
-
+	currentForm.fields = newFields;
 	$appState.set({
 		...$appState.get(),
-		temp_items: newTempItems,
+		renderContent: true,
+		chosenField: null,
+		forms: currentForms,
 	});
 }
 
 export function removeItem(id: string) {
-	const temp_items = $appState.get().temp_items;
-	const index = findFieldIndex(temp_items, id);
+	const currentForms = $appState.get().forms;
+	const currentForm = currentForms[$appState.get().selectedForm];
+	const fields = currentForm.fields;
+	const index = findFieldIndex(fields, id);
 	if (!index) return;
 
 	const { row, col } = index;
-	const newTempItems = [...temp_items];
+	const newFields = [...fields];
 
-	// Remove the item at the found index
-	newTempItems[row].splice(col, 1);
+	newFields[row].splice(col, 1);
 
-	// Check if the array at the index is empty and remove it if so
-	if (newTempItems[row].length === 0) {
-		newTempItems.splice(row, 1);
+	if (newFields[row].length === 0) {
+		newFields.splice(row, 1);
 	}
 
+	currentForm.fields = newFields;
 	$appState.set({
 		...$appState.get(),
-		temp_items: newTempItems,
+		forms: currentForms,
 	});
 }
 
-export function updateFormSettings(newSettings: Partial<FormSchema['settings']>) {
+export function updateFormSettings(
+	newSettings: Partial<FormSchema["settings"]>,
+) {
 	const currentForms = $appState.get().forms;
 	currentForms[$appState.get().selectedForm].settings = {
 		...currentForms[$appState.get().selectedForm].settings,

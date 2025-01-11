@@ -1,20 +1,15 @@
-import type { FormField } from "@/types";
+import type { FormField, FormFramework } from "formbuilder-core";
+import { COMPONENTS } from "../components";
 
-export function getRequiredComponents(fields: FormField[]) {
-	let requiredComponents = [];
-	for (const f of fields) {
-		if (f.kind === "string") requiredComponents.push("input");
-		if (f.kind === "number") requiredComponents.push("input");
-		if (f.kind === "date") requiredComponents.push("date");
-		if (f.kind === "boolean") requiredComponents.push("switch");
-		if (f.style === "radio") requiredComponents.push("radio-group");
-		if (f.style === "select") requiredComponents.push("select");
-		if (f.style === "combobox")
-			requiredComponents.push(...["popover", "command"]);
-		if (f.kind === "textarea") requiredComponents.push("textarea");
-	}
-	requiredComponents = requiredComponents.filter((item, index, array) => {
-		return array.indexOf(item) === index;
+export function getRequiredComponents<F extends FormFramework>(
+	framework: FormFramework,
+	fields: FormField<F>[][],
+) {
+	let requiredComponents: string[] = [];
+
+	fields.flat().forEach((field) => {
+		requiredComponents.push(...COMPONENTS[field.variant].cli);
 	});
+	requiredComponents = Array.from(new Set(requiredComponents));
 	return requiredComponents;
 }

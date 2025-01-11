@@ -1,49 +1,9 @@
-export const fieldKind = [
-	"string",
-	"number",
-	"boolean",
-	"date",
-	"enum",
-	"textarea",
-] as const;
-export type FieldKind = (typeof fieldKind)[number];
-
-export interface EnumValue {
-	label: string;
-	value: string;
-	id: string;
-}
-
-export const enumStyleValues = ["radio", "select", "combobox"] as const;
-export type EnumStyleValues = (typeof enumStyleValues)[number];
-
-export interface ValidationOptions {
-	format?: "email" | "string" | "password";
-	min: number;
-	max: number;
-}
-
-export interface FormField {
-	id: string;
-	label: string;
-	desc?: string;
-	placeholder?: string;
-	key: string;
-	kind: FieldKind;
-	required: boolean;
-	defaultValue?: string | number | boolean;
-	style?: EnumStyleValues;
-	enumValues?: EnumValue[];
-	enumName?: string;
-	validation?: ValidationOptions;
-}
-// TODO: add more settings and framework independent settings
-export interface Settings {
-	importAlias: string;
-	mode: string;
-	noDescription:boolean
-	noPlaceholder:boolean
-}
+import type { Prettify } from "./prettify";
+import type { FormField } from "./field";
+import type {
+	FrameworkFieldVariants,
+	FrameworkFieldKinds,
+} from "./fieldVariants";
 
 export type FormFramework =
 	| "next"
@@ -52,10 +12,46 @@ export type FormFramework =
 	| "vue"
 	| "solid"
 	| "astro";
-export interface FormSchema {
+
+export type ChosenField<F extends FormFramework> = {
+	kind: FrameworkFieldKinds[F];
+	variant: FrameworkFieldVariants[F];
+};
+
+export type FormSchema<F extends FormFramework = FormFramework> = Prettify<{
 	id: number;
-	settings: Settings;
-	framework: FormFramework;
 	name: string;
-	fields: FormField[];
-}
+	framework: F;
+	fields: FormField<F>[][];
+	settings: Settings;
+}>;
+
+export type Settings = {
+	importAliasComponents: string;
+	importAliasUtils: string;
+	noDescription?: boolean;
+	noPlaceholder?: boolean;
+	frameworkSettings?: FrameworkSettings;
+};
+
+export type FrameworkSettings = {
+	next?: {
+		useServerActions?: boolean;
+		apiRoute?: string;
+	};
+	react?: {
+		stateManager?: "context" | "redux" | "none";
+	};
+	svelte?: {
+		kit: boolean;
+	};
+	vue?: {
+		composition: boolean;
+	};
+	solid?: {
+		signals: boolean;
+	};
+	astro?: {
+		ssr: boolean;
+	};
+};

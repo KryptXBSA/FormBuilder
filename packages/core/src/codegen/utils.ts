@@ -1,5 +1,6 @@
-import type { FormField, FormSchema } from "@/types";
+import type { FormFramework, FormSchema } from "@/types";
 import { parseSchema } from "json-schema-to-zod";
+import type { FormField } from "..";
 
 export function formToZodSchema(form: FormSchema) {
 	const jsonSchema = formToJsonSchema(form);
@@ -21,11 +22,11 @@ function formToJsonSchema(form: FormSchema) {
 	const properties: { [key: string]: any } = {};
 	const required: string[] = [];
 
-	form.fields.forEach((field: FormField) => {
+	form.fields.flat().forEach((field: FormField<FormFramework>) => {
 		let property: any;
-		if (field.kind === "string")
+		if (field.kind === "text")
 			property = {
-				type: field.kind,
+				type: "string",
 				minLength: field.validation?.min
 					? Number.parseInt(field.validation?.min.toString())
 					: 1,
@@ -52,15 +53,15 @@ function formToJsonSchema(form: FormSchema) {
 			property = {
 				type: "string",
 			};
-		else if (field.kind === "textarea")
-			property = {
-				type: "string",
-				minLength: field.validation?.min,
-				maxLength: field.validation?.max,
-			};
-		if (field.kind === "string" && field.validation?.format) {
-			property.format = field.validation.format;
-		}
+		// else if (field.kind === "text")
+		// 	property = {
+		// 		type: "string",
+		// 		minLength: field.validation?.min,
+		// 		maxLength: field.validation?.max,
+		// 	};
+		// if (field.kind === "string" && field.validation?.format) {
+		// 	property.format = field.validation.format;
+		// }
 		properties[field.key] = property;
 		if (field.required) {
 			required.push(field.key);
