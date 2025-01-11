@@ -39,7 +39,7 @@ export function FieldSettings() {
 				/>
 			</div>
 
-			<div className="flex mt-6 w-full flex-col gap-8 ">
+			<div className="mt-6 flex w-full flex-col gap-8 ">
 				<div className="flex max-w-sm flex-row items-center justify-between rounded-lg border p-4">
 					<div className="space-y-0.5">
 						<div className="text-base">Required</div>

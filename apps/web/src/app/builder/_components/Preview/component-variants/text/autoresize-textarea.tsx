@@ -20,11 +20,11 @@ export function AutoResizeTextarea({ f }: { f: TextField<FormFramework> }) {
 				<FormItem>
 					<FormLabel>{f.label}</FormLabel>
 					<FormControl>
-							<AutosizeTextarea
-								{...field}
-								placeholder="This textarea with min height 52 and max height 200."
-								maxHeight={200}
-							/>
+						<AutosizeTextarea
+							{...field}
+							placeholder="This textarea with min height 52 and max height 200."
+							maxHeight={200}
+						/>
 					</FormControl>
 					<FormDescription>{f.description}</FormDescription>
 					<FormMessage />

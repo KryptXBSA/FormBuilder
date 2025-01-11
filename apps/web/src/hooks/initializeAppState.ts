@@ -13,6 +13,5 @@ export default function initializeAppState(
 			appState.setAppState(state);
 			setLoaded(true);
 		}
-
 	}, [setLoaded, appState]);
 }

@@ -1,5 +1,9 @@
 import type { Dispatch, SetStateAction } from "react";
-import { checkDuplicates, generateCode, type FormSchema } from "formbuilder-core";
+import {
+	checkDuplicates,
+	generateCode,
+	type FormSchema,
+} from "formbuilder-core";
 import { UseFormReturn, useFormContext } from "react-hook-form";
 
 type ShowCodeDialogProps = {

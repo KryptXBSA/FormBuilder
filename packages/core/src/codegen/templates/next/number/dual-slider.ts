@@ -21,4 +21,4 @@ export const dualSlider = `
 				</FormItem>
 			)}
 		/>
-		`
+		`;

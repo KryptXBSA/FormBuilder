@@ -25,7 +25,10 @@ export function Select({ f }: { f: EnumField<FormFramework> }) {
 			render={({ field }) => (
 				<FormItem>
 					<FormLabel>{f.label}</FormLabel>
-					<ShadcnSelect onValueChange={field.onChange} defaultValue={field.value}>
+					<ShadcnSelect
+						onValueChange={field.onChange}
+						defaultValue={field.value}
+					>
 						<FormControl>
 							<SelectTrigger>
 								<SelectValue placeholder="Select a verified email to display" />

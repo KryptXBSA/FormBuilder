@@ -1,7 +1,10 @@
 import type { FormField, FormFramework } from "formbuilder-core";
 import { COMPONENTS } from "../components";
 
-export function getRequiredComponents<F extends FormFramework>(framework: FormFramework, fields: FormField<F>[][]) {
+export function getRequiredComponents<F extends FormFramework>(
+	framework: FormFramework,
+	fields: FormField<F>[][],
+) {
 	let requiredComponents: string[] = [];
 
 	fields.flat().forEach((field) => {

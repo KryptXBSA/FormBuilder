@@ -14,7 +14,7 @@ export function Code() {
 				Prerequisites
 			</h3>
 			<p>First make sure you have </p>
-			<CodeSteppers/>
+			<CodeSteppers />
 		</div>
 	);
 }

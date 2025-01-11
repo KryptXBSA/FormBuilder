@@ -1,9 +1,7 @@
 import type { FormFramework, FormSchema } from "@/types";
 import Handlebars from "handlebars";
 import { generateImports } from "./imports/generateImports";
-import {
-	mainTemplate,
-} from "./templates";
+import { mainTemplate } from "./templates";
 import { formToZodSchema } from "./utils";
 import * as prettier from "prettier/standalone";
 import * as parserTypeScript from "prettier/parser-typescript";
@@ -56,10 +54,13 @@ Handlebars.registerHelper("lookupComponent", function (field) {
 		"&apos;": "'",
 		"&lt;": "<",
 		"&gt;": ">",
-		"&amp;": "&"
+		"&amp;": "&",
 	};
 
-	templateText = templateText.replace(/(&[#\w]+;)/g, entity => entities[entity] || entity);
+	templateText = templateText.replace(
+		/(&[#\w]+;)/g,
+		(entity) => entities[entity] || entity,
+	);
 
 	const template = Handlebars.compile(templateText);
 	return new Handlebars.SafeString(template(field));
@@ -75,10 +76,11 @@ export async function generateCode(framework: FormFramework, form: FormSchema) {
 	const mainCode = main({ ...form, fields: flattedFields, zodFormSchema });
 
 	const imports = Handlebars.compile(generateImports(framework, form.fields));
-	const generatedCode = imports({
-		importAliasUtils: form.settings.importAliasUtils,
-		importAliasComponents: form.settings.importAliasComponents
-	}) + mainCode;
+	const generatedCode =
+		imports({
+			importAliasUtils: form.settings.importAliasUtils,
+			importAliasComponents: form.settings.importAliasComponents,
+		}) + mainCode;
 
 	const formattedCode = await prettier.format(generatedCode, {
 		parser: "typescript",

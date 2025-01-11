@@ -51,7 +51,7 @@ export function CodeBlockCommand({
 	}, [packageManager, tabs]);
 
 	return (
-		<div className="relative max-h-[650px] overflow-x-auto rounded-xl bgzinc-950 bg-[#282C34] ark:bg-zinc-900">
+		<div className="bgzinc-950 relative max-h-[650px] overflow-x-auto rounded-xl ark:bg-zinc-900 bg-[#282C34]">
 			<Tabs
 				defaultValue={packageManager}
 				onValueChange={(value) => {
@@ -60,14 +60,14 @@ export function CodeBlockCommand({
 					});
 				}}
 			>
-				<div className="flex items-center justify-between border-b border-zinc-600 bg-[#282C34] g-zinc-900 px-3 pt-2.5">
+				<div className="g-zinc-900 flex items-center justify-between border-zinc-600 border-b bg-[#282C34] px-3 pt-2.5">
 					<TabsList className="h-7 translate-y-[2px] gap-3 bg-transparent p-0 pl-1">
 						{Object.entries(tabs).map(([key, value]) => {
 							return (
 								<TabsTrigger
 									key={key}
 									value={key}
-									className="rounded-none border-b border-transparent bg-transparent p-0 pb-1.5 font-mono text-zinc-400 data-[state=active]:border-b-zinc-50 data-[state=active]:bg-transparent data-[state=active]:text-zinc-50"
+									className="rounded-none border-transparent border-b bg-transparent p-0 pb-1.5 font-mono text-zinc-400 data-[state=active]:border-b-zinc-50 data-[state=active]:bg-transparent data-[state=active]:text-zinc-50"
 								>
 									{key}
 								</TabsTrigger>

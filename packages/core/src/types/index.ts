@@ -1,6 +1,9 @@
 import type { Prettify } from "./prettify";
 import type { FormField } from "./field";
-import type { FrameworkFieldVariants, FrameworkFieldKinds } from "./fieldVariants";
+import type {
+	FrameworkFieldVariants,
+	FrameworkFieldKinds,
+} from "./fieldVariants";
 
 export type FormFramework =
 	| "next"
@@ -20,7 +23,7 @@ export type FormSchema<F extends FormFramework = FormFramework> = Prettify<{
 	name: string;
 	framework: F;
 	fields: FormField<F>[][];
-	settings: Settings
+	settings: Settings;
 }>;
 
 export type Settings = {

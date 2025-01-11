@@ -25,7 +25,8 @@ export function Heading({
 	return (
 		<>
 			{useAnchor ? (
-				<HeadingComponent className="border-b-2"
+				<HeadingComponent
+					className="border-b-2"
 					anchor={anchorValue}
 				>{`${headingLevel} with anchor`}</HeadingComponent>
 			) : (

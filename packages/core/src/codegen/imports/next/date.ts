@@ -1,4 +1,4 @@
-export const date=`
+export const date = `
 import {
 	Popover,
 	PopoverContent,
@@ -9,7 +9,7 @@ import { cn } from "{{importAliasUtils}}";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "{{importAliasComponents}}/calendar";
-`
+`;
 export const daterange = `
 import {
 	Popover,
@@ -21,4 +21,4 @@ import { cn } from "{{importAliasUtils}}";
 import { addDays, format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "{{importAliasComponents}}/calendar";
-`
+`;

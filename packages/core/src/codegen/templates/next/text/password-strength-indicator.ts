@@ -144,4 +144,4 @@ export const passwordStrengthIndicator = `
 		</FormItem>
 	)}
 />
-`
+`;

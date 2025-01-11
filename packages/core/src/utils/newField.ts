@@ -1,7 +1,11 @@
 import type {
-	BooleanFieldVariant, DateFieldVariant, EnumFieldVariant,
-	FormField, FormVariant, NumberFieldVariant,
-	TextFieldVariant
+	BooleanFieldVariant,
+	DateFieldVariant,
+	EnumFieldVariant,
+	FormField,
+	FormVariant,
+	NumberFieldVariant,
+	TextFieldVariant,
 } from "@/types/field";
 
 import { randNum } from "./randNum";
@@ -37,7 +41,7 @@ export function newNumberField(variant: NumberFieldVariant): FormField {
 		validation: {
 			min: 1,
 			max: 9999999999,
-			step: 1
+			step: 1,
 		},
 	};
 }

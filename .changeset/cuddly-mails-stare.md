@@ -1,5 +1,5 @@
 ---
-"formbuilder-core": minor
+"formbuilder-core": patch
 ---
 
 Refactor Core Type Definitions

@@ -19,14 +19,14 @@ import { LOCALSTORAGE_KEY } from "@/constants";
 
 type State<F extends FormFramework = FormFramework> = {
 	selectedForm: number;
-	showSettings: string | "form" | null
-	packageManager: "npm" | "yarn" | "pnpm" | "bun"
+	showSettings: string | "form" | null;
+	packageManager: "npm" | "yarn" | "pnpm" | "bun";
 	forms: FormSchema<F>[];
 	renderContent: boolean;
 	chosenField: ChosenField<F> | null;
 };
 
-type MockFormFramework = typeof mockForm['framework'];
+type MockFormFramework = (typeof mockForm)["framework"];
 export const $appState = persistentAtom<State<MockFormFramework>>(
 	LOCALSTORAGE_KEY,
 	{
@@ -40,7 +40,7 @@ export const $appState = persistentAtom<State<MockFormFramework>>(
 	{
 		encode: JSON.stringify,
 		decode: JSON.parse,
-	}
+	},
 );
 
 export function useAppState() {
@@ -82,9 +82,12 @@ function updateField<F extends FormFramework>(field: Partial<FormField<F>>) {
 		newForms[$appState.get().selectedForm].fields,
 		$appState.get().showSettings!,
 	)!;
-	const fieldData = newForms[$appState.get().selectedForm].fields[row][col]
+	const fieldData = newForms[$appState.get().selectedForm].fields[row][col];
 	// @ts-ignore
-	newForms[$appState.get().selectedForm].fields[row][col] = { ...fieldData, ...field };
+	newForms[$appState.get().selectedForm].fields[row][col] = {
+		...fieldData,
+		...field,
+	};
 
 	$appState.set({
 		...$appState.get(),
@@ -122,7 +125,7 @@ function updateFormName(newName: string) {
 	});
 }
 function createNewField<F extends FormFramework>(
-	chosenField: ChosenField<F>
+	chosenField: ChosenField<F>,
 ): FormField<F> {
 	const currentForm = $appState.get().forms[$appState.get().selectedForm];
 	const { noDescription, noPlaceholder } = currentForm.settings;

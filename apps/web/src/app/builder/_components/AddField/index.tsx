@@ -1,8 +1,6 @@
 "use client";
 import * as React from "react";
-import {
-	Accordion,
-} from "@/components/ui/accordion";
+import { Accordion } from "@/components/ui/accordion";
 import type { FormFramework, FrameworkFieldKinds } from "formbuilder-core";
 import { AddFieldAccordion } from "./AddFieldAccordion";
 

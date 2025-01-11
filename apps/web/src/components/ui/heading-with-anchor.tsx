@@ -45,13 +45,13 @@ const Anchor = ({
 const headingVariants = cva("font-bold text-primary", {
 	variants: {
 		variant: {
-			h1: "leading-14 text-4xl lg:text-5xl",
-			h2: "leading-14 text-3xl lg:text-4xl",
-			h3: "leading-10 text-2xl lg:text-3xl",
-			h4: "leading-8 text-xl lg:text-2xl",
-			h5: "leading-8 text-lg lg:text-xl",
-			h6: "leading-7 text-sm lg:text-base",
-			p: "leading-5 text-lg lg:text-xl font-normal",
+			h1: "text-4xl leading-14 lg:text-5xl",
+			h2: "text-3xl leading-14 lg:text-4xl",
+			h3: "text-2xl leading-10 lg:text-3xl",
+			h4: "text-xl leading-8 lg:text-2xl",
+			h5: "text-lg leading-8 lg:text-xl",
+			h6: "text-sm leading-7 lg:text-base",
+			p: "font-normal text-lg leading-5 lg:text-xl",
 		},
 	},
 	defaultVariants: {
