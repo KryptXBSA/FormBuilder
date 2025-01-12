@@ -6,16 +6,9 @@ export const headingVariants = [
 export const textVariants = [
 	{ label: "Input", value: "vue-shadcn-text-input" },
 	{ label: "Textarea", value: "vue-shadcn-text-textarea" },
-	{ label: "Rich Text Editor", value: "vue-shadcn-text-rich-text" },
-	{ label: "Markdown Editor", value: "vue-shadcn-text-markdown" },
-	{ label: "Code Editor", value: "vue-shadcn-text-code" },
 	{ label: "Password Input", value: "vue-shadcn-text-password" },
-	{
-		label: "Auto-resizing Textarea",
-		value: "vue-shadcn-text-autosize-textarea",
-	},
-	{ label: "OTP Input", value: "vue-shadcn-text-input-otp" },
-	{ label: "Input Mask", value: "vue-shadcn-text-input-mask" },
+	{ label: "Input OTP", value: "vue-shadcn-text-inputotp" },
+	{ label: "Input Tag", value: "vue-shadcn-text-inputtag" },
 ] as const;
 
 export const numberVariants = [

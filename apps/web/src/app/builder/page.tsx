@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FormList } from "@/core/FormList";
 import { Preview } from "@/app/builder/_components/Preview";
 import { SortableGrid } from "./_components/SortableGrid";
 import { AddField } from "./_components/AddField";
@@ -14,6 +13,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import initializeAppState from "@/hooks/initializeAppState";
 import { Code } from "./_components/Code";
 import { FieldSettings } from "./_components/FieldSettings";
+import { FormList } from "./_components/FormList";
 
 export default function Builder() {
 	const [loaded, setLoaded] = useState(false);

@@ -1,1 +1,0 @@
-export { mainTemplate } from "./main";
