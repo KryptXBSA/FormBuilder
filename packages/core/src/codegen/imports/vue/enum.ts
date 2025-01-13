@@ -1,4 +1,5 @@
-export const combobox = `import { Check, ChevronsUpDown } from "lucide-react";
+export const combobox = `
+import { Check, ChevronsUpDown } from "lucide-vue-next";
 import { Button } from "{{importAliasComponents}}/button";
 import { cn } from "{{importAliasUtils}}";
 import {
@@ -17,18 +18,18 @@ import {
 `;
 
 export const radio = `
-import {
-	RadioGroup,
-	RadioGroupItem,
-} from "{{importAliasComponents}}/radio-group"
+import { Label } from "{{importAliasComponents}}/label";
+import { RadioGroup, RadioGroupItem } from "{{importAliasComponents}}/radio-group";
 `;
 
 export const select = `
 import {
-	Select as ShadcnSelect,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
 } from "{{importAliasComponents}}/select";
 `;

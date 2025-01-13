@@ -4,7 +4,6 @@ import {
     Textarea,
     InputOTP,
     InputTag,
-    PasswordStrengthIndicator,
 } from "../codegen/imports/vue/text";
 import {
     phoneNumber,
@@ -18,12 +17,12 @@ import { date, daterange } from "../codegen/imports/vue/date";
 import { combobox, radio, select } from "../codegen/imports/vue/enum";
 
 import { textTemplates } from "../codegen/templates/vue/text";
-import { numberTemplates } from "../codegen/templates/next/number";
-import { heading } from "../codegen/templates/next/heading";
-import { enumTemplates } from "../codegen/templates/next/enum";
-import { button } from "../codegen/templates/next/enum/button";
-import { dateTemplates } from "../codegen/templates/next/date";
-import { booleanTemplates } from "../codegen/templates/next/boolean";
+import { numberTemplates } from "../codegen/templates/vue/number";
+import { heading } from "../codegen/templates/vue/heading";
+import { enumTemplates } from "../codegen/templates/vue/enum";
+import { button } from "../codegen/templates/vue/enum/button";
+import { dateTemplates } from "../codegen/templates/vue/date";
+import { booleanTemplates } from "../codegen/templates/vue/boolean";
 import type { ComponentConfig } from "./components";
 
 export const VUE_COMPONENTS: ComponentConfig = {
@@ -50,12 +49,6 @@ export const VUE_COMPONENTS: ComponentConfig = {
         cli: ["textarea"],
         imports: Textarea,
         template: textTemplates.textarea,
-    },
-    "vue-shadcn-text-password": {
-        label: "Password Strength Indicator",
-        cli: ["shadcn-password"],
-        imports: PasswordStrengthIndicator,
-        template: textTemplates.passwordStrengthIndicator,
     },
     "vue-shadcn-text-inputotp": {
         label: "Input OTP",
