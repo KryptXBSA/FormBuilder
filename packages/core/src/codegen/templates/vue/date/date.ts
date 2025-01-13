@@ -1,43 +1,46 @@
 export const date = `
-<FormField
-          control={form.control}
-  name="{{key}}"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>{{label}}</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>{{placeholder}}</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormDescription>
-{{description}}
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+ <FormField name="{{key}}">
+      <FormItem class="flex flex-col">
+        <FormLabel>{{label}}</FormLabel>
+        <Popover>
+          <PopoverTrigger as-child>
+            <FormControl>
+              <Button
+                variant="outline" :class="cn(
+                  'w-[240px] ps-3 text-start font-normal',
+                  !value && 'text-muted-foreground',
+                )"
+              >
+                <span>{{ value ? df.format(toDate(value)) : "Pick a date" }}</span>
+                <CalendarIcon class="ms-auto h-4 w-4 opacity-50" />
+              </Button>
+              <input hidden>
+            </FormControl>
+          </PopoverTrigger>
+          <PopoverContent class="w-auto p-0">
+            <Calendar
+              v-model:placeholder="placeholder"
+              v-model="value"
+              calendar-label="{{label}}"
+              initial-focus
+              :min-value="new CalendarDate(1900, 1, 1)"
+              :max-value="today(getLocalTimeZone())"
+              @update:model-value="(v) => {
+                if (v) {
+                  setFieldValue('{{key}}', v.toString())
+                }
+                else {
+                  setFieldValue('{{key}}', undefined)
+                }
+
+              }"
+            />
+          </PopoverContent>
+        </Popover>
+        <FormDescription>
+          {{description}}
+        </FormDescription>
+        <FormMessage />
+      </FormItem>
+    </FormField>
 `;

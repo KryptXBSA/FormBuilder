@@ -11,7 +11,7 @@
 //             {{/if}}
 //           {{/if}}
 //         {{/each}}
-export const mainNextTemplate = `const formSchema = {{{zodFormSchema}}}
+export const mainNextTemplate = `
 
 export function MyForm() {
   const form = useForm<z.infer<typeof formSchema>>({

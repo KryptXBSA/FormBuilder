@@ -1,3 +1,5 @@
+// TODO: implment phone
+// https://shadcn-vue-phone-input.vercel.app/
 export const phoneNumber = `
 		<FormField
 			control={form.control}

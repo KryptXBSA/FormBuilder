@@ -1,33 +1,41 @@
+// TODO: add enumName
 export const radio = `
- <FormField
-          control={form.control}
-          name="{{key}}"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormLabel>{{label}}</FormLabel>
+ <FormField v-slot="{ componentField }" type="radio" name="{{key}}">
+      <FormItem class="space-y-3">
+        <FormLabel>{{label}}</FormLabel>
+
+        <FormControl>
+          <RadioGroup
+            class="flex flex-col space-y-1"
+            v-bind="componentField"
+          >
+            <FormItem class="flex items-center space-y-0 gap-x-3">
               <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className="flex flex-col space-y-1"
-                >
-                  {{#each enumValues}}
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="{{value}}" />
-                    </FormControl>
-                    <FormLabel className="font-normal">
-                    {{label}}
-                    </FormLabel>
-                  </FormItem>
-                  {{/each}}
-                </RadioGroup>
+                <RadioGroupItem value="all" />
               </FormControl>
-              <FormDescription>
-              {{description}}
-              </FormDescription>
-              <FormMessage />
+              <FormLabel class="font-normal">
+                All new messages
+              </FormLabel>
             </FormItem>
-          )}
-        />
+            <FormItem class="flex items-center space-y-0 gap-x-3">
+              <FormControl>
+                <RadioGroupItem value="mentions" />
+              </FormControl>
+              <FormLabel class="font-normal">
+                Direct messages and mentions
+              </FormLabel>
+            </FormItem>
+            <FormItem class="flex items-center space-y-0 gap-x-3">
+              <FormControl>
+                <RadioGroupItem value="none" />
+              </FormControl>
+              <FormLabel class="font-normal">
+                Nothing
+              </FormLabel>
+            </FormItem>
+          </RadioGroup>
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    </FormField>
 `;

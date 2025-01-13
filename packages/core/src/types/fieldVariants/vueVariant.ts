@@ -14,15 +14,11 @@ export const textVariants = [
 export const numberVariants = [
 	{ label: "Number Input", value: "vue-shadcn-number-input" },
 	{ label: "Slider", value: "vue-shadcn-number-slider" },
-	{ label: "Rating", value: "vue-shadcn-number-rating" },
-	{ label: "OTP", value: "vue-shadcn-number-otp" },
-	{ label: "Stepper", value: "vue-shadcn-number-stepper" },
 ] as const;
 
 export const booleanVariants = [
 	{ label: "Checkbox", value: "vue-shadcn-boolean-checkbox" },
 	{ label: "Switch", value: "vue-shadcn-boolean-switch" },
-	{ label: "Toggle", value: "vue-shadcn-boolean-toggle" },
 ] as const;
 
 export const dateVariants = [

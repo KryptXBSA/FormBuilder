@@ -1,23 +1,16 @@
 export const checkbox = `
-		<FormField
-			control={form.control}
-			name="{{key}}"
-			render={({ field }) => (
-				<FormItem>
-					<FormControl>
-						<div className="flex items-center space-x-2">
-							<ShadcnCheckbox value={field.value}id={f.key} onClick={(e)=>console.log("elick",field.value)} onChange={(e)=>console.log("eeeez",e)} />
-							<label
-								htmlFor={f.key}
-								className="font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-							>
-								{{label}}
-							</label>
-						</div>
-					</FormControl>
-					<FormDescription>{{description}}</FormDescription>
-					<FormMessage />
-				</FormItem>
-			)}
-		/>
+ <FormField v-slot="{ value, handleChange }" type="checkbox" name="{{key}}">
+      <FormItem class="flex flex-row items-start gap-x-3 space-y-0 rounded-md border p-4">
+        <FormControl>
+          <Checkbox :checked="value" @update:checked="handleChange" />
+        </FormControl>
+        <div class="space-y-1 leading-none">
+          <FormLabel>{{label}}</FormLabel>
+          <FormDescription>
+            {{description}}
+          </FormDescription>
+          <FormMessage />
+        </div>
+      </FormItem>
+    </FormField>
 `;
