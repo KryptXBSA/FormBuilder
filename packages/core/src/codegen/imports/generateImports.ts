@@ -1,12 +1,13 @@
 import type { FormField, FormFramework } from "formbuilder-core";
-import { initialImports } from "./next/initialImports";
+import { nextInitialImports } from "./next/initialImports";
+import { vueInitialImports } from "./vue/initialImports";
 import { COMPONENTS } from "../../components/components";
 
 export function generateImports<F extends FormFramework>(
 	framework: FormFramework,
 	fields: FormField<F>[][],
 ) {
-	let imports = initialImports;
+	let imports = framework === 'vue' ? vueInitialImports : nextInitialImports;
 	const addedVariants: Set<string> = new Set();
 
 	fields.flat().forEach((field) => {

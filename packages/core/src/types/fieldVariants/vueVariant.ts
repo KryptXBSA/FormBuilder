@@ -30,13 +30,13 @@ export const dateVariants = [
 	{ label: "Date Range Calendar", value: "vue-shadcn-date-date-range-picker" },
 ] as const;
 
-export const fileVariants = [
-	{ label: "Single File Upload", value: "vue-shadcn-file-single" },
-	{ label: "Multiple File Upload", value: "vue-shadcn-file-multiple" },
-	{ label: "Drag & Drop Zone", value: "vue-shadcn-file-drag-drop" },
-	{ label: "Avatar Upload", value: "vue-shadcn-file-avatar" },
-	{ label: "Image Gallery", value: "vue-shadcn-file-image-gallery" },
-] as const;
+// export const fileVariants = [
+// 	{ label: "Single File Upload", value: "vue-shadcn-file-single" },
+// 	{ label: "Multiple File Upload", value: "vue-shadcn-file-multiple" },
+// 	{ label: "Drag & Drop Zone", value: "vue-shadcn-file-drag-drop" },
+// 	{ label: "Avatar Upload", value: "vue-shadcn-file-avatar" },
+// 	{ label: "Image Gallery", value: "vue-shadcn-file-image-gallery" },
+// ] as const;
 
 export const enumVariants = [
 	{ label: "Select Dropdown", value: "vue-shadcn-enum-select" },
@@ -53,6 +53,6 @@ export const vueFieldVariants = {
 	number: numberVariants,
 	boolean: booleanVariants,
 	date: dateVariants,
-	file: fileVariants,
+	// file: fileVariants,
 	enum: enumVariants,
 } as const;

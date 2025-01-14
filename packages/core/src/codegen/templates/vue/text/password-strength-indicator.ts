@@ -1,5 +1,4 @@
 // TODO: recreate logic for vue from next
-
 export const passwordStrengthIndicator = `
   <FormField v-slot="{ componentField }" name="{{key}}">
       <FormItem>

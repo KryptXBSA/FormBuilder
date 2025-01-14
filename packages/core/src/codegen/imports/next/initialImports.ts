@@ -1,4 +1,4 @@
-export const initialImports = `"use client"
+export const nextInitialImports = `"use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"

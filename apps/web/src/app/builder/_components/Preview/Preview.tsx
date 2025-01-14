@@ -9,27 +9,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import {
-	InputOTP,
-	AutoResizeTextarea,
-	Input,
-	Textarea,
-	InputTag,
-	PasswordStrengthIndicator,
-} from "./component-variants/text";
-import { Heading } from "./component-variants/heading/Heading";
-import { DualSlider } from "./component-variants/number/dual-slider";
-import { NumberInput } from "./component-variants/number/number";
-import { PhoneNumber } from "./component-variants/number/phone-number";
-import { Checkbox } from "./component-variants/boolean/checkbox";
-import { Switch } from "./component-variants/boolean/switch";
-import { DatePicker } from "./component-variants/date/date";
-import { DateRangePicker } from "./component-variants/date/daterange";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Combobox } from "./component-variants/enum/combobox";
-import { Select } from "./component-variants/enum/select";
-import { RadioGroup } from "./component-variants/enum/radio";
-import { ButtonGroup } from "./component-variants/enum/button";
+import { RenderField } from "./RenderField";
 
 export function Preview() {
 	const { currentForm } = useAppState();
@@ -162,6 +143,7 @@ export function Preview() {
 		}
 		alert(result);
 	}
+
 	return (
 		<Form {...form}>
 			<form
@@ -173,112 +155,7 @@ export function Preview() {
 					<div className="flex flex-row gap-4" key={i}>
 						{row.map((col) => (
 							<div className="w-full" key={col.id}>
-								{col.kind === "heading" &&
-									col.variant === "next-shadcn-heading-simple" && (
-										<Heading useAnchor={false} headingLevel="H3" />
-									)}
-								{col.kind === "heading" &&
-									col.variant === "next-shadcn-heading-anchor" && (
-										<Heading
-											anchorValue="azaz"
-											useAnchor={true}
-											headingLevel="H3"
-										/>
-									)}
-								{col.kind === "text" &&
-									col.variant === "next-shadcn-text-input" && <Input f={col} />}
-								{col.kind === "text" &&
-									col.variant === "next-shadcn-text-textarea" && (
-										<Textarea f={col} />
-									)}
-								{col.kind === "text" &&
-									col.variant ===
-										"next-shadcnexpansion-text-autoresizetextarea" && (
-										<AutoResizeTextarea f={col} />
-									)}
-								{col.kind === "text" &&
-									col.variant === "next-shadcn-text-inputotp" && (
-										<InputOTP f={col} />
-									)}
-								{col.kind === "text" &&
-									col.variant === "next-originui-text-inputtag" && (
-										<InputTag f={col} />
-									)}
-								{col.kind === "text" &&
-									col.variant === "next-originui-text-password" && (
-										<PasswordStrengthIndicator f={col} />
-									)}
-								{col.kind === "number" &&
-									col.variant === "next-shadcn-number-input" && (
-										<NumberInput f={col} />
-									)}
-								{col.kind === "number" &&
-									//  TODO: subvariant for slider, can be dual or single
-									col.variant === "next-shadcn-number-phone" && (
-										<PhoneNumber f={col} />
-										// <Slider f={col} />
-									)}
-								{col.kind === "number" &&
-									//  TODO: subvariant for slider, can be dual or single
-									col.variant === "next-shadcn-number-slider" && (
-										<DualSlider f={col} />
-										// <Slider f={col} />
-									)}
-								{/* TODO: center the component if it is checkbox */}
-								{col.kind === "boolean" &&
-									col.variant === "next-shadcn-boolean-checkbox" && (
-										<Checkbox f={col} />
-									)}
-								{col.kind === "boolean" &&
-									col.variant === "next-shadcn-boolean-switch" && (
-										<Switch f={col} />
-									)}
-								{col.kind === "date" &&
-									col.variant === "next-shadcn-date-date" && (
-										<DatePicker f={col} />
-									)}
-								{col.kind === "date" &&
-									col.variant === "next-shadcn-date-daterange" && (
-										<DateRangePicker f={col} />
-									)}
-
-								{col.kind === "enum" &&
-									col.variant === "next-shadcn-enum-combobox" && (
-										<Combobox f={col} />
-									)}
-								{col.kind === "enum" &&
-									col.variant === "next-shadcn-enum-select" && (
-										<Select f={col} />
-									)}
-								{col.kind === "enum" &&
-									col.variant === "next-shadcn-enum-radio" && (
-										<RadioGroup f={col} />
-									)}
-								{col.kind === "enum" &&
-									col.variant === "next-shadcn-enum-button" && (
-										<ButtonGroup f={col} />
-									)}
-								{/* {col.kind === "enum" &&
-									col.variant === "next-shadcn-enum-combobox" && (
-										<DateRangePicker f={col} />
-									)}
-								{col.kind === "enum" &&
-									col.variant === "next-shadcn-enum-combobox" && (
-										<DateRangePicker f={col} />
-									)}
-								{col.kind === "enum" &&
-									col.variant === "next-shadcn-enum-combobox" && (
-										<DateRangePicker f={col} />
-									)}
-								{col.kind === "enum" &&
-									col.variant === "next-shadcn-enum-combobox" && (
-										<DateRangePicker f={col} />
-									)} */}
-
-								{/* {col.kind === "file" &&
-									col.variant === "next-shadcn-file-single" && (
-										<FileInput f={col} />
-									)} */}
+								<RenderField col={col} />
 							</div>
 						))}
 					</div>

@@ -7,6 +7,7 @@ import * as parserTypeScript from "prettier/parser-typescript";
 import * as prettierPluginEstree from "prettier/plugins/estree";
 import { COMPONENTS } from "../components/components";
 import { mainNextTemplate } from "./templates/next/main";
+import { mainVueTemplate } from "./templates/vue/main";
 
 Handlebars.registerHelper("ifEquals", function (arg1, arg2, options) {
 	//@ts-ignore
@@ -65,13 +66,13 @@ Handlebars.registerHelper("lookupComponent", function (field) {
 	return new Handlebars.SafeString(template(field));
 });
 
-const main = Handlebars.compile(mainNextTemplate);
 
 
 export async function generateCode(framework: FormFramework, form: FormSchema) {
 	const zodFormSchema = formToZodSchema(form);
-	const formSchema = `const formSchema = ${zodFormSchema}`;
+	const formSchema = `const formSchema = toTypedSchema(${zodFormSchema})`;
 
+	const main = Handlebars.compile(framework === 'vue' ? mainVueTemplate : mainNextTemplate);
 	// TODO: maybe flat is wrong? because of the nested fields and the way they should rendered (flex)
 	const flattedFields = form.fields.flat();
 	const formTemplateCode = main({ ...form, fields: flattedFields });
@@ -89,7 +90,7 @@ export async function generateCode(framework: FormFramework, form: FormSchema) {
 
 	// couldn't find a vue parser 
 	if (framework === 'vue') {
-		return completeCode;
+		return `<script setup lang="ts">\n${completeCode}`;
 	}
 
 	const formattedCode = await formatCode(completeCode);

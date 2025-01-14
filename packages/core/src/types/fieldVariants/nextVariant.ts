@@ -6,9 +6,6 @@ export const headingVariants = [
 export const textVariants = [
 	{ label: "Input", value: "next-shadcn-text-input" },
 	{ label: "Textarea", value: "next-shadcn-text-textarea" },
-	// { label: "Rich Text Editor", value: "next-shadcn-text-rich-text" },
-	// { label: "Markdown Editor", value: "next-shadcn-text-markdown" },
-	// { label: "Code Editor", value: "next-shadcn-text-code" },
 	{
 		label: "Password Strength Indicator",
 		value: "next-originui-text-password",

@@ -15,6 +15,7 @@ import { switchInput } from "../codegen/imports/vue/boolean";
 import { checkbox } from "../codegen/imports/vue/boolean";
 import { date, daterange } from "../codegen/imports/vue/date";
 import { combobox, radio, select } from "../codegen/imports/vue/enum";
+import { PasswordStrengthIndicator } from "../codegen/imports/vue/text";
 
 import { textTemplates } from "../codegen/templates/vue/text";
 import { numberTemplates } from "../codegen/templates/vue/number";
@@ -62,6 +63,12 @@ export const VUE_COMPONENTS: ComponentConfig = {
         imports: InputTag,
         template: textTemplates.inputTag,
     },
+    "vue-shadcn-text-password": {
+        label: "Password Input",
+        cli: ["password"],
+        imports: PasswordStrengthIndicator,
+        template: textTemplates.passwordStrengthIndicator,
+    },
     "vue-shadcn-number-input": {
         label: "Number Input",
         cli: [],
@@ -73,12 +80,6 @@ export const VUE_COMPONENTS: ComponentConfig = {
         cli: ["slider"],
         imports: slider,
         template: numberTemplates.slider,
-    },
-    "vue-shadcn-number-dualslider": {
-        label: "Dual Slider",
-        cli: ["dualslider"],
-        imports: dualSlider,
-        template: numberTemplates.dualSlider,
     },
     "vue-shadcn-number-phone": {
         label: "Phone",

@@ -12,3 +12,9 @@ import {
 export const InputTag = `
 import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from "{{importAliasComponents}}/tags-input";
 `;
+
+// TODO:custom vue password strength indicator
+export const PasswordStrengthIndicator = `import { Input } from "@/components/ui/input";
+import { Check, Eye, EyeOff, X } from "lucide-react";
+import { useMemo, useState } from "react";
+`;
