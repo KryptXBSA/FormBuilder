@@ -27,24 +27,12 @@ const frameworks: { value: FormFramework; label: string }[] = [
 		label: "Next.js",
 	},
 	{
-		value: "react",
-		label: "React",
-	},
-	{
 		value: "svelte",
 		label: "Svelte",
 	},
 	{
 		value: "vue",
 		label: "Vue",
-	},
-	{
-		value: "solid",
-		label: "Solid",
-	},
-	{
-		value: "astro",
-		label: "Astro",
 	},
 ];
 
@@ -83,7 +71,9 @@ export function FrameworkCombobox() {
 									key={framework.value}
 									value={framework.value}
 									onSelect={(currentValue) => {
+										// @ts-ignore
 										setValue(currentValue === value ? "" : currentValue);
+										// @ts-ignore
 										updateFormFramework(currentValue);
 										setOpen(false);
 									}}

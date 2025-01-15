@@ -7,11 +7,8 @@ import type {
 
 export type FormFramework =
 	| "next"
-	| "react"
 	| "svelte"
 	| "vue"
-	| "solid"
-	| "astro";
 
 export type ChosenField<F extends FormFramework> = {
 	kind: FrameworkFieldKinds[F];

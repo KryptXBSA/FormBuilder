@@ -8,6 +8,7 @@ import * as prettierPluginEstree from "prettier/plugins/estree";
 import { COMPONENTS } from "../components/components";
 import { mainNextTemplate } from "./templates/next/main";
 import { mainVueTemplate } from "./templates/vue/main";
+import { mainSvelteTemplate } from "./templates/svelte/main";
 
 Handlebars.registerHelper("ifEquals", function (arg1, arg2, options) {
 	//@ts-ignore
@@ -72,7 +73,7 @@ export async function generateCode(framework: FormFramework, form: FormSchema) {
 	const zodFormSchema = formToZodSchema(form);
 	const formSchema = `const formSchema = toTypedSchema(${zodFormSchema})`;
 
-	const main = Handlebars.compile(framework === 'vue' ? mainVueTemplate : mainNextTemplate);
+	const main = Handlebars.compile(framework === 'vue' ? mainVueTemplate : (framework === 'svelte' ? mainSvelteTemplate : mainNextTemplate));
 	// TODO: maybe flat is wrong? because of the nested fields and the way they should rendered (flex)
 	const flattedFields = form.fields.flat();
 	const formTemplateCode = main({ ...form, fields: flattedFields });
