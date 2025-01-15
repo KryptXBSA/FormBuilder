@@ -6,30 +6,19 @@ export const headingVariants = [
 export const textVariants = [
 	{ label: "Input", value: "vue-shadcn-text-input" },
 	{ label: "Textarea", value: "vue-shadcn-text-textarea" },
-	{ label: "Rich Text Editor", value: "vue-shadcn-text-rich-text" },
-	{ label: "Markdown Editor", value: "vue-shadcn-text-markdown" },
-	{ label: "Code Editor", value: "vue-shadcn-text-code" },
 	{ label: "Password Input", value: "vue-shadcn-text-password" },
-	{
-		label: "Auto-resizing Textarea",
-		value: "vue-shadcn-text-autosize-textarea",
-	},
-	{ label: "OTP Input", value: "vue-shadcn-text-input-otp" },
-	{ label: "Input Mask", value: "vue-shadcn-text-input-mask" },
+	{ label: "Input OTP", value: "vue-shadcn-text-inputotp" },
+	{ label: "Input Tag", value: "vue-shadcn-text-inputtag" },
 ] as const;
 
 export const numberVariants = [
 	{ label: "Number Input", value: "vue-shadcn-number-input" },
 	{ label: "Slider", value: "vue-shadcn-number-slider" },
-	{ label: "Rating", value: "vue-shadcn-number-rating" },
-	{ label: "OTP", value: "vue-shadcn-number-otp" },
-	{ label: "Stepper", value: "vue-shadcn-number-stepper" },
 ] as const;
 
 export const booleanVariants = [
 	{ label: "Checkbox", value: "vue-shadcn-boolean-checkbox" },
 	{ label: "Switch", value: "vue-shadcn-boolean-switch" },
-	{ label: "Toggle", value: "vue-shadcn-boolean-toggle" },
 ] as const;
 
 export const dateVariants = [
@@ -41,13 +30,13 @@ export const dateVariants = [
 	{ label: "Date Range Calendar", value: "vue-shadcn-date-date-range-picker" },
 ] as const;
 
-export const fileVariants = [
-	{ label: "Single File Upload", value: "vue-shadcn-file-single" },
-	{ label: "Multiple File Upload", value: "vue-shadcn-file-multiple" },
-	{ label: "Drag & Drop Zone", value: "vue-shadcn-file-drag-drop" },
-	{ label: "Avatar Upload", value: "vue-shadcn-file-avatar" },
-	{ label: "Image Gallery", value: "vue-shadcn-file-image-gallery" },
-] as const;
+// export const fileVariants = [
+// 	{ label: "Single File Upload", value: "vue-shadcn-file-single" },
+// 	{ label: "Multiple File Upload", value: "vue-shadcn-file-multiple" },
+// 	{ label: "Drag & Drop Zone", value: "vue-shadcn-file-drag-drop" },
+// 	{ label: "Avatar Upload", value: "vue-shadcn-file-avatar" },
+// 	{ label: "Image Gallery", value: "vue-shadcn-file-image-gallery" },
+// ] as const;
 
 export const enumVariants = [
 	{ label: "Select Dropdown", value: "vue-shadcn-enum-select" },
@@ -64,6 +53,6 @@ export const vueFieldVariants = {
 	number: numberVariants,
 	boolean: booleanVariants,
 	date: dateVariants,
-	file: fileVariants,
+	// file: fileVariants,
 	enum: enumVariants,
 } as const;

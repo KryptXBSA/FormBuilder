@@ -3,6 +3,7 @@ import { useAppState } from "@/state/state";
 import { FiPlus, FiTrash } from "react-icons/fi";
 
 import { Button } from "@/components/ui/button";
+import { NewFormModal } from "./NewFormModal";
 
 export function FormList() {
 	const { forms, newForm, selectForm, deleteForm } = useAppState();
@@ -27,7 +28,8 @@ export function FormList() {
 					</Button>
 				</li>
 			))}
-			<Button
+			<NewFormModal />
+			{/* <Button
 				className="w-32"
 				// TODO: add framework
 				onClick={() =>
@@ -68,7 +70,7 @@ export function FormList() {
 			>
 				<FiPlus size={22} />
 				New Form
-			</Button>
+			</Button> */}
 		</ul>
 	);
 }

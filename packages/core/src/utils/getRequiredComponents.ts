@@ -8,7 +8,11 @@ export function getRequiredComponents<F extends FormFramework>(
 	let requiredComponents: string[] = [];
 
 	fields.flat().forEach((field) => {
-		requiredComponents.push(...COMPONENTS[field.variant].cli);
+		if (COMPONENTS[field.variant]) {
+			requiredComponents.push(...COMPONENTS[field.variant].cli);
+		} else {
+			throw new Error(`Component variant not found: ${field.variant}`);
+		}
 	});
 	requiredComponents = Array.from(new Set(requiredComponents));
 	return requiredComponents;
