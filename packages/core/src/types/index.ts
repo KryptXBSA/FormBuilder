@@ -5,10 +5,7 @@ import type {
 	FrameworkFieldKinds,
 } from "./fieldVariants";
 
-export type FormFramework =
-	| "next"
-	| "svelte"
-	| "vue"
+export type FormFramework = "next" | "svelte" | "vue";
 
 export type ChosenField<F extends FormFramework> = {
 	kind: FrameworkFieldKinds[F];

@@ -1,4 +1,4 @@
-// TODO: svelte custom heading component 
+// TODO: svelte custom heading component
 export const heading = `
 		<>
 			{useAnchor ? (

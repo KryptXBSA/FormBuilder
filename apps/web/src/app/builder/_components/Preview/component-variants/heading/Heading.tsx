@@ -5,12 +5,14 @@ interface HeadingProps {
 	useAnchor: boolean;
 	headingLevel: "H1" | "H2" | "H3" | "H4" | "H5" | "H6";
 	anchorValue?: string;
+	label: string;
 }
 
 // TODO: Heading not done
 export function Heading({
 	useAnchor,
 	headingLevel,
+	label,
 	anchorValue,
 }: HeadingProps) {
 	const HeadingComponent = {
@@ -20,17 +22,16 @@ export function Heading({
 		H4: H4,
 		H5: H5,
 		H6: H6,
-	}[headingLevel];
+	}[headingLevel || "H1"];
 
 	return (
 		<>
 			{useAnchor ? (
-				<HeadingComponent
-					className="border-b-2"
-					anchor={anchorValue}
-				>{`${headingLevel} with anchor`}</HeadingComponent>
+				<HeadingComponent className="border-b-2" anchor={anchorValue}>
+					{label}
+				</HeadingComponent>
 			) : (
-				<HeadingComponent className="border-b-2">{`${headingLevel} without anchor`}</HeadingComponent>
+				<HeadingComponent className="border-b-2">{label}</HeadingComponent>
 			)}
 		</>
 	);

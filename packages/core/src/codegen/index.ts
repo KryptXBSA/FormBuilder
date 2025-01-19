@@ -67,18 +67,32 @@ Handlebars.registerHelper("lookupComponent", function (field) {
 	return new Handlebars.SafeString(template(field));
 });
 
+export type CodegenResult = {
+	code: string;
+	loc: number;
+};
 
-
-export async function generateCode(framework: FormFramework, form: FormSchema) {
+export async function generateCode(
+	framework: FormFramework,
+	form: FormSchema,
+): Promise<CodegenResult> {
 	const zodFormSchema = formToZodSchema(form);
 	const formSchema = `const formSchema = toTypedSchema(${zodFormSchema})`;
 
-	const main = Handlebars.compile(framework === 'vue' ? mainVueTemplate : (framework === 'svelte' ? mainSvelteTemplate : mainNextTemplate));
+	const main = Handlebars.compile(
+		framework === "vue"
+			? mainVueTemplate
+			: framework === "svelte"
+				? mainSvelteTemplate
+				: mainNextTemplate,
+	);
 	// TODO: maybe flat is wrong? because of the nested fields and the way they should rendered (flex)
 	const flattedFields = form.fields.flat();
 	const formTemplateCode = main({ ...form, fields: flattedFields });
 
-	const importsTemplate = Handlebars.compile(generateImports(framework, form.fields));
+	const importsTemplate = Handlebars.compile(
+		generateImports(framework, form.fields),
+	);
 
 	const importsCode = importsTemplate({
 		importAliasUtils: form.settings.importAliasUtils,
@@ -87,15 +101,24 @@ export async function generateCode(framework: FormFramework, form: FormSchema) {
 
 	const formattedImports = await formatCode(importsCode);
 	const formattedFormSchema = await formatCode(formSchema);
-	const completeCode = formattedImports + formattedFormSchema + formTemplateCode;
+	const completeCode =
+		formattedImports + formattedFormSchema + formTemplateCode;
 
-	// couldn't find a vue parser 
-	if (framework === 'vue') {
-		return `<script setup lang="ts">\n${completeCode}`;
+	// couldn't find a vue parser
+	if (framework === "vue") {
+		const vueCode = `<script setup lang="ts">\n${completeCode}`;
+		return {
+			code: vueCode,
+			loc: vueCode.split("\n").length,
+		};
 	}
 
 	const formattedCode = await formatCode(completeCode);
-	return formattedCode;
+	console.log("lengthhhhh", formattedCode.split("\n").length);
+	return {
+		code: formattedCode,
+		loc: formattedCode.split("\n").length,
+	};
 }
 
 async function formatCode(code: string) {

@@ -23,14 +23,26 @@ import type { FormField as FF, FormFramework } from "formbuilder-core";
 
 export function RenderField({ col }: { col: FF<FormFramework> }) {
 	const variant = col.variant.split("-").slice(2).join("-");
+	console.log("col.variant", variant);
 	switch (col.kind) {
 		case "heading":
 			if (variant === "heading-simple") {
-				return <Heading useAnchor={false} headingLevel={col.headingLevel!} />;
+				return (
+					<Heading
+						label={col.label}
+						useAnchor={false}
+						headingLevel={col.headingLevel!}
+					/>
+				);
 			}
 			if (variant === "heading-anchor") {
 				return (
-					<Heading anchorValue="azaz" useAnchor={true} headingLevel="H3" />
+					<Heading
+						label={col.label}
+						anchorValue="azaz"
+						useAnchor={true}
+						headingLevel={col.headingLevel!}
+					/>
 				);
 			}
 			break;

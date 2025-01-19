@@ -32,9 +32,7 @@ export const svelteFieldKinds = [
 	"enum",
 ] as const;
 
-
 export type Kind = FrameworkFieldKinds[FormFramework];
-
 
 export const allFieldVariantsByKind = {
 	heading: [

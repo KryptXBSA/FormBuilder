@@ -1,4 +1,4 @@
-// TODO: svelte custom password strength indicator 
+// TODO: svelte custom password strength indicator
 export const passwordStrengthIndicator = `
 <FormField
 	control={form.control}
