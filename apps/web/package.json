@@ -61,6 +61,7 @@
 		"react-icons": "^5.4.0",
 		"react-phone-number-input": "^3.4.11",
 		"sharp": "^0.33.5",
+		"sonner": "^1.7.2",
 		"swapy": "^0.4.2",
 		"tailwind-merge": "^2.6.0",
 		"tailwindcss-animate": "^1.0.7",

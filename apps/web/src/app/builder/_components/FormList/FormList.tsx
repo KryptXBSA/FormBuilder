@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { useAppState } from "@/state/state";
 import { FiPlus, FiTrash } from "react-icons/fi";
@@ -5,6 +6,8 @@ import { FiPlus, FiTrash } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 import { NewFormModal } from "./NewFormModal";
 import { Icons } from "@/components/icons";
+import { ImportExport } from "./ImportExport";
+import { toast } from "sonner";
 
 export function FormList() {
 	const { forms, selectForm, deleteForm } = useAppState();
@@ -30,7 +33,7 @@ export function FormList() {
 								<Icons.Svelte />
 							</>
 						) : null}
-						<p className="max-w- truncate">{f.name}</p>
+						<p className="truncate">{f.name}</p>
 					</Button>
 					<Button
 						onClick={() => deleteForm(idx)}
@@ -42,48 +45,7 @@ export function FormList() {
 				</li>
 			))}
 			<NewFormModal />
-			{/* <Button
-				className="w-32"
-				// TODO: add framework
-				onClick={() =>
-					newForm({
-						id: 1,
-						settings: {
-							importAliasComponents: "@/components/ui",
-							importAliasUtils: "@/utils",
-						},
-						name: "My Form",
-						fields: [
-							[
-								{
-									id: "textField1",
-									kind: "text",
-									label: "First Text Field",
-									key: "firstTextFieldz",
-									required: true,
-									variant: "next-shadcn-text-input",
-									placeholder: "Enter first text",
-									validation: { min: 1, max: 10 },
-								},
-								{
-									id: "textField2",
-									kind: "text",
-									label: "First Text Field",
-									key: "firstTextField",
-									required: true,
-									variant: "next-shadcn-text-input",
-									validation: { min: 1, max: 10 },
-									placeholder: "Enter first text",
-								},
-							],
-						],
-						framework: "next",
-					})
-				}
-			>
-				<FiPlus size={22} />
-				New Form
-			</Button> */}
+			<ImportExport />
 		</ul>
 	);
 }

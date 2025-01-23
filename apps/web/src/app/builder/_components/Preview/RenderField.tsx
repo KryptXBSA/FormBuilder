@@ -23,7 +23,6 @@ import type { FormField as FF, FormFramework } from "formbuilder-core";
 
 export function RenderField({ col }: { col: FF<FormFramework> }) {
 	const variant = col.variant.split("-").slice(2).join("-");
-	console.log("col.variant", variant);
 	switch (col.kind) {
 		case "heading":
 			if (variant === "heading-simple") {
