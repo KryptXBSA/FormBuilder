@@ -4,20 +4,33 @@ import { FiPlus, FiTrash } from "react-icons/fi";
 
 import { Button } from "@/components/ui/button";
 import { NewFormModal } from "./NewFormModal";
+import { Icons } from "@/components/icons";
 
 export function FormList() {
-	const { forms, newForm, selectForm, deleteForm } = useAppState();
+	const { forms, selectForm, deleteForm } = useAppState();
 
 	return (
-		<ul className="mt-20 flex flex-col gap-2">
+		<ul className="flex flex-col gap-2 bg-[#1D1E2B] pt-2 pl-5">
 			{forms?.map((f, idx) => (
 				<li className="flex gap-2" key={idx}>
 					<Button
-						className="flex w-32 flex-col"
+						className="flex w-32 justify-start"
 						onClick={() => selectForm(idx)}
 					>
-						<p>{f.name}</p>
-						{f.framework}
+						{f.framework === "vue" ? (
+							<>
+								<Icons.vue />
+							</>
+						) : f.framework === "next" ? (
+							<>
+								<Icons.next />
+							</>
+						) : f.framework === "svelte" ? (
+							<>
+								<Icons.Svelte />
+							</>
+						) : null}
+						<p className="max-w- truncate">{f.name}</p>
 					</Button>
 					<Button
 						onClick={() => deleteForm(idx)}

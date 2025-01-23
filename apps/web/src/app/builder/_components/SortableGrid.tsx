@@ -102,7 +102,7 @@ export const SortableGrid = () => {
 			onDragStart={handleDragStart}
 		>
 			<div className="flex w-full justify-center">
-				<div className="flex w-fit max-w-[1100px] flex-col gap-2 overflow-x-auto rounded-lg border-2 border-slate-500 bg-secondary p-4">
+				<div className="flex w-fit max-w-[810px] flex-col gap-2 overflow-x-auto rounded-lg border-2 border-slate-500 bg-secondary p-4">
 					<SortableContext items={items.flat()} strategy={rectSwappingStrategy}>
 						{items.map((row, idx) => (
 							<div key={idx} className="flex gap-2">

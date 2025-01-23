@@ -10,11 +10,15 @@ interface SettingsToggleProps {
 export function SettingsToggle({ onClick }: SettingsToggleProps) {
 	const state = useAppState();
 	return (
-		<div className="flex justify-between p-2 px-24">
+		<div className="flex justify-between px-24 pb-4">
 			<h3 className="scroll-m-20 font-semibold text-2xl tracking-tight">
 				{state.currentForm.name}
 			</h3>
-			<Button className="gap-1" onClick={onClick}>
+			<Button
+				variant={state.builderContent === "formSettings" ? "default" : "outline"}
+				className="gap-1"
+				onClick={onClick}
+			>
 				<Settings />
 				Settings
 			</Button>

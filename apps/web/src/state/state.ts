@@ -17,9 +17,17 @@ import { mockForm } from "@/mock/mockForm";
 import { newStringField } from "@/utils/newField";
 import { LOCALSTORAGE_KEY } from "@/constants";
 
+export type BuilderContent =
+	| "fieldSettings"
+	| "formSettings"
+	| "editor"
+	| "preview"
+	| "code"
+	| null;
 type State<F extends FormFramework = FormFramework> = {
 	selectedForm: number;
-	showSettings: string | "form" | null;
+	fieldId: string | null;
+	builderContent: BuilderContent;
 	packageManager: "npm" | "yarn" | "pnpm" | "bun";
 	forms: FormSchema<F>[];
 	renderContent: boolean;
@@ -33,7 +41,8 @@ export const $appState = persistentAtom<State<MockFormFramework>>(
 		packageManager: "bun",
 		renderContent: true,
 		chosenField: null,
-		showSettings: null,
+		fieldId: null,
+		builderContent: null,
 		selectedForm: 0,
 		forms: [mockForm as FormSchema<MockFormFramework>],
 	},
@@ -47,7 +56,8 @@ export function useAppState() {
 	return {
 		packageManager: useStore($appState).packageManager,
 		chosenField: useStore($appState).chosenField,
-		showSettings: useStore($appState).showSettings,
+		builderContent: useStore($appState).builderContent,
+		fieldId: useStore($appState).fieldId,
 		renderContent: useStore($appState).renderContent,
 		currentForm: useStore($appState).forms[useStore($appState).selectedForm],
 		selectedForm: useStore($appState).selectedForm,
@@ -80,7 +90,7 @@ function updateField<F extends FormFramework>(field: Partial<FormField<F>>) {
 
 	const { col, row } = findFieldIndex(
 		newForms[$appState.get().selectedForm].fields,
-		$appState.get().showSettings!,
+		$appState.get().fieldId!,
 	)!;
 	const fieldData = newForms[$appState.get().selectedForm].fields[row][col];
 	// @ts-ignore

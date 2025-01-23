@@ -5,6 +5,7 @@ import {
 	Twitter,
 	type Icon as LucideIcon,
 } from "lucide-react";
+import { SiSvelte, SiTypescript, SiVuedotjs } from "react-icons/si";
 
 export type Icon = typeof LucideIcon;
 
@@ -12,6 +13,9 @@ export const Icons = {
 	sun: SunMedium,
 	moon: Moon,
 	twitter: Twitter,
+	vue: () => <SiVuedotjs className="h-5 w-5" color="#42b883" />,
+	next: () => <SiTypescript className="h-5 w-5" color="#3174C1" />,
+	Svelte: () => <SiSvelte className="h-5 w-5" color="#FF3E00" />,
 	logo: (props: LucideProps) => (
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
 			<path

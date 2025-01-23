@@ -1,18 +1,13 @@
 import { Input } from "@/components/ui/input";
-
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { updateFormSettings, useAppState } from "@/state/state";
-import { FrameworkCombobox } from "./FrameworkCombobox";
+import { useAppState } from "@/state/state";
 import { Switch } from "@/components/ui/switch";
 import { findFieldIndex } from "@/utils/findFieldIndex";
 
 export function FieldSettings() {
 	const state = useAppState();
-	const { col, row } = findFieldIndex(
-		state.currentForm.fields,
-		state.showSettings!,
-	)!;
+	if (!state.fieldId) throw new Error("Field ID is not set");
+
+	const { col, row } = findFieldIndex(state.currentForm.fields, state.fieldId)!;
 	const data = state.currentForm.fields[row][col];
 	return (
 		<div className="flex px-24">

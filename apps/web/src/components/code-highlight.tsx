@@ -11,9 +11,9 @@ import "highlight.js/styles/atom-one-dark.css";
 import { Button } from "@/components/ui/button";
 import { Copy, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { SiSvelte, SiTypescript, SiVuedotjs } from "react-icons/si";
 import type { FormFramework } from "formbuilder-core";
 import { useAppState } from "@/state/state";
+import { Icons } from "./icons";
 interface CodeHighlightProps {
 	framework?: FormFramework;
 	code?: string;
@@ -62,21 +62,21 @@ export function CodeHighlight({
 				<div className="flex w-fit items-center gap-2 rounded-lg rounded-b-none border-2 border-[#282C34] bg-[#282C34] px-2 py-1.5">
 					{framework === "vue" ? (
 						<>
-							<SiVuedotjs className="h-5 w-5" color="#42b883" />
+							<Icons.vue />
 							<p className="font-semibold text-muted-foreground text-sm">
 								MyForm.vue
 							</p>
 						</>
 					) : framework === "next" ? (
 						<>
-							<SiTypescript className="h-5 w-5" color="#3174C1" />
+							<Icons.next />
 							<p className="font-semibold text-muted-foreground text-sm">
 								MyForm.tsx
 							</p>
 						</>
 					) : framework === "svelte" ? (
 						<>
-							<SiSvelte className="h-5 w-5" color="#FF3E00" />
+							<Icons.Svelte />
 							<p className="font-semibold text-muted-foreground text-sm">
 								MyForm.svelte
 							</p>
