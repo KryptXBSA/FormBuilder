@@ -18,11 +18,12 @@ Handlebars.registerHelper("ifNotEquals", function (arg1, arg2, options) {
 	//@ts-ignore
 	return arg1 !== arg2 ? options.fn(this) : options.inverse(this);
 });
-
-// Handlebars.registerHelper("eq", function (arg1, arg2, options) {
-// 	//@ts-ignore
-// 	return arg1 === arg2 ? options.fn(this) : options.inverse(this);
-// });
+Handlebars.registerHelper('times', (n, block) => {
+    let accum = '';
+    for(let i = 0; i < n; ++i)
+        accum += block.fn(i);
+    return accum;
+});
 
 // TODO: fix default values
 Handlebars.registerHelper("defaultValues", (fields) => {
@@ -77,7 +78,15 @@ export async function generateCode(
 	form: FormSchema,
 ): Promise<CodegenResult> {
 	const zodFormSchema = formToZodSchema(form);
-	const formSchema = `const formSchema = toTypedSchema(${zodFormSchema})`;
+	let formSchema = "";
+	if (framework === "next") {
+		formSchema = `const formSchema = ${zodFormSchema}`;
+		// TODO: fix schemas
+	} else if (framework === "vue") {
+		formSchema = `const formSchema = toTypedSchema(${zodFormSchema})`;
+	} else if (framework === "svelte") {
+		formSchema = `const formSchema = ${zodFormSchema}`;
+	}
 
 	const main = Handlebars.compile(
 		framework === "vue"
@@ -114,7 +123,6 @@ export async function generateCode(
 	}
 
 	const formattedCode = await formatCode(completeCode);
-	console.log("lengthhhhh", formattedCode.split("\n").length);
 	return {
 		code: formattedCode,
 		loc: formattedCode.split("\n").length,

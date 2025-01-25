@@ -2,6 +2,8 @@ import { Input } from "@/components/ui/input";
 import { useAppState } from "@/state/state";
 import { Switch } from "@/components/ui/switch";
 import { findFieldIndex } from "@/utils/findFieldIndex";
+import { H5 } from "@/components/ui/heading-with-anchor";
+import { FormSwitch, FormInput } from "../SettingInputs";
 
 export function FieldSettings() {
 	const state = useAppState();
@@ -9,39 +11,109 @@ export function FieldSettings() {
 
 	const { col, row } = findFieldIndex(state.currentForm.fields, state.fieldId)!;
 	const data = state.currentForm.fields[row][col];
-	return (
-		<div className="flex px-24">
-			<div className="flex w-full flex-col gap-8">
-				<FormInput
-					label="Key"
-					value={data.key}
-					onChange={(newValue) => state.updateField({ key: newValue })}
-				/>
-				<FormInput
-					label="Label"
-					value={data.label}
-					onChange={(newValue) => state.updateField({ label: newValue })}
-				/>
-				<FormInput
-					label="Description"
-					value={data.description || ""}
-					onChange={(newValue) => state.updateField({ description: newValue })}
-				/>
-				<FormInput
-					label="Placeholder"
-					value={data.placeholder || ""}
-					onChange={(newValue) => state.updateField({ placeholder: newValue })}
-				/>
-			</div>
-
-			<div className="mt-6 flex w-full flex-col gap-8 ">
-				<div className="flex max-w-sm flex-row items-center justify-between rounded-lg border p-4">
-					<div className="space-y-0.5">
-						<div className="text-base">Required</div>
-						<div>Is the field required?</div>
+	if (data.kind !== "boolean" && data.kind !== "date" && data.kind !== "enum")
+		return (
+			<div className="flex gap-6 px-24">
+				<div className="flex w-full flex-col gap-2">
+					<H5 className="">Configuration</H5>
+					<div className="flex w-full flex-col gap-8">
+						<FormInput
+							label="Key"
+							value={data.key}
+							onChange={(newValue) => state.updateField({ key: newValue })}
+						/>
+						<FormInput
+							label="Label"
+							value={data.label}
+							onChange={(newValue) => state.updateField({ label: newValue })}
+						/>
+						<FormInput
+							label="Description"
+							value={data.description || ""}
+							onChange={(newValue) =>
+								state.updateField({ description: newValue })
+							}
+						/>
+						{!data.variant.includes("text-inputotp") && (
+							<FormInput
+								label="Placeholder"
+								value={data.placeholder || ""}
+								onChange={(newValue) =>
+									state.updateField({ placeholder: newValue })
+								}
+							/>
+						)}
 					</div>
-					<div>
-						<Switch
+				</div>
+
+				<div className="flex w-full flex-col gap-2">
+					<H5 className="">Validation</H5>
+					{data.kind === "text" && data.variant.endsWith("text-input") && (
+						<FormSwitch
+							title="Email"
+							subtitle="Is the field an email?"
+							checked={data.validation?.isEmail || false}
+							onCheckedChange={() =>
+								state.updateFieldValidation({
+									isEmail: !data.validation.isEmail,
+								})
+							}
+						/>
+					)}
+					<div className="flex w-full flex-col gap-8 ">
+						{!data.variant.includes("text-inputotp") && (
+							<div className="flex gap-2">
+								<FormInput
+									type="number"
+									label="Min"
+									value={data.validation?.min || ""}
+									onChange={(newValue) =>
+										state.updateFieldValidation({
+											min: Number(newValue),
+										})
+									}
+								/>
+								<FormInput
+									type="number"
+									label="Max"
+									value={data.validation?.max || ""}
+									onChange={(newValue) =>
+										state.updateFieldValidation({
+											max: Number(newValue),
+										})
+									}
+								/>
+							</div>
+						)}
+
+						{data.variant.endsWith("text-inputotp") && (
+							<FormInput
+								type="number"
+								label="Digits"
+								value={data.digits || 6}
+								onChange={(newValue) =>
+									state.updateField({
+										digits: Number(newValue),
+									})
+								}
+							/>
+						)}
+						{data.kind === "number" && (
+							<FormInput
+								type="number"
+								label="Step"
+								value={data.validation?.step || 1}
+								onChange={(newValue) =>
+									state.updateFieldValidation({
+										step: Number(newValue),
+									})
+								}
+							/>
+						)}
+
+						<FormSwitch
+							title="Required"
+							subtitle="Is the field required?"
 							checked={data.required}
 							onCheckedChange={() =>
 								state.updateField({
@@ -49,66 +121,43 @@ export function FieldSettings() {
 								})
 							}
 						/>
-					</div>
-				</div>
 
-				<div className="flex max-w-sm flex-row items-center justify-between rounded-lg border p-4">
-					<div className="space-y-0.5">
-						<div className="text-base">Disabled</div>
-						<div>Is disabled?</div>
-					</div>
-					<div>
-						<Switch
-							checked={data.disabled}
+						<FormSwitch
+							title="Disabled"
+							subtitle="Is the field disabled?"
+							checked={data.disabled || false}
 							onCheckedChange={() =>
 								state.updateField({
 									disabled: !data.disabled,
 								})
 							}
 						/>
-					</div>
-				</div>
-				<div className="flex max-w-sm flex-row items-center justify-between rounded-lg border p-4">
-					<div className="space-y-0.5">
-						<div className="text-base">Hidden</div>
-						<div>Is hidden?</div>
-					</div>
-					<div>
-						<Switch
-							checked={data.hidden}
-							onCheckedChange={() =>
-								state.updateField({
-									hidden: !data.hidden,
-								})
-							}
-						/>
+						{data.kind === "number" && (
+							<FormSwitch
+								title="Negative"
+								subtitle="Allow negative numbers?"
+								checked={data.validation?.allowNegative || false}
+								onCheckedChange={() =>
+									state.updateFieldValidation({
+										allowNegative: !data.validation?.allowNegative,
+									})
+								}
+							/>
+						)}
+						{data.kind === "number" && (
+							<FormSwitch
+								title="Decimal"
+								subtitle="Allow decimal?"
+								checked={data.validation?.allowDecimal || false}
+								onCheckedChange={() =>
+									state.updateFieldValidation({
+										allowDecimal: !data.validation?.allowDecimal,
+									})
+								}
+							/>
+						)}
 					</div>
 				</div>
 			</div>
-		</div>
-	);
-}
-
-type FormInput = {
-	label: string;
-	value: string;
-	onChange: (value: string) => void;
-};
-
-function FormInput({ label, value, onChange }: FormInput) {
-	return (
-		<div className="max-w-xs">
-			<h4 className="scroll-m-20 font-semibold text-xl tracking-tight">
-				{label}
-			</h4>
-			<Input
-				placeholder={label}
-				value={value}
-				onChange={(e) => {
-					const newValue = e.currentTarget.value;
-					onChange(newValue);
-				}}
-			/>
-		</div>
-	);
+		);
 }

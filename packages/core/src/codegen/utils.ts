@@ -22,9 +22,21 @@ function formToJsonSchema(form: FormSchema) {
 	const properties: { [key: string]: any } = {};
 	const required: string[] = [];
 
+	// TODO: handle optional and non optional fields
 	form.fields.flat().forEach((field: FormField<FormFramework>) => {
 		let property: any;
-		if (field.kind === "text")
+		if (field.variant === "next-originui-text-inputtag") {
+			property = {
+				type: "array",
+				items: {
+					type: "object",
+					properties: {
+						id: { type: "string" },
+						text: { type: "string" },
+					},
+				},
+			};
+		} else if (field.kind === "text")
 			property = {
 				type: "string",
 				minLength: field.validation?.min

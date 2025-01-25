@@ -23,7 +23,7 @@ export function Preview() {
 						[row.key]: [],
 					};
 
-				return row.validation?.email ? { [row.key]: "" } : { [row.key]: "" };
+				return row.validation?.isEmail ? { [row.key]: "" } : { [row.key]: "" };
 			case "number":
 				// TODO: fix value for dual slider and number
 				if (row.variant === "next-shadcn-number-slider")
@@ -69,7 +69,7 @@ export function Preview() {
 						),
 					};
 
-				return row.validation?.email
+				return row.validation?.isEmail
 					? { [row.key]: z.string().email().min(1).max(9999999999) }
 					: { [row.key]: z.string().min(1).max(9999999999) };
 			case "number":

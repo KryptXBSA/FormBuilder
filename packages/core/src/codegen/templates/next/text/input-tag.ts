@@ -18,7 +18,7 @@ export const inputTag = `<FormField
 									setExampleTags(newTags);
 								}}
 								placeholder="Add a tag"
-								styleClasses={{
+								styleClasses={ {
 									tagList: {
 										container: "gap-1",
 									},
@@ -29,7 +29,7 @@ export const inputTag = `<FormField
 										closeButton:
 											"absolute -inset-y-px -end-px p-0 rounded-s-none rounded-e-lg flex size-7 transition-colors outline-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring/70 text-muted-foreground/80 hover:text-foreground",
 									},
-								}}
+								} }
 								activeTagIndex={activeTagIndex}
 								setActiveTagIndex={setActiveTagIndex}
 								inputFieldPosition="bottom"

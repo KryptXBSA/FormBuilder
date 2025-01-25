@@ -16,6 +16,7 @@
 		"rules": {
 			"complexity": { "noForEach": "off" },
 			"style": {
+				"useSelfClosingElements": { "level": "warn" },
 				"noNonNullAssertion": { "level": "off" },
 				"useImportType": { "level": "warn" }
 			},

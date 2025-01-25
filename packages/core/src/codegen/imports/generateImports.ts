@@ -8,8 +8,7 @@ export function generateImports<F extends FormFramework>(
 	framework: FormFramework,
 	fields: FormField<F>[][],
 ) {
-	let imports =
-		framework === "vue"
+	let imports = framework === "vue"
 			? vueInitialImports
 			: framework === "svelte"
 				? svelteInitialImports

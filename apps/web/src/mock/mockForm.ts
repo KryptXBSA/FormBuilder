@@ -42,7 +42,7 @@ export const mockForm: FormSchema = {
 				variant: "next-shadcn-text-input",
 				required: true,
 				defaultValue: "",
-				validation: { min: 1, max: 255, email: true },
+				validation: { min: 1, max: 255, isEmail: true },
 			},
 			{
 				id: "bool",

@@ -16,13 +16,11 @@ export type BaseField = {
 	label: string;
 	key: string;
 	required: boolean;
+	digits?: number;
 	description?: string;
 	placeholder?: string;
 	disabled?: boolean;
-	hidden?: boolean;
-	className?: string;
-	tooltip?: string;
-	message?: string;
+	// message?: string;
 };
 
 export type HeadingField<F extends FormFramework> = BaseField & {
@@ -80,16 +78,13 @@ export type EnumField<F extends FormFramework> = BaseField & {
 export type TextValidation = {
 	min?: number;
 	max?: number;
-	pattern?: string;
-	email?: boolean;
-	url?: boolean;
+	isEmail?: boolean;
 };
 
 export type NumberValidation = {
 	min?: number;
 	max?: number;
 	step?: number;
-	precision?: number;
 	allowNegative?: boolean;
 	allowDecimal?: boolean;
 };

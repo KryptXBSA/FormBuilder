@@ -46,7 +46,10 @@ export default function Builder() {
 		<section className="mx-auto h-screen max-w-[1500px] bg-[#1D1E2B]">
 			<div className="flex w-full justify-center pt-4">
 				<FormList />
-				<div defaultValue="editor" className="max-w[1000px] w-full bg-[#1D1E2B]">
+				<div
+					defaultValue="editor"
+					className="max-w[1000px] w-full bg-[#1D1E2B]"
+				>
 					<SettingsToggle
 						onClick={() =>
 							state.setAppState({

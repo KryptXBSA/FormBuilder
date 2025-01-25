@@ -1,20 +1,19 @@
 "use client";
-import {
-	type FormSchema,
-	type FormField,
-	type FormFramework,
-	newBooleanField,
-	newDateField,
-	newEnumField,
-	newNumberField,
-	newTextField,
-	type ChosenField,
+import type {
+	FormSchema,
+	FormField,
+	FormFramework,
+	ChosenField,
+	DateValidation,
+	BooleanValidation,
+	NumberValidation,
+	TextValidation,
+	EnumValidation,
 } from "formbuilder-core";
 import { persistentAtom } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
 import { findFieldIndex } from "@/utils/findFieldIndex";
 import { mockForm } from "@/mock/mockForm";
-import { newStringField } from "@/utils/newField";
 import { LOCALSTORAGE_KEY } from "@/constants";
 
 export type BuilderContent =
@@ -65,6 +64,7 @@ export function useAppState() {
 		selectForm,
 		deleteForm,
 		updateField,
+		updateFieldValidation,
 		updateFormName,
 		updateFormFields,
 		newForm,
@@ -83,6 +83,31 @@ function newForm(f: FormSchema) {
 	$appState.set({
 		...$appState.get(),
 		forms: currentForms.concat(f),
+	});
+}
+
+function updateFieldValidation(
+	validation: Partial<TextValidation | NumberValidation | BooleanValidation | DateValidation | EnumValidation>,
+) {
+	const newForms = $appState.get().forms;
+
+	const { col, row } = findFieldIndex(
+		newForms[$appState.get().selectedForm].fields,
+		$appState.get().fieldId!,
+	)!;
+	const fieldData = newForms[$appState.get().selectedForm].fields[row][col];
+	// @ts-ignore
+	newForms[$appState.get().selectedForm].fields[row][col] = {
+		...fieldData,
+		validation: {
+			...fieldData.validation,
+			...validation
+		}
+	};
+
+	$appState.set({
+		...$appState.get(),
+		forms: newForms,
 	});
 }
 function updateField<F extends FormFramework>(field: Partial<FormField<F>>) {
@@ -258,7 +283,7 @@ export function removeItem(id: string) {
 	});
 }
 
-export function updateFormSettings(
+function updateFormSettings(
 	newSettings: Partial<FormSchema["settings"]>,
 ) {
 	const currentForms = $appState.get().forms;

@@ -83,7 +83,6 @@ export const passwordStrengthIndicator = `
 					</div>
 
 					{/* Password strength indicator */}
-					{/* biome-ignore lint/a11y/useFocusableInteractive: <explanation> */}
 					<div
 						className="mt-3 mb-4 h-1 w-full overflow-hidden rounded-full bg-border"
 						role="progressbar"
@@ -92,10 +91,9 @@ export const passwordStrengthIndicator = `
 						aria-valuemax={4}
 						aria-label="Password strength"
 					>
-						{/* biome-ignore lint/style/useSelfClosingElements: <explanation> */}
 						<div
 							className={&#96;h-full &#36;{getStrengthColor(strengthScore)} transition-all duration-500 ease-out&#96;}
-							style={{ width: &#96;&#36;{(strengthScore / 4) * 100}%&#96; }}
+							style={ { width: &#96;&#36;{(strengthScore / 4) * 100}%&#96; } }
 						></div>
 					</div>
 

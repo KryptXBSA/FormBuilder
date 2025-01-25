@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/react";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
