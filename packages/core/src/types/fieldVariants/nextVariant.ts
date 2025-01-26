@@ -22,6 +22,7 @@ export const textVariants = [
 export const numberVariants = [
 	{ label: "Number Input", value: "next-shadcn-number-input" },
 	{ label: "Slider", value: "next-shadcn-number-slider" },
+	{ label: "Dual Slider", value: "next-shadcnexpansion-number-dualslider" },
 	{ label: "Phone", value: "next-shadcn-number-phone" },
 	// { label: "Rating", value: "next-shadcn-number-rating" },
 	// { label: "OTP", value: "next-shadcn-number-otp" },

@@ -25,8 +25,11 @@ export function Preview() {
 
 				return row.validation?.isEmail ? { [row.key]: "" } : { [row.key]: "" };
 			case "number":
-				// TODO: fix value for dual slider and number
 				if (row.variant === "next-shadcn-number-slider")
+					return {
+						[row.key]: [0],
+					};
+				if (row.variant === "next-shadcnexpansion-number-dualslider")
 					return {
 						[row.key]: [0, 0],
 					};
@@ -73,7 +76,10 @@ export function Preview() {
 					? { [row.key]: z.string().email().min(1).max(9999999999) }
 					: { [row.key]: z.string().min(1).max(9999999999) };
 			case "number":
-				// TODO: fix value for dual slider and number
+				if (row.variant === "next-shadcnexpansion-number-dualslider")
+					return {
+						[row.key]: z.array(z.number()),
+					};
 				if (row.variant === "next-shadcn-number-slider")
 					return {
 						[row.key]: z.array(z.number()),
@@ -109,7 +115,7 @@ export function Preview() {
 		}
 	};
 
-	const ff = currentForm.fields.reduce((acc, col) => {
+	const schema = currentForm.fields.reduce((acc, col) => {
 		col.forEach((row) => {
 			Object.assign(acc, createFieldSchema(row));
 		});
@@ -123,7 +129,7 @@ export function Preview() {
 		return acc;
 	}, {});
 
-	const formSchema = z.object(ff);
+	const formSchema = z.object(schema);
 	const form = useForm<z.infer<any>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: defaultValues,

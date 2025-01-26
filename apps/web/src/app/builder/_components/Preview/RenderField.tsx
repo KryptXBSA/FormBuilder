@@ -20,6 +20,7 @@ import { Select } from "./component-variants/enum/select";
 import { RadioGroup } from "./component-variants/enum/radio";
 import { ButtonGroup } from "./component-variants/enum/button";
 import type { FormField as FF, FormFramework } from "formbuilder-core";
+import { Slider } from "./component-variants/number/slider";
 
 export function RenderField({ col }: { col: FF<FormFramework> }) {
 	const variant = col.variant.split("-").slice(2).join("-");
@@ -67,8 +68,10 @@ export function RenderField({ col }: { col: FF<FormFramework> }) {
 					return <NumberInput f={col} />;
 				case "number-phone":
 					return <PhoneNumber f={col} />;
-				case "number-slider":
+				case "number-dualslider":
 					return <DualSlider f={col} />;
+				case "number-slider":
+					return <Slider f={col} />;
 			}
 			break;
 		case "boolean":

@@ -1,5 +1,4 @@
-export const dualSlider = `
-		<FormField
+export const dualSlider = `<FormField
 			control={form.control}
 			name="{{key}}"
 			render={({ field }) => (
@@ -11,9 +10,9 @@ export const dualSlider = `
 							label={(value) => value}
 							value={field.value || [0, 100]}
 							onValueChange={(e: any) => field.onChange(e)}
-							min={f.validation?.min}
-							max={f.validation?.max}
-							step={f.validation?.step}
+							min={ {{validation.min}} }
+							max={ {{validation.max}} }
+							step={ {{validation.step}} }
 						/>
 					</FormControl>
 					<FormDescription>{{description}}</FormDescription>

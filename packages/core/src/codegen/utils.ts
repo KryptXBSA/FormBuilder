@@ -46,12 +46,26 @@ function formToJsonSchema(form: FormSchema) {
 					? Number.parseInt(field.validation?.max.toString())
 					: 255,
 			};
-		else if (field.kind === "number")
-			property = {
-				type: field.kind,
-				minimum: field.validation?.min,
-				maximum: field.validation?.max,
-			};
+		else if (field.kind === "number") {
+			if (field.variant.includes("slider"))
+				property = {
+					type: "array",
+					items: {
+						type: "number",
+					},
+				};
+			else if (field.variant.includes("phone"))
+				property = {
+					type: "string",
+					format: "phone",
+				};
+			else
+				property = {
+					type: field.kind,
+					minimum: field.validation?.min,
+					maximum: field.validation?.max,
+				};
+		}
 		else if (field.kind === "boolean")
 			property = {
 				type: field.kind,

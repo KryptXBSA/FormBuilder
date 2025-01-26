@@ -137,6 +137,27 @@ export function Code() {
 												https://originui.com/inputs
 											</a>
 										)}
+										{field.variant === "next-shadcn-number-phone" && (
+											<a
+												href="https://shadcn-phone-input.vercel.app"
+												target="_blank"
+												rel="noopener noreferrer"
+												className="underline decoration-1 hover:underline"
+											>
+												https://shadcn-phone-input.vercel.app
+											</a>
+										)}
+										{field.variant ===
+											"next-shadcnexpansion-number-dualslider" && (
+											<a
+												href="https://shadcnui-expansions.typeart.cc/docs/dual-range-slider"
+												target="_blank"
+												rel="noopener noreferrer"
+												className="underline decoration-1 hover:underline"
+											>
+										https://shadcnui-expansions.typeart.cc/docs/dual-range-slider
+											</a>
+										)}
 									</div>
 								);
 							})}

@@ -87,9 +87,9 @@ export const NEXT_COMPONENTS: ComponentConfig = {
 		imports: slider,
 		template: numberTemplates.slider,
 	},
-	"next-shadcn-number-dualslider": {
+	"next-shadcnexpansion-number-dualslider": {
 		label: "Dual Slider",
-		cli: ["dualslider"],
+		cli: ["shadcnexpansion-dualslider"],
 		imports: dualSlider,
 		template: numberTemplates.dualSlider,
 	},
