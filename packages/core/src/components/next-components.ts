@@ -119,7 +119,7 @@ export const NEXT_COMPONENTS: ComponentConfig = {
 	},
 	"next-shadcn-date-daterange": {
 		label: "Date Range Picker",
-		cli: ["daterange"],
+		cli: [""],
 		imports: daterange,
 		template: dateTemplates.daterange,
 	},

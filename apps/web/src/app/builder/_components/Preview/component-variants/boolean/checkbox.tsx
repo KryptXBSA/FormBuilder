@@ -4,6 +4,7 @@ import {
 	FormDescription,
 	FormField,
 	FormItem,
+	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
 import { useFormContext } from "react-hook-form";
@@ -16,25 +17,19 @@ export function Checkbox({ f }: { f: BooleanField<FormFramework> }) {
 			control={form.control}
 			name={f.key}
 			render={({ field }) => (
-				<FormItem>
+				<FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
 					<FormControl>
-						<div className="flex items-center space-x-2">
-							<ShadcnCheckbox
-								value={field.value}
-								id={f.key}
-								onClick={(e) => console.log("elick", field.value)}
-								onChange={(e) => console.log("eeeez", e)}
-							/>
-							<label
-								htmlFor={f.key}
-								className="font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-							>
-								{f.label}
-							</label>
-						</div>
+						<ShadcnCheckbox
+							className="mt-0.5"
+							checked={field.value}
+							onCheckedChange={field.onChange}
+						/>
 					</FormControl>
-					<FormDescription>{f.description}</FormDescription>
-					<FormMessage />
+					<div className="space-y-1 leading-none">
+						<FormLabel>{f.label}</FormLabel>
+						<FormDescription>{f.description}</FormDescription>
+						<FormMessage />
+					</div>
 				</FormItem>
 			)}
 		/>

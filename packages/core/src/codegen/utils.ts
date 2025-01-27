@@ -13,7 +13,7 @@ function jsonSchemaToZod(obj: any) {
 	const catchallPattern = /\.catchall\(z\.never\(\)\)/;
 	schema = schema.replace(catchallPattern, "");
 	schema = schema.replace(".number()", ".coerce.number()");
-	schema = schema.replace(".string().datetime()", ".date()");
+	schema = schema.replaceAll(".string().datetime({ offset: true })", ".date()");
 	return schema;
 }
 
@@ -71,23 +71,29 @@ function formToJsonSchema(form: FormSchema) {
 				type: field.kind,
 			};
 		else if (field.kind === "date")
-			property = {
-				type: "string",
-				format: "date-time",
-			};
+			if (field.variant === "next-shadcn-date-daterange")
+				property = {
+					type: "object",
+					properties: {
+						from: {
+							type: "string",
+							format: "date-time",
+						},
+						to: {
+							type: "string",
+							format: "date-time",
+						},
+					},
+				};
+			else
+				property = {
+					type: "string",
+					format: "date-time",
+				};
 		else if (field.kind === "enum")
 			property = {
 				type: "string",
 			};
-		// else if (field.kind === "text")
-		// 	property = {
-		// 		type: "string",
-		// 		minLength: field.validation?.min,
-		// 		maxLength: field.validation?.max,
-		// 	};
-		// if (field.kind === "string" && field.validation?.format) {
-		// 	property.format = field.validation.format;
-		// }
 		properties[field.key] = property;
 		if (field.required) {
 			required.push(field.key);
