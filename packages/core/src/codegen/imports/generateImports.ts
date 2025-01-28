@@ -8,11 +8,12 @@ export function generateImports<F extends FormFramework>(
 	framework: FormFramework,
 	fields: FormField<F>[][],
 ) {
-	let imports = framework === "vue"
-		? vueInitialImports
-		: framework === "svelte"
-			? svelteInitialImports
-			: nextInitialImports;
+	let imports =
+		framework === "vue"
+			? vueInitialImports
+			: framework === "svelte"
+				? svelteInitialImports
+				: nextInitialImports;
 	const addedVariants: Set<string> = new Set();
 
 	for (const field of fields.flat()) {

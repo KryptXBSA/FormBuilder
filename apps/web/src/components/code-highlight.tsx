@@ -102,7 +102,9 @@ export function CodeHighlight({
 					expand && "max-h-[400px] overflow-auto",
 				)}
 			>
-				<Highlight className={cn("h-full max-w-[1000px]", lang)}>{code}</Highlight>
+				<Highlight className={cn("h-full max-w-[1000px]", lang)}>
+					{code}
+				</Highlight>
 			</div>
 
 			<div

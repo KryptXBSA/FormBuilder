@@ -21,6 +21,7 @@
 				"useImportType": { "level": "warn" }
 			},
 			"suspicious": {
+				"noFallthroughSwitchClause": "off",
 				"noExplicitAny": "off",
 				"noArrayIndexKey": { "level": "off" }
 			},

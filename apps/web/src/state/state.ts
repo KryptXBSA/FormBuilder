@@ -1,14 +1,20 @@
 "use client";
-import type {
-	FormSchema,
-	FormField,
-	FormFramework,
-	ChosenField,
-	DateValidation,
-	BooleanValidation,
-	NumberValidation,
-	TextValidation,
-	EnumValidation,
+import {
+	type FormSchema,
+	type FormField,
+	type FormFramework,
+	type ChosenField,
+	type DateValidation,
+	type BooleanValidation,
+	type NumberValidation,
+	type TextValidation,
+	type EnumValidation,
+	newNumberField,
+	newTextField,
+	newBooleanField,
+	newEnumField,
+	newDateField,
+	newHeadingField,
 } from "formbuilder-core";
 import { persistentAtom } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
@@ -87,7 +93,13 @@ function newForm(f: FormSchema) {
 }
 
 function updateFieldValidation(
-	validation: Partial<TextValidation | NumberValidation | BooleanValidation | DateValidation | EnumValidation>,
+	validation: Partial<
+		| TextValidation
+		| NumberValidation
+		| BooleanValidation
+		| DateValidation
+		| EnumValidation
+	>,
 ) {
 	const newForms = $appState.get().forms;
 
@@ -99,10 +111,12 @@ function updateFieldValidation(
 	// @ts-ignore
 	newForms[$appState.get().selectedForm].fields[row][col] = {
 		...fieldData,
+		// @ts-ignore
 		validation: {
+			// @ts-ignore
 			...fieldData.validation,
-			...validation
-		}
+			...validation,
+		},
 	};
 
 	$appState.set({
@@ -163,24 +177,8 @@ function createNewField<F extends FormFramework>(
 	chosenField: ChosenField<F>,
 ): FormField<F> {
 	const currentForm = $appState.get().forms[$appState.get().selectedForm];
-	const { noDescription, noPlaceholder } = currentForm.settings;
 	// TODO: newField.ts is broken after the new types
-	// switch (chosenField.kind) {
-	// 	case "text":
-	// 		return newStringField();
-	// 	case "number":
-	// 		return newNumberField();
-	// 	case "boolean":
-	// 		return newBooleanField();
-	// 	case "enum":
-	// 		return newEnumField();
-	// 	case "date":
-	// 		return newDateField();
-	// 	case "file":
-	// 		return newFile();
-	// }
-	// Create a base field specific to the framework and kind
-	const baseField: Partial<FormField<F>> = {
+	let baseField: Partial<FormField<F>> = {
 		id: crypto.randomUUID(),
 		label: `New ${chosenField.kind} Field`,
 		key: `new_${chosenField.kind}_${Date.now()}`,
@@ -188,13 +186,41 @@ function createNewField<F extends FormFramework>(
 		kind: chosenField.kind,
 		variant: chosenField.variant,
 	};
-	if (chosenField.kind === "enum") {
-		(baseField as any).enumName = "myEnum";
+	switch (chosenField.kind) {
+		case "heading":
+			baseField = newHeadingField(chosenField.variant);
+			break;
+		case "text":
+			baseField = newTextField(chosenField.variant);
+			break;
+		case "number":
+			baseField = newNumberField(chosenField.variant);
+			break;
+		case "boolean":
+			baseField = newBooleanField(chosenField.variant);
+			break;
+		case "enum":
+			baseField = newEnumField(chosenField.variant);
+			break;
+		case "date":
+			baseField = newDateField(chosenField.variant);
+			break;
 	}
+	// const baseField: Partial<FormField<F>> = {
+	// 	id: crypto.randomUUID(),
+	// 	label: `New ${chosenField.kind} Field`,
+	// 	key: `new_${chosenField.kind}_${Date.now()}`,
+	// 	required: false
+	// 	kind: chosenField.kind,
+	// 	variant: chosenField.variant,
+	// };
+	// if (chosenField.kind === "enum") {
+	// 	(baseField as any).enumName = "myEnum";
+	// }
 
 	// Apply settings
-	if (!noDescription) baseField.description = "";
-	if (!noPlaceholder) baseField.placeholder = "";
+	// if (!currentForm.settings.noDescription) baseField.description = "";
+	// if (!currentForm.settings.noPlaceholder) baseField.placeholder = "";
 
 	return baseField as FormField<F>;
 }
@@ -283,9 +309,7 @@ export function removeItem(id: string) {
 	});
 }
 
-function updateFormSettings(
-	newSettings: Partial<FormSchema["settings"]>,
-) {
+function updateFormSettings(newSettings: Partial<FormSchema["settings"]>) {
 	const currentForms = $appState.get().forms;
 	currentForms[$appState.get().selectedForm].settings = {
 		...currentForms[$appState.get().selectedForm].settings,

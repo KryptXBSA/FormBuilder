@@ -12,9 +12,11 @@ export const select = `
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {{#each enumValues}}
-                  <SelectItem value="{{value}}">{{label}}</SelectItem>
-                  {{/each}}
+                { {{enumName}}.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                      {item.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormDescription>

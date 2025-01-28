@@ -39,13 +39,16 @@ export function NewFormModal() {
 				</div>
 				<DialogFooter className="sm:justify-start">
 					<DialogClose asChild>
+						{/* TODO: new form per framework*/}
 						<Button
 							onClick={() =>
 								newForm({
 									id: 1,
 									settings: {
 										importAliasComponents: "@/components/ui",
-										importAliasUtils: "@/utils",
+										importAliasUtils: "@/lib/utils",
+										noDescription: false,
+										noPlaceholder: false,
 									},
 									name: "My Form",
 									fields: [

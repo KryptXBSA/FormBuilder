@@ -1,17 +1,16 @@
 // TODO fix main, add remaining code.
 
-//         {{#each fields}}
-//           {{#if (eq kind "enum")}}
-//             {{#if (eq style "combobox")}}
-// const {{enumName}} = [
-//                 {{#each enumValues}}
-//                     { label: "{{label}}", value: "{{value}}" },
-//                 {{/each}}
-// ]
-//             {{/if}}
-//           {{/if}}
-//         {{/each}}
 export const mainNextTemplate = `
+
+        {{#each fields}}
+          {{#ifEquals kind "enum"}}
+              const {{enumName}} = [
+                {{#each enumValues}}
+                    { label: "{{label}}", value: "{{value}}" },
+                {{/each}}
+              ]
+          {{/ifEquals}}
+        {{/each}}
 
         {{#each fields}}
           {{#ifEquals variant "next-originui-text-inputtag"}}

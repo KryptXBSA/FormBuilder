@@ -1,5 +1,5 @@
 export const radio = `
- <FormField
+<FormField
           control={form.control}
           name="{{key}}"
           render={({ field }) => (
@@ -11,16 +11,16 @@ export const radio = `
                   defaultValue={field.value}
                   className="flex flex-col space-y-1"
                 >
-                  {{#each enumValues}}
-                  <FormItem className="flex items-center space-x-3 space-y-0">
+                {  {{enumName}}.map((item) => (
+                  <FormItem key={item.value} className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="{{value}}" />
+                      <RadioGroupItem value={item.value} />
                     </FormControl>
                     <FormLabel className="font-normal">
                     {{label}}
                     </FormLabel>
                   </FormItem>
-                  {{/each}}
+                  ))}
                 </RadioGroup>
               </FormControl>
               <FormDescription>

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { RenderField } from "./RenderField";
+import { toast } from "sonner";
 
 export function Preview() {
 	const { currentForm } = useAppState();
@@ -135,7 +136,7 @@ export function Preview() {
 		defaultValues: defaultValues,
 	});
 
-	// TODO: Replace alert with toast
+	// TODO: Replace alert with toast, and make it look better
 	function onSubmit() {
 		const values = form.getValues();
 		let result = "Submitted Values:\n";
@@ -144,10 +145,13 @@ export function Preview() {
 			// biome-ignore lint/suspicious/noPrototypeBuiltins: <explanation>
 			if (values.hasOwnProperty(key)) {
 				// @ts-ignore
-				result += `${key}: ${values[key]}\n`;
+				result += `\n${key}: ${values[key]}\n`;
 			}
 		}
-		alert(result);
+		toast.info("Form submitted", {
+			description: () => <div>{result}</div>,
+		});
+		// alert(result);
 	}
 
 	return (
@@ -168,13 +172,13 @@ export function Preview() {
 				))}
 				<Button onClick={() => form.getValues()}>Submit</Button>
 
-				<Alert variant="warning">
+				{/* <Alert variant="warning">
 					<AlertCircle className="h-4 w-4" />
 					<AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
 					<AlertDescription>
 						But it does work when utilizing the generated code.
 					</AlertDescription>
-				</Alert>
+				</Alert> */}
 			</form>
 		</Form>
 	);

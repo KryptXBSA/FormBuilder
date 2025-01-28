@@ -65,8 +65,7 @@ function formToJsonSchema(form: FormSchema) {
 					minimum: field.validation?.min,
 					maximum: field.validation?.max,
 				};
-		}
-		else if (field.kind === "boolean")
+		} else if (field.kind === "boolean")
 			property = {
 				type: field.kind,
 			};

@@ -155,7 +155,7 @@ export function Code() {
 												rel="noopener noreferrer"
 												className="underline decoration-1 hover:underline"
 											>
-										https://shadcnui-expansions.typeart.cc/docs/dual-range-slider
+												https://shadcnui-expansions.typeart.cc/docs/dual-range-slider
 											</a>
 										)}
 									</div>

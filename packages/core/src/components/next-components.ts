@@ -16,12 +16,11 @@ import {
 import { switchInput } from "../codegen/imports/next/boolean";
 import { checkbox } from "../codegen/imports/next/boolean";
 import { date, daterange } from "../codegen/imports/next/date";
-import { combobox, radio, select } from "../codegen/imports/next/enum";
+import { combobox, radio, select, button } from "../codegen/imports/next/enum";
 import { textTemplates } from "../codegen/templates/next/text";
 import { numberTemplates } from "../codegen/templates/next/number";
 import { heading } from "../codegen/templates/next/heading";
 import { enumTemplates } from "../codegen/templates/next/enum";
-import { button } from "../codegen/templates/next/enum/button";
 import { dateTemplates } from "../codegen/templates/next/date";
 import { booleanTemplates } from "../codegen/templates/next/boolean";
 import type { ComponentConfig } from "./components";

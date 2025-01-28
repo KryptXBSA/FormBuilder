@@ -10,12 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import { ChevronDown, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-	allFieldVariants,
-	type Kind,
-	type FormFramework,
-	type FrameworkFieldKinds,
-} from "formbuilder-core";
+import { allFieldVariants, type Kind } from "formbuilder-core";
 import { colorMap } from "@/constants";
 
 export function AddFieldAccordion({

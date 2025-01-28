@@ -18,11 +18,10 @@ Handlebars.registerHelper("ifNotEquals", function (arg1, arg2, options) {
 	//@ts-ignore
 	return arg1 !== arg2 ? options.fn(this) : options.inverse(this);
 });
-Handlebars.registerHelper('times', (n, block) => {
-    let accum = '';
-    for(let i = 0; i < n; ++i)
-        accum += block.fn(i);
-    return accum;
+Handlebars.registerHelper("times", (n, block) => {
+	let accum = "";
+	for (let i = 0; i < n; ++i) accum += block.fn(i);
+	return accum;
 });
 
 // TODO: fix default values
@@ -98,6 +97,7 @@ export async function generateCode(
 	// TODO: maybe flat is wrong? because of the nested fields and the way they should rendered (flex)
 	const flattedFields = form.fields.flat();
 	const formTemplateCode = main({ ...form, fields: flattedFields });
+
 
 	const importsTemplate = Handlebars.compile(
 		generateImports(framework, form.fields),
