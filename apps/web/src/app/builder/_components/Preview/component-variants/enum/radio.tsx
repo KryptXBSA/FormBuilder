@@ -30,7 +30,10 @@ export function RadioGroup({ f }: { f: EnumField<FormFramework> }) {
 							className="flex flex-col space-y-1"
 						>
 							{f.enumValues?.map((item) => (
-								<FormItem key={item.value} className="flex items-center space-x-3 space-y-0">
+								<FormItem
+									key={item.value}
+									className="flex items-center space-x-3 space-y-0"
+								>
 									<FormControl>
 										<RadioGroupItem value={item.value} />
 									</FormControl>

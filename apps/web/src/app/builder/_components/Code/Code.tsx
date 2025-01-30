@@ -22,23 +22,9 @@ export function Code() {
 	const [ignoredComponentsCount, setIgnoredComponentsCount] = useState(0);
 
 	useEffect(() => {
-		// 		setCodeGenResult({
-		// 			code: `import { Button } from "@/components/ui/button"
-
-		// export default function Home() {
-		//   return (
-		//     <div>
-		//       <Button>Click me</Button>
-		//     </div>
-		//   )
-		// }`,
-		// 			loc: 10,
-		// 		});
 		generateCode(state.currentForm.framework, state.currentForm).then((res) => {
 			setCodeGenResult(res);
 		});
-
-		// Calculate install requirements and count ignored components
 		let requirements = "";
 		const requiredComponents = getRequiredComponents(
 			state.currentForm.framework,
@@ -171,6 +157,7 @@ export function Code() {
 				code={codeGenResult?.code}
 				withExpand
 				loc={codeGenResult?.loc}
+				schema={codeGenResult?.schema}
 				framework={state.currentForm.framework}
 			/>
 		</div>

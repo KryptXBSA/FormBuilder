@@ -70,6 +70,7 @@ Handlebars.registerHelper("lookupComponent", function (field) {
 export type CodegenResult = {
 	code: string;
 	loc: number;
+	schema: string;
 };
 
 export async function generateCode(
@@ -98,7 +99,6 @@ export async function generateCode(
 	const flattedFields = form.fields.flat();
 	const formTemplateCode = main({ ...form, fields: flattedFields });
 
-
 	const importsTemplate = Handlebars.compile(
 		generateImports(framework, form.fields),
 	);
@@ -119,6 +119,7 @@ export async function generateCode(
 		return {
 			code: vueCode,
 			loc: vueCode.split("\n").length,
+			schema: formattedFormSchema,
 		};
 	}
 
@@ -126,6 +127,7 @@ export async function generateCode(
 	return {
 		code: formattedCode,
 		loc: formattedCode.split("\n").length,
+		schema: formattedFormSchema,
 	};
 }
 
