@@ -35,6 +35,7 @@ export function newTextField<F extends FormFramework>(
 		kind: "text",
 		variant: variant,
 		defaultValue: "string",
+		digits: 6,
 		required: true,
 		disabled: false,
 		validation: {
@@ -58,7 +59,6 @@ export function newNumberField<F extends FormFramework>(
 		required: true,
 		disabled: false,
 		// inputotp
-		digits: 6,
 		validation: {
 			min: 1,
 			max: 99999,

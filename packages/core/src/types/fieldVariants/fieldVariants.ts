@@ -24,6 +24,7 @@ export const vueFieldKinds = [
 ] as const;
 
 export const svelteFieldKinds = [
+	"heading",
 	"text",
 	"number",
 	"boolean",

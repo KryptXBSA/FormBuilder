@@ -15,7 +15,6 @@ export const textVariants = [
 		value: "next-shadcnexpansion-text-autoresizetextarea",
 	},
 	{ label: "Input OTP", value: "next-shadcn-text-inputotp" },
-	// { label: "Input Mask", value: "next-shadcn-text-input-mask" },
 	{ label: "Input Tag", value: "next-originui-text-inputtag" },
 ] as const;
 
@@ -24,9 +23,6 @@ export const numberVariants = [
 	{ label: "Slider", value: "next-shadcn-number-slider" },
 	{ label: "Dual Slider", value: "next-shadcnexpansion-number-dualslider" },
 	{ label: "Phone", value: "next-shadcn-number-phone" },
-	// { label: "Rating", value: "next-shadcn-number-rating" },
-	// { label: "OTP", value: "next-shadcn-number-otp" },
-	// { label: "Stepper", value: "next-shadcn-number-stepper" }
 ] as const;
 
 export const booleanVariants = [

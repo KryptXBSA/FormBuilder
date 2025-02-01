@@ -3,7 +3,6 @@ import {
 	Input,
 	Textarea,
 	InputOTP,
-	InputTag,
 } from "../codegen/imports/svelte/text";
 import {
 	phoneNumber,
@@ -53,21 +52,21 @@ export const SVELTE_COMPONENTS: ComponentConfig = {
 	},
 	"svelte-shadcn-text-inputotp": {
 		label: "Input OTP",
-		cli: ["pin-input"],
+		cli: ["input-otp"],
 		imports: InputOTP,
 		template: textTemplates.inputOTP,
 	},
-	"svelte-shadcn-text-inputtag": {
-		label: "Input Tag",
-		cli: ["tags-input"],
-		imports: InputTag,
-		template: textTemplates.inputTag,
-	},
+	// "svelte-shadcn-text-inputtag": {
+	// 	label: "Input Tag",
+	// 	cli: ["tags-input"],
+	// 	imports: InputTag,
+	// 	template: textTemplates.inputTag,
+	// },
 	"svelte-shadcn-text-password": {
 		label: "Password Input",
-		cli: ["password"],
+		cli: [""],
 		imports: PasswordStrengthIndicator,
-		template: textTemplates.passwordStrengthIndicator,
+		template: textTemplates.password,
 	},
 	"svelte-shadcn-number-input": {
 		label: "Number Input",

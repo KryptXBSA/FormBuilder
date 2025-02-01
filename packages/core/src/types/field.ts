@@ -34,13 +34,13 @@ export type HeadingField<F extends FormFramework> = {
 export type TextField<F extends FormFramework> = BaseField & {
 	kind: "text";
 	variant: FrameworkFieldVariants[F];
+	digits?: number;
 	defaultValue?: string;
 	validation: TextValidation;
 };
 
 export type NumberField<F extends FormFramework> = BaseField & {
 	kind: "number";
-	digits?: number;
 	variant: FrameworkFieldVariants[F];
 	defaultValue?: number;
 	validation?: NumberValidation;

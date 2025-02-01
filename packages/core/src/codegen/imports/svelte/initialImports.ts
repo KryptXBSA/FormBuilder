@@ -7,5 +7,6 @@ export const svelteInitialImports = `
   import { zodClient } from "sveltekit-superforms/adapters";
   import * as Form from "{{importAliasComponents}}/form/index.js";
   import { Input } from "{{importAliasComponents}}/input/index.js";
-  import { page } from "$app/state";
+  import { cn } from "{{importAliasUtils}}";
+  import { formSchema, type FormSchema } from "./schema";
 `;

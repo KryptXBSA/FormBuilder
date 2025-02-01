@@ -7,7 +7,7 @@ export const textarea = `
           {...props}
           placeholder="{{placeholder}}"
           class="resize-none"
-          bind:value={$formData.{{key}}}
+          bind:value={$formData["{{key}}"]}
         />
         <Form.Description>{{description}}</Form.Description>
       {/snippet}

@@ -47,6 +47,12 @@ Handlebars.registerHelper("lookupComponent", function (field) {
 		return "";
 	}
 
+	console.log(
+		"zzaCOMPONENTS[componentKey]",
+		COMPONENTS[componentKey],
+		"componentkey",
+		componentKey,
+	);
 	let templateText = COMPONENTS[componentKey].template;
 	const entities: Record<string, string> = {
 		"&#96;": "`",
@@ -111,7 +117,9 @@ export async function generateCode(
 	const formattedImports = await formatCode(importsCode);
 	const formattedFormSchema = await formatCode(formSchema);
 	const completeCode =
-		formattedImports + formattedFormSchema + formTemplateCode;
+		framework === "svelte"
+			? `<script lang="ts">\n${formattedImports}\n${formTemplateCode}`
+			: formattedImports + formattedFormSchema + formTemplateCode;
 
 	// couldn't find a vue parser
 	if (framework === "vue") {
@@ -119,6 +127,15 @@ export async function generateCode(
 		return {
 			code: vueCode,
 			loc: vueCode.split("\n").length,
+			schema: formattedFormSchema,
+		};
+	}
+	// couldn't find a svelte parser
+	if (framework === "svelte") {
+		const svelteCode = completeCode;
+		return {
+			code: svelteCode,
+			loc: svelteCode.split("\n").length,
 			schema: formattedFormSchema,
 		};
 	}

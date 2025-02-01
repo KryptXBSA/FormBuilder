@@ -44,7 +44,7 @@ export function CodeHighlight({
 
 	const svelteSchemaCode = `import { z } from "zod";
 
-${schema}
+export ${schema}
 
 export type FormSchema = typeof formSchema;
 `;
@@ -91,7 +91,7 @@ export type FormSchema = typeof formSchema;
 				variant="ghost"
 				size="icon"
 				onClick={() => {
-					navigator.clipboard.writeText(code || "");
+					navigator.clipboard.writeText(activeCode || "");
 					setCopied(true);
 					setTimeout(() => {
 						setCopied(false);
