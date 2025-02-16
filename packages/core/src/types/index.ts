@@ -13,7 +13,7 @@ export type ChosenField<F extends FormFramework> = {
 };
 
 export type FormSchema<F extends FormFramework = FormFramework> = Prettify<{
-	id: number;
+	id: string;
 	name: string;
 	framework: F;
 	fields: FormField<F>[][];

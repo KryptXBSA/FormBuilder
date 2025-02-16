@@ -13,7 +13,6 @@ import { Slider as ShadcnSlider } from "@/components/ui/slider";
 
 export function Slider({ f }: { f: NumberField<FormFramework> }) {
 	const form = useFormContext<any>();
-
 	return (
 		<FormField
 			control={form.control}

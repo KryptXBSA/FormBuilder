@@ -26,7 +26,12 @@ export function Preview() {
 
 				return row.validation?.isEmail ? { [row.key]: "" } : { [row.key]: "" };
 			case "number":
+				// TODO: trim both first dashes - - 
 				if (row.variant === "next-shadcn-number-slider")
+					return {
+						[row.key]: [0],
+					};
+				if (row.variant === "svelte-shadcn-number-slider")
 					return {
 						[row.key]: [0],
 					};

@@ -14,13 +14,14 @@ import {
 import { FrameworkCombobox } from "./FrameworkCombobox";
 import { FiPlus } from "react-icons/fi";
 import { useAppState } from "@/state/state";
-import type { FormFramework } from "formbuilder-core";
+import { randID, type FormFramework } from "formbuilder-core";
 import * as React from "react";
 
 export function NewFormModal() {
 	const { newForm } = useAppState();
 
 	const [framework, setFramework] = React.useState<FormFramework>("next");
+
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
@@ -43,10 +44,20 @@ export function NewFormModal() {
 						<Button
 							onClick={() =>
 								newForm({
-									id: 1,
+									id: randID(),
 									settings: {
-										importAliasComponents: "@/components/ui",
-										importAliasUtils: "@/lib/utils",
+										importAliasComponents:
+											framework === "next"
+												? "@/components/ui"
+												: framework === "svelte"
+													? "$lib/components/ui"
+													: "@/components/vue",
+										importAliasUtils:
+											framework === "next"
+												? "@/lib/utils"
+												: framework === "svelte"
+													? "$lib/utils.js"
+													: "@/components/vue",
 										noDescription: false,
 										noPlaceholder: false,
 									},

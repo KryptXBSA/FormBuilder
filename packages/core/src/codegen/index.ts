@@ -9,6 +9,7 @@ import { COMPONENTS } from "../components/components";
 import { mainNextTemplate } from "./templates/next/main";
 import { mainVueTemplate } from "./templates/vue/main";
 import { mainSvelteTemplate } from "./templates/svelte/main";
+import type { FormField } from "@/types/field";
 
 Handlebars.registerHelper("ifEquals", function (arg1, arg2, options) {
 	//@ts-ignore
@@ -47,12 +48,12 @@ Handlebars.registerHelper("lookupComponent", function (field) {
 		return "";
 	}
 
-	console.log(
-		"zzaCOMPONENTS[componentKey]",
-		COMPONENTS[componentKey],
-		"componentkey",
-		componentKey,
-	);
+	// console.log(
+	// 	"zzaCOMPONENTS[componentKey]",
+	// 	COMPONENTS[componentKey],
+	// 	"componentkey",
+	// 	componentKey,
+	// );
 	let templateText = COMPONENTS[componentKey].template;
 	const entities: Record<string, string> = {
 		"&#96;": "`",
@@ -103,8 +104,15 @@ export async function generateCode(
 	);
 	// TODO: maybe flat is wrong? because of the nested fields and the way they should rendered (flex)
 	const flattedFields = form.fields.flat();
-	const formTemplateCode = main({ ...form, fields: flattedFields });
+	const formTemplateCode = main({
+		...form,
+		fields: flattedFields,
+		hasDateFields: hasDateFields(flattedFields as FormField<"svelte">[]),
+	});
 
+	function hasDateFields(fields: FormField<"svelte">[]): boolean {
+		return fields.some(field => field.variant === "svelte-shadcn-date-date");
+	}
 	const importsTemplate = Handlebars.compile(
 		generateImports(framework, form.fields),
 	);

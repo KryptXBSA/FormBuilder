@@ -15,8 +15,8 @@ export function newHeadingField<F extends FormFramework>(
 	variant: FrameworkFieldVariants[F],
 ): HeadingField<F> {
 	return {
-		id: `id-${randID()}`,
-		key: `key-${randID()}`,
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
 		label: "My string",
 		kind: "heading",
 		variant: variant,
@@ -27,8 +27,8 @@ export function newTextField<F extends FormFramework>(
 ): TextField<F> {
 	console.log("xz1112", variant);
 	return {
-		id: `id-${randID()}`,
-		key: `key-${randID()}`,
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
 		label: "My string",
 		description: "Description",
 		placeholder: "Placeholder",
@@ -48,8 +48,8 @@ export function newNumberField<F extends FormFramework>(
 	variant: FrameworkFieldVariants[F],
 ): NumberField<F> {
 	return {
-		id: `id-${randID()}`,
-		key: `key-${randID()}`,
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
 		label: "My number",
 		description: "Description",
 		placeholder: "Placeholder",
@@ -70,8 +70,8 @@ export function newBooleanField<F extends FormFramework>(
 	variant: FrameworkFieldVariants[F],
 ): BooleanField<F> {
 	return {
-		id: `id-${randID()}`,
-		key: `key-${randID()}`,
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
 		label: "My boolean",
 		description: "Description",
 		placeholder: "Placeholder",
@@ -87,8 +87,8 @@ export function newDateField<F extends FormFramework>(
 	variant: FrameworkFieldVariants[F],
 ): DateField<F> {
 	return {
-		id: `id-${randID()}`,
-		key: `key-${randID()}`,
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
 		label: "My date",
 		description: "Description",
 		placeholder: "Pick a date",
@@ -103,8 +103,8 @@ export function newEnumField<F extends FormFramework>(
 	variant: FrameworkFieldVariants[F],
 ): EnumField<F> {
 	return {
-		id: `id-${randID()}`,
-		key: `key-${randID()}`,
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
 		label: "My enum",
 		description: "Description",
 		placeholder: "Placeholder",
@@ -112,8 +112,8 @@ export function newEnumField<F extends FormFramework>(
 		variant: variant,
 		enumName: `myEnum${randID()}`,
 		enumValues: [
-			{ id: `id-${randID()}`, label: "label1", value: "value1" },
-			{ id: `id-${randID()}`, label: "label2", value: "value2" },
+			{ id: `id_${randID()}`, label: "label1", value: "value1" },
+			{ id: `id_${randID()}`, label: "label2", value: "value2" },
 		],
 		required: true,
 		disabled: false,

@@ -1,5 +1,4 @@
 export const number = `
-import { Minus, Plus } from "lucide-svelte/icons/index.js";
 `;
 export const slider = `import { Slider } from "{{importAliasComponents}}/slider/index.js";`;
 export const dualSlider = `import { DualSlider } from "{{importAliasComponents}}/dual-slider/index.js";`;

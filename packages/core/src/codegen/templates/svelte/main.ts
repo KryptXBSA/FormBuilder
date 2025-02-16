@@ -10,6 +10,12 @@ const form = superForm(data.form, {
 
 const { form: formData, enhance } = form;
 
+{{#if hasDateFields}}
+const df = new DateFormatter("en-US", {
+    dateStyle: "long"
+}); 
+{{/if}}
+
 </script>
 <form class="space-y-8" method="post" use:enhance>
       {{#each fields}}

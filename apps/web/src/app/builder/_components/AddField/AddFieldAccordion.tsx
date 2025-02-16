@@ -83,6 +83,7 @@ export function AddFieldAccordion({
 							) : (
 								<Button
 									variant="outline"
+									className="justify-start"
 									onClick={() => {
 										if (state.chosenField) {
 											state.setAppState({
