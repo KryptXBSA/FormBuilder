@@ -79,7 +79,7 @@ export function HeadingLevelComboBox({
 				</PopoverTrigger>
 				<PopoverContent className="w-[200px] p-0">
 					<Command>
-						<CommandInput placeholder="Search framework..." />
+						<CommandInput placeholder="Pick Level" />
 						<CommandList>
 							<CommandEmpty>No framework found.</CommandEmpty>
 							<CommandGroup>

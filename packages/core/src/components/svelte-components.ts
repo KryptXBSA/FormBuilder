@@ -13,14 +13,13 @@ import {
 import { switchInput } from "../codegen/imports/svelte/boolean";
 import { checkbox } from "../codegen/imports/svelte/boolean";
 import { date, daterange } from "../codegen/imports/svelte/date";
-import { combobox, radio, select } from "../codegen/imports/svelte/enum";
+import { button, combobox, radio, select } from "../codegen/imports/svelte/enum";
 import { PasswordStrengthIndicator } from "../codegen/imports/svelte/text";
 
 import { textTemplates } from "../codegen/templates/svelte/text";
 import { numberTemplates } from "../codegen/templates/svelte/number";
 import { heading } from "../codegen/templates/svelte/heading";
 import { enumTemplates } from "../codegen/templates/svelte/enum";
-import { button } from "../codegen/templates/svelte/enum/button";
 import { dateTemplates } from "../codegen/templates/svelte/date";
 import { booleanTemplates } from "../codegen/templates/svelte/boolean";
 import type { ComponentConfig } from "./components";

@@ -47,7 +47,7 @@ export const enumVariants = [
 	{ label: "Combobox", value: "next-shadcn-enum-combobox" },
 	{ label: "Select Dropdown", value: "next-shadcn-enum-select" },
 	{ label: "Radio Group", value: "next-shadcn-enum-radio" },
-	{ label: "Button Group", value: "next-shadcn-enum-button" },
+	// { label: "Button Group", value: "next-shadcn-enum-button" },
 ] as const;
 
 export const nextFieldVariants = {

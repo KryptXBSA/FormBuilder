@@ -3,7 +3,6 @@ export const radio = `
   <Form.Fieldset {form} name="{{key}}" class="space-y-3">
     <Form.Legend>{{label}}</Form.Legend>
     <RadioGroup.Root
-      bind:value={$formData.type}
       class="flex flex-col space-y-1"
       name="type"
     >

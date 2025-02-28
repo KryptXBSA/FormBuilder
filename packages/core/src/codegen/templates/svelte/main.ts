@@ -10,6 +10,16 @@ const form = superForm(data.form, {
 
 const { form: formData, enhance } = form;
 
+{{#each fields}}
+          {{#ifEquals kind "enum"}}
+              const {{enumName}} = [
+                {{#each enumValues}}
+                    { label: "{{label}}", value: "{{value}}" },
+                {{/each}}
+              ]
+          {{/ifEquals}}
+{{/each}}
+
 {{#if hasDateFields}}
 const df = new DateFormatter("en-US", {
     dateStyle: "long"

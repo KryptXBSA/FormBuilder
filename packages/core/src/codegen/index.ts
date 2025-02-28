@@ -47,13 +47,6 @@ Handlebars.registerHelper("lookupComponent", function (field) {
 		console.warn(`No component found for: ${componentKey}`);
 		return "";
 	}
-
-	// console.log(
-	// 	"zzaCOMPONENTS[componentKey]",
-	// 	COMPONENTS[componentKey],
-	// 	"componentkey",
-	// 	componentKey,
-	// );
 	let templateText = COMPONENTS[componentKey].template;
 	const entities: Record<string, string> = {
 		"&#96;": "`",
@@ -162,6 +155,7 @@ async function formatCode(code: string) {
 		semi: true,
 		singleQuote: false,
 		tabWidth: 2,
+		// @ts-ignore
 		plugins: [parserTypeScript, prettierPluginEstree],
 	});
 }

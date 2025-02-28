@@ -38,7 +38,7 @@ export const enumVariants = [
 	{ label: "Combobox", value: "svelte-shadcn-enum-combobox" },
 	{ label: "Select Dropdown", value: "svelte-shadcn-enum-select" },
 	{ label: "Radio Group", value: "svelte-shadcn-enum-radio" },
-	{ label: "Button Group", value: "svelte-shadcn-enum-button" },
+	// { label: "Button Group", value: "svelte-shadcn-enum-button" },
 ] as const;
 
 export const svelteFieldVariants = {
