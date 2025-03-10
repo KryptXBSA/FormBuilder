@@ -18,24 +18,24 @@ import { PasswordStrengthIndicator } from "../codegen/imports/svelte/text";
 
 import { textTemplates } from "../codegen/templates/svelte/text";
 import { numberTemplates } from "../codegen/templates/svelte/number";
-import { heading } from "../codegen/templates/svelte/heading";
 import { enumTemplates } from "../codegen/templates/svelte/enum";
 import { dateTemplates } from "../codegen/templates/svelte/date";
 import { booleanTemplates } from "../codegen/templates/svelte/boolean";
 import type { ComponentConfig } from "./components";
+import { headingTemplates } from "../codegen/templates/svelte/heading";
 
 export const SVELTE_COMPONENTS: ComponentConfig = {
 	"svelte-shadcn-heading-simple": {
 		label: "Heading",
 		cli: [],
 		imports: Heading,
-		template: heading,
+		template: headingTemplates.headingWithoutAnchor,
 	},
 	"svelte-shadcn-heading-anchor": {
 		label: "Heading Anchor",
 		cli: [],
 		imports: Heading,
-		template: heading,
+		template: headingTemplates.headingWithAnchor,
 	},
 	"svelte-shadcn-text-input": {
 		label: "Input",

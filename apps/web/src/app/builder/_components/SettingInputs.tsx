@@ -34,18 +34,18 @@ const HeadingLevels = [
 		value: "H3",
 		label: "H3",
 	},
-	{
-		value: "H4",
-		label: "H4",
-	},
-	{
-		value: "H5",
-		label: "H5",
-	},
-	{
-		value: "H6",
-		label: "H6",
-	},
+	// {
+	// 	value: "H4",
+	// 	label: "H4",
+	// },
+	// {
+	// 	value: "H5",
+	// 	label: "H5",
+	// },
+	// {
+	// 	value: "H6",
+	// 	label: "H6",
+	// },
 ];
 
 type HeadingLevelInput = {

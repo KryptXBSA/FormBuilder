@@ -1,6 +1,6 @@
 export const headingVariants = [
 	{ label: "Heading", value: "next-shadcn-heading-simple" },
-	{ label: "Heading Anchor", value: "next-shadcn-heading-anchor" },
+	// { label: "Heading Anchor", value: "next-shadcn-heading-anchor" },
 ] as const;
 
 export const textVariants = [

@@ -1,6 +1,6 @@
 export const headingVariants = [
 	{ label: "Heading", value: "svelte-shadcn-heading-simple" },
-	{ label: "Heading Anchor", value: "svelte-shadcn-heading-anchor" },
+	// { label: "Heading Anchor", value: "svelte-shadcn-heading-anchor" },
 ] as const;
 
 export const textVariants = [
@@ -23,7 +23,7 @@ export const booleanVariants = [
 
 export const dateVariants = [
 	{ label: "Date Picker", value: "svelte-shadcn-date-date" },
-	{ label: "Date Range Picker", value: "svelte-shadcn-date-daterange" },
+	// { label: "Date Range Picker", value: "svelte-shadcn-date-daterange" },
 ] as const;
 
 // export const fileVariants = [

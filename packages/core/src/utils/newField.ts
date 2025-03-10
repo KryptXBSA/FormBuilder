@@ -17,6 +17,7 @@ export function newHeadingField<F extends FormFramework>(
 	return {
 		id: `id_${randID()}`,
 		key: `key_${randID()}`,
+		headingLevel:"H2",
 		label: "My string",
 		kind: "heading",
 		variant: variant,
@@ -25,7 +26,6 @@ export function newHeadingField<F extends FormFramework>(
 export function newTextField<F extends FormFramework>(
 	variant: FrameworkFieldVariants[F],
 ): TextField<F> {
-	console.log("xz1112", variant);
 	return {
 		id: `id_${randID()}`,
 		key: `key_${randID()}`,

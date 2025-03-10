@@ -94,9 +94,9 @@ function formToJsonSchema(form: FormSchema) {
 				type: "string",
 			};
 		properties[field.key] = property;
-		if (field.required) {
-			required.push(field.key);
-		}
+		// if (field.required) {
+		// 	required.push(field.key);
+		// }
 	});
 
 	definitions.form = {

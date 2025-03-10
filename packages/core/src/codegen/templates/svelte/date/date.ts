@@ -13,16 +13,14 @@ export const date = `
             )}
           >
             {$formData["{{key}}"]
-              ? df.format($formData["{{key}}"].toDate(getLocalTimeZone()))
+              ? df.format($formData["{{key}}"])
               : "Pick a date"}
             <CalendarIcon class="ml-auto size-4 opacity-50" />
           </Popover.Trigger>
           <Popover.Content class="w-auto p-0" side="top">
             <Calendar
               type="single"
-              value={$formData["{{key}}"] as unknown as DateValue}
               minValue={new CalendarDate(1900, 1, 1)}
-              maxValue={today(getLocalTimeZone())}
               calendarLabel="{{label}}"
               onValueChange={(v) => {
                   if (v) {

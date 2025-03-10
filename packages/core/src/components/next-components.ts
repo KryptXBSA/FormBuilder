@@ -19,24 +19,24 @@ import { date, daterange } from "../codegen/imports/next/date";
 import { combobox, radio, select, button } from "../codegen/imports/next/enum";
 import { textTemplates } from "../codegen/templates/next/text";
 import { numberTemplates } from "../codegen/templates/next/number";
-import { heading } from "../codegen/templates/next/heading";
 import { enumTemplates } from "../codegen/templates/next/enum";
 import { dateTemplates } from "../codegen/templates/next/date";
 import { booleanTemplates } from "../codegen/templates/next/boolean";
 import type { ComponentConfig } from "./components";
+import { headingTemplates } from "../codegen/templates/next/heading";
 
 export const NEXT_COMPONENTS: ComponentConfig = {
 	"next-shadcn-heading-simple": {
 		label: "Heading",
 		cli: [],
 		imports: Heading,
-		template: heading,
+		template: headingTemplates.headingWithoutAnchor,
 	},
 	"next-shadcn-heading-anchor": {
 		label: "Heading Anchor",
 		cli: [],
 		imports: Heading,
-		template: heading,
+		template: headingTemplates.headingWithAnchor,
 	},
 	"next-shadcn-text-input": {
 		label: "Input",
