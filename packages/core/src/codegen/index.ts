@@ -95,8 +95,11 @@ export async function generateCode(
 				? mainSvelteTemplate
 				: mainNextTemplate,
 	);
-	// TODO: maybe flat is wrong? because of the nested fields and the way they should rendered (flex)
-	const flattedFields = form.fields.flat();
+	const flattedFields = form.fields.flatMap((group) => [
+		{ variant: `${framework}-divider-start` },
+		...group,
+		{ variant: `${framework}-divider-end` }
+	]);
 	const formTemplateCode = main({
 		...form,
 		fields: flattedFields,

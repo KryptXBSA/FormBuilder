@@ -27,7 +27,7 @@ const df = new DateFormatter("en-US", {
 {{/if}}
 
 </script>
-<form class="space-y-8" method="post" use:enhance>
+<form class="space-y-4" method="post" use:enhance>
       {{#each fields}}
         {{{lookupComponent this}}}
       {{/each}}

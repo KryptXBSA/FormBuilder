@@ -27,6 +27,14 @@ import { booleanTemplates } from "../codegen/templates/vue/boolean";
 import type { ComponentConfig } from "./components";
 
 export const VUE_COMPONENTS: ComponentConfig = {
+	"vue-divider-start": {
+		label: "", cli: [], imports: "", template: `
+		<div class="flex flex-row gap-4">
+		` },
+	"vue-divider-end": {
+		label: "", cli: [], imports: "", template: `
+		</div>
+		`},
 	"vue-shadcn-heading-simple": {
 		label: "Heading",
 		cli: [],

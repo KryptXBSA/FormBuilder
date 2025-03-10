@@ -25,6 +25,14 @@ import type { ComponentConfig } from "./components";
 import { headingTemplates } from "../codegen/templates/svelte/heading";
 
 export const SVELTE_COMPONENTS: ComponentConfig = {
+	"svelte-divider-start": {
+		label: "", cli: [], imports: "", template: `
+		<div class="flex flex-row gap-4">
+		` },
+	"svelte-divider-end": {
+		label: "", cli: [], imports: "", template: `
+		</div>
+		`},
 	"svelte-shadcn-heading-simple": {
 		label: "Heading",
 		cli: [],

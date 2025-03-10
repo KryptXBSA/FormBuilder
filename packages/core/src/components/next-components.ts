@@ -26,6 +26,14 @@ import type { ComponentConfig } from "./components";
 import { headingTemplates } from "../codegen/templates/next/heading";
 
 export const NEXT_COMPONENTS: ComponentConfig = {
+	"next-divider-start": {
+		label: "", cli: [], imports: "", template: `
+		<div className="flex flex-row gap-4">
+		` },
+	"next-divider-end": {
+		label: "", cli: [], imports: "", template: `
+		</div>
+		`},
 	"next-shadcn-heading-simple": {
 		label: "Heading",
 		cli: [],

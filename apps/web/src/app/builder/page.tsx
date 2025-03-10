@@ -43,12 +43,12 @@ export default function Builder() {
 		);
 
 	return (
-		<section className="mx-auto h-screen max-w-[1500px] bg-[#1D1E2B]">
+		<section className="bg[#1D1E2B] mx-auto h-screen max-w-[1500px]">
 			<div className="flex w-full justify-center pt-4">
 				<FormList />
 				<div
 					defaultValue="editor"
-					className="max-w[1000px] w-full bg-[#1D1E2B]"
+					className="max-w[1000px] b-[#1D1E2B] w-full rounded-lg"
 				>
 					<SettingsToggle
 						onClick={() =>

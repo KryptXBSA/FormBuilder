@@ -12,7 +12,7 @@ export function FormList() {
 	const { forms, selectForm, deleteForm } = useAppState();
 
 	return (
-		<ul className="flex flex-col gap-2 bg-[#1D1E2B] pt-2 pl-5">
+		<ul className="bg[#1D1E2B] flex flex-col gap-2 pt-2 pl-5">
 			{forms?.map((f, idx) => (
 				<li className="flex gap-2" key={idx}>
 					<Button
