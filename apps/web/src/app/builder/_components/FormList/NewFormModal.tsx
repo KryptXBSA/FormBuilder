@@ -51,13 +51,13 @@ export function NewFormModal() {
 												? "@/components/ui"
 												: framework === "svelte"
 													? "$lib/components/ui"
-													: "@/components/vue",
+													: "@/components/ui",
 										importAliasUtils:
 											framework === "next"
 												? "@/lib/utils"
 												: framework === "svelte"
 													? "$lib/utils.js"
-													: "@/components/vue",
+													: "@/lib/utils",
 										noDescription: false,
 										noPlaceholder: false,
 									},

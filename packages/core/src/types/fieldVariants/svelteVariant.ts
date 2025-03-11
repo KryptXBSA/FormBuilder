@@ -18,7 +18,7 @@ export const numberVariants = [
 export const booleanVariants = [
 	{ label: "Checkbox", value: "svelte-shadcn-boolean-checkbox" },
 	{ label: "Switch", value: "svelte-shadcn-boolean-switch" },
-	{ label: "Toggle", value: "svelte-shadcn-boolean-toggle" },
+	// { label: "Toggle", value: "svelte-shadcn-boolean-toggle" },
 ] as const;
 
 export const dateVariants = [

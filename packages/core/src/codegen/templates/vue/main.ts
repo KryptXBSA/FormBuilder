@@ -12,16 +12,20 @@
 //           {{/if}}
 //         {{/each}}
 export const mainVueTemplate = `
-const { handleSubmit } = useForm({
+const { handleSubmit, setFieldValue } = useForm({
   validationSchema: formSchema,
-  initialValues: {
-    fruits: ['Apple', 'Banana'],
-  },
 })
 
 const onSubmit = handleSubmit((values) => {
   console.log(values)
 })
+
+{{#each fields}}
+{{#ifEquals variant "vue-shadcn-text-inputotp"}}
+const handleComplete = (e: string[]) => console.log(e.join(''))
+{{/ifEquals}}
+{{/each}}
+
 </script>
 
 <template>

@@ -12,8 +12,7 @@ export const colorMap: Record<string, { label: string; border: string }> = {
 export const LOCALSTORAGE_KEY = "state-v0.7.0";
 
 export const IGNORED_CLI_COMPONENTS = [
-	"originui-password",
-	"originui-password",
+	// "originui-password",
 	"originui-inputtag",
 	"shadcnexpansion-autoresizetextarea",
 	"shadcnexpansion-dualslider",

@@ -73,7 +73,7 @@ export const VUE_COMPONENTS: ComponentConfig = {
 	},
 	"vue-shadcn-text-password": {
 		label: "Password Input",
-		cli: ["password"],
+		cli: [""],
 		imports: PasswordStrengthIndicator,
 		template: textTemplates.passwordStrengthIndicator,
 	},

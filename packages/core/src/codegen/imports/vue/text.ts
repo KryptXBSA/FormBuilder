@@ -1,4 +1,4 @@
-export const Input = `import { Input } from "{{importAliasComponents}}/input";`;
+export const Input = "";
 export const Textarea = `import { Textarea } from "{{importAliasComponents}}/textarea";`;
 export const AutoresizeTextarea = `import { AutosizeTextarea } from "{{importAliasComponents}}/autosize-textarea";`;
 export const InputOTP = `
@@ -14,7 +14,5 @@ import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInpu
 `;
 
 // TODO:custom vue password strength indicator
-export const PasswordStrengthIndicator = `import { Input } from "@/components/ui/input";
-import { Check, Eye, EyeOff, X } from "lucide-react";
-import { useMemo, useState } from "react";
+export const PasswordStrengthIndicator = `
 `;

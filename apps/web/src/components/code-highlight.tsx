@@ -54,6 +54,9 @@ export type FormSchema = typeof formSchema;
 			if (framework === "next") {
 				return code;
 			}
+			if (framework === "vue") {
+				return code;
+			}
 
 			if (framework === "svelte") {
 				switch (activeTab) {
@@ -107,6 +110,15 @@ export type FormSchema = typeof formSchema;
 
 			<div className="flex items-end justify-between">
 				<div className="flex items-center gap-1">
+					{framework === "vue" && (
+						<Tab
+							icon={Icons.vue}
+							label="MyForm.vue"
+							isActive={false}
+							onSelect={() => {}}
+							disableHighlight
+						/>
+					)}
 					{framework === "next" && (
 						<Tab
 							icon={Icons.react}
