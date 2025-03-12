@@ -120,7 +120,7 @@ export const NEXT_COMPONENTS: ComponentConfig = {
 	},
 	"next-shadcn-date-date": {
 		label: "Date Picker",
-		cli: ["date"],
+		cli: ["popover","calendar"],
 		imports: date,
 		template: dateTemplates.date,
 	},

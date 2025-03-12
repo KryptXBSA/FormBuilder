@@ -12,15 +12,22 @@
 //           {{/if}}
 //         {{/each}}
 export const mainVueTemplate = `
-const { handleSubmit, setFieldValue } = useForm({
+const { handleSubmit, setFieldValue, values } = useForm({
   validationSchema: formSchema,
 })
+
 
 const onSubmit = handleSubmit((values) => {
   console.log(values)
 })
 
 {{#each fields}}
+
+{{#ifEquals variant "vue-shadcn-date-date"}}
+const df = new DateFormatter('en-US', {
+  dateStyle: 'long',
+})
+{{/ifEquals}}
 {{#ifEquals variant "vue-shadcn-text-inputotp"}}
 const handleComplete = (e: string[]) => console.log(e.join(''))
 {{/ifEquals}}

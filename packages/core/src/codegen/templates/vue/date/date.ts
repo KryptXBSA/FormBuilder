@@ -8,10 +8,10 @@ export const date = `
               <Button
                 variant="outline" :class="cn(
                   'w-[240px] ps-3 text-start font-normal',
-                  !value && 'text-muted-foreground',
+                  !values['{{key}}'] && 'text-muted-foreground',
                 )"
               >
-                <span>{{ value ? df.format(toDate(value)) : "Pick a date" }}</span>
+                <span>{{DBO}} values['{{key}}'] ? df.format(values['{{key}}']) : 'Pick a date' {{DBC}}</span>
                 <CalendarIcon class="ms-auto h-4 w-4 opacity-50" />
               </Button>
               <input hidden>
@@ -19,20 +19,15 @@ export const date = `
           </PopoverTrigger>
           <PopoverContent class="w-auto p-0">
             <Calendar
-              v-model:placeholder="placeholder"
-              v-model="value"
               calendar-label="{{label}}"
               initial-focus
-              :min-value="new CalendarDate(1900, 1, 1)"
-              :max-value="today(getLocalTimeZone())"
               @update:model-value="(v) => {
                 if (v) {
-                  setFieldValue('{{key}}', v.toString())
+                  setFieldValue('{{key}}', toDate(v))
                 }
                 else {
                   setFieldValue('{{key}}', undefined)
                 }
-
               }"
             />
           </PopoverContent>

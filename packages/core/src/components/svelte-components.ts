@@ -107,7 +107,7 @@ export const SVELTE_COMPONENTS: ComponentConfig = {
 	},
 	"svelte-shadcn-date-date": {
 		label: "Date Picker",
-		cli: ["date"],
+		cli: ["popover","calendar"],
 		imports: date,
 		template: dateTemplates.date,
 	},

@@ -38,6 +38,10 @@ Handlebars.registerHelper("defaultValues", (fields) => {
 	output += "}";
 	return new Handlebars.SafeString(output);
 });
+// DoubleBracesOpen
+Handlebars.registerHelper("DBO", () => "{{");
+// DoubleBracesClose
+Handlebars.registerHelper("DBC", () => "}}");
 
 // biome-ignore lint/complexity/useArrowFunction: <explanation>
 Handlebars.registerHelper("lookupComponent", function (field) {
@@ -49,6 +53,8 @@ Handlebars.registerHelper("lookupComponent", function (field) {
 	}
 	let templateText = COMPONENTS[componentKey].template;
 	const entities: Record<string, string> = {
+		"&#123;": "{",
+		"&#125;": "}",
 		"&#96;": "`",
 		"&#36;": "$",
 		"&quot;": '"',

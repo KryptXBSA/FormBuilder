@@ -4,11 +4,12 @@ export const slider = `
         <FormLabel>{{label}}</FormLabel>
         <FormControl>
           <Slider
-            v-bind="componentField"
-            :default-value="{{validation?.default}}"
-            :max="{{validation?.max}}"
-            :min="{{validation?.min}}"
-            :step="{{validation?.step}}"
+            :model-value="componentField.modelValue"
+            :max="{{validation.max}}"
+            :min="{{validation.min}}"
+            :step="{{validation.step}}"
+            :name="componentField.name"
+            @update:model-value="componentField['onUpdate:modelValue']"
           />
           <FormDescription>
 			{{description}}

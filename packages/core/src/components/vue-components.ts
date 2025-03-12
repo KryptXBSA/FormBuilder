@@ -109,7 +109,7 @@ export const VUE_COMPONENTS: ComponentConfig = {
 	},
 	"vue-shadcn-date-date": {
 		label: "Date Picker",
-		cli: ["date"],
+		cli: ["calendar","popover"],
 		imports: date,
 		template: dateTemplates.date,
 	},

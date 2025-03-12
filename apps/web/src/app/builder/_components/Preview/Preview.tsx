@@ -17,29 +17,29 @@ export function Preview() {
 	const { currentForm } = useAppState();
 
 	const getDefaultValues = (row: FF<FormFramework>) => {
+		const variant = row.variant.split("-").slice(2).join("-");
 		switch (row.kind) {
 			case "text":
-				if (row.variant === "next-originui-text-inputtag")
+				if (variant === "text-inputtag")
 					return {
 						[row.key]: [],
 					};
 
 				return row.validation?.isEmail ? { [row.key]: "" } : { [row.key]: "" };
 			case "number":
-				// TODO: trim both first dashes - - 
-				if (row.variant === "next-shadcn-number-slider")
+				if (variant === "number-slider")
 					return {
 						[row.key]: [0],
 					};
-				if (row.variant === "svelte-shadcn-number-slider")
+				if (variant === "number-slider")
 					return {
 						[row.key]: [0],
 					};
-				if (row.variant === "next-shadcnexpansion-number-dualslider")
+				if (variant === "number-dualslider")
 					return {
 						[row.key]: [0, 0],
 					};
-				if (row.variant === "next-shadcn-number-phone")
+				if (variant === "number-phone")
 					return {
 						[row.key]: "",
 					};
@@ -49,7 +49,7 @@ export function Preview() {
 			case "boolean":
 				return { [row.key]: false };
 			case "date":
-				if (row.variant === "next-shadcn-date-daterange") {
+				if (variant === "date-daterange") {
 					return {
 						[row.key]: { from: new Date(), to: addDays(new Date(), 20) },
 					};
@@ -127,6 +127,7 @@ export function Preview() {
 		});
 		return acc;
 	}, {});
+	console.log("schemacla,", schema);
 
 	const defaultValues = currentForm.fields.reduce((acc, col) => {
 		col.forEach((row) => {

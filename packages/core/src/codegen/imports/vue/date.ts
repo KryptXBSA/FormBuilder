@@ -1,4 +1,5 @@
 export const date = `
+import { toDate } from 'reka-ui/date'
 import { Calendar } from "{{importAliasComponents}}/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "{{importAliasComponents}}/popover";
 import { cn } from "{{importAliasUtils}}";
