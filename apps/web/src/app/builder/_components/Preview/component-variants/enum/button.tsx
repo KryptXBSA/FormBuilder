@@ -1,10 +1,5 @@
 import type { EnumField, FormFramework } from "formbuilder-core";
 import {
-	RadioGroup as ShadcnRadioGroup,
-	RadioGroupItem,
-} from "@/components/ui/radio-group";
-
-import {
 	FormControl,
 	FormDescription,
 	FormField,
@@ -14,12 +9,6 @@ import {
 } from "@/components/ui/form";
 import { useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-
-const btns = [
-	{ label: "English", value: "en" },
-	{ label: "French", value: "fr" },
-	{ label: "German", value: "de" },
-] as const;
 
 export function ButtonGroup({ f }: { f: EnumField<FormFramework> }) {
 	const form = useFormContext<any>();
@@ -32,18 +21,18 @@ export function ButtonGroup({ f }: { f: EnumField<FormFramework> }) {
 					<FormLabel>{f.label}</FormLabel>
 					<FormControl>
 						<div className="flex gap-2">
-							{btns.map((btn) => (
+							{f.enumValues?.map((item) => (
 								<Button
-									variant={field.value === btn.value ? "outline" : "default"}
+									variant={field.value === item.value ? "outline" : "default"}
 									type="button"
-									key={btn.label}
+									key={item.label}
 									onClick={() => {
-										field.value === btn.value
+										field.value === item.value
 											? field.onChange(null)
-											: field.onChange(btn.value);
+											: field.onChange(item.value);
 									}}
 								>
-									{btn.label}
+									{item.label}
 								</Button>
 							))}
 						</div>

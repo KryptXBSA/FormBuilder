@@ -13,8 +13,8 @@ export function AddField<F extends FormFramework>({
 	}[];
 }) {
 	return (
-		<div className="mt-10 flex flex-col">
-			<h3 className="w-[250px] scroll-m-20 font-semibold text-2xl tracking-tight">
+		<div className="flex flex-col px-4">
+			<h3 className="w-[212px] scroll-m-20 font-semibold text-2xl tracking-tight">
 				Add Field
 			</h3>
 			<Accordion type="multiple" className="w-full">

@@ -7,14 +7,12 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
-import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 import type { FormFramework, NumberField } from "formbuilder-core";
 import { useFormContext } from "react-hook-form";
 import { Slider as ShadcnSlider } from "@/components/ui/slider";
 
 export function Slider({ f }: { f: NumberField<FormFramework> }) {
 	const form = useFormContext<any>();
-
 	return (
 		<FormField
 			control={form.control}
@@ -25,7 +23,6 @@ export function Slider({ f }: { f: NumberField<FormFramework> }) {
 					<FormControl>
 						<ShadcnSlider
 							className="pt-4"
-							// label={(value) => value}
 							value={field.value}
 							onValueChange={(e: any) => field.onChange(e)}
 							min={f.validation?.min}

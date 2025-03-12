@@ -5,19 +5,13 @@ export const inputOTP = `<FormField
 				<FormItem>
 					<FormLabel>{{label}}</FormLabel>
 					<FormControl>
-						<ShadcnInputOTP {...field} maxLength={6}>
+						<InputOTP {...field} maxLength={ {{digits}} }>
 							<InputOTPGroup>
-								<InputOTPSlot index={0} />
-								<InputOTPSlot index={1} />
-								<InputOTPSlot index={2} />
+								{{#times digits}}
+								<InputOTPSlot index={ {{this}} } />
+								{{/times}}
 							</InputOTPGroup>
-							<InputOTPSeparator />
-							<InputOTPGroup>
-								<InputOTPSlot index={3} />
-								<InputOTPSlot index={4} />
-								<InputOTPSlot index={5} />
-							</InputOTPGroup>
-						</ShadcnInputOTP>
+						</InputOTP>
 					</FormControl>
 					<FormDescription>{{description}}</FormDescription>
 					<FormMessage />

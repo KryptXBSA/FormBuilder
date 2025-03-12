@@ -1,22 +1,19 @@
 export const checkbox = `
-  <Form.Field
+<Form.Field
     {form}
     name="{{key}}"
-    class="flex flex-row items-center justify-between rounded-lg border p-4"
-      >
-        <Form.Control>
-          {#snippet children({ props })}
-            <div class="space-y-0.5">
-              <Form.Label>{{label}}</Form.Label>
-              <Form.Description>{{description}}</Form.Description>
-            </div>
-            <Switch
-              {...props}
-              aria-readonly
-              disabled
-              bind:checked={$formData.{{key}}}
-            />
-          {/snippet}
-        </Form.Control>
-      </Form.Field>
+    class="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4"
+  >
+    <Form.Control>
+      {#snippet children({ props })}
+        <Checkbox {...props} bind:checked={$formData["{{key}}"]} />
+        <div class="space-y-1 leading-none">
+          <Form.Label>{{label}}</Form.Label>
+          <Form.Description>
+            {{description}}
+          </Form.Description>
+        </div>
+      {/snippet}
+    </Form.Control>
+  </Form.Field>
 `;

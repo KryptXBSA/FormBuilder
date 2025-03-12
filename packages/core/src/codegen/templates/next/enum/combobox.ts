@@ -30,6 +30,7 @@ export const combobox = `
                 <PopoverContent className="w-[200px] p-0">
                   <Command>
                     <CommandInput placeholder="Search {{enumName}}..." />
+								<CommandList>
                     <CommandEmpty>No {{enumName}} found.</CommandEmpty>
                     <CommandGroup>
                       { {{enumName}}.map((item) => (
@@ -52,6 +53,7 @@ export const combobox = `
                         </CommandItem>
                       ))}
                     </CommandGroup>
+								</CommandList>
                   </Command>
                 </PopoverContent>
               </Popover>

@@ -9,4 +9,12 @@ export const colorMap: Record<string, { label: string; border: string }> = {
 	enum: { label: "text-orange-500", border: "border-orange-500" },
 };
 
-export const LOCALSTORAGE_KEY = "state-v0.6.0";
+export const LOCALSTORAGE_KEY = "state-v0.8.0";
+
+export const IGNORED_CLI_COMPONENTS = [
+	// "originui-password",
+	"originui-inputtag",
+	"shadcnexpansion-autoresizetextarea",
+	"shadcnexpansion-dualslider",
+	"phone",
+];

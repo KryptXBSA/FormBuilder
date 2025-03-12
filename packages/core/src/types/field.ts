@@ -19,23 +19,22 @@ export type BaseField = {
 	description?: string;
 	placeholder?: string;
 	disabled?: boolean;
-	hidden?: boolean;
-	className?: string;
-	tooltip?: string;
-	message?: string;
+	// message?: string;
 };
 
-export type HeadingField<F extends FormFramework> = BaseField & {
+export type HeadingField<F extends FormFramework> = {
+	id: string;
+	key: string;
+	label: string;
 	kind: "heading";
 	headingLevel?: "H1" | "H2" | "H3" | "H4" | "H5" | "H6";
 	variant: FrameworkFieldVariants[F];
-	defaultValue?: string;
-	validation?: TextValidation;
 };
 
 export type TextField<F extends FormFramework> = BaseField & {
 	kind: "text";
 	variant: FrameworkFieldVariants[F];
+	digits?: number;
 	defaultValue?: string;
 	validation: TextValidation;
 };
@@ -80,16 +79,13 @@ export type EnumField<F extends FormFramework> = BaseField & {
 export type TextValidation = {
 	min?: number;
 	max?: number;
-	pattern?: string;
-	email?: boolean;
-	url?: boolean;
+	isEmail?: boolean;
 };
 
 export type NumberValidation = {
 	min?: number;
 	max?: number;
 	step?: number;
-	precision?: number;
 	allowNegative?: boolean;
 	allowDecimal?: boolean;
 };
@@ -117,7 +113,6 @@ export type EnumValue = {
 	value: string;
 	id: string;
 	disabled?: boolean;
-	description?: string;
 };
 
 export type EnumValidation = {

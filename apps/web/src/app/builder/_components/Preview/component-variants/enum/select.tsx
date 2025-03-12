@@ -31,13 +31,15 @@ export function Select({ f }: { f: EnumField<FormFramework> }) {
 					>
 						<FormControl>
 							<SelectTrigger>
-								<SelectValue placeholder="Select a verified email to display" />
+								<SelectValue placeholder={f.placeholder} />
 							</SelectTrigger>
 						</FormControl>
 						<SelectContent>
-							<SelectItem value="m@example.com">m@example.com</SelectItem>
-							<SelectItem value="m@google.com">m@google.com</SelectItem>
-							<SelectItem value="m@support.com">m@support.com</SelectItem>
+							{f.enumValues?.map((item) => (
+								<SelectItem key={item.id} value={item.value}>
+									{item.label}
+								</SelectItem>
+							))}
 						</SelectContent>
 					</ShadcnSelect>
 					<FormDescription>{f.description}</FormDescription>

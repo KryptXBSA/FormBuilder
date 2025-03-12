@@ -8,12 +8,14 @@ import { AddField } from "./_components/AddField";
 import { SettingsToggle } from "./_components/FormSettings/SettingsToggle";
 import FormSettings from "./_components/FormSettings";
 import { allFieldKinds } from "formbuilder-core";
-import { useAppState } from "@/state/state";
+import { type BuilderContent, useAppState } from "@/state/state";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import initializeAppState from "@/hooks/initializeAppState";
 import { Code } from "./_components/Code";
 import { FieldSettings } from "./_components/FieldSettings";
 import { FormList } from "./_components/FormList";
+import { Code2, Eye, Pen, Pencil } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function Builder() {
 	const [loaded, setLoaded] = useState(false);
@@ -25,6 +27,13 @@ export default function Builder() {
 		label: v.charAt(0).toUpperCase() + v.slice(1),
 		kind: v,
 	}));
+
+	function handleTabChange(value: BuilderContent) {
+		state.setAppState({
+			builderContent: value,
+		});
+	}
+
 	if (!loaded)
 		return (
 			<div className="flex h-96 w-full flex-col items-center justify-center">
@@ -34,38 +43,73 @@ export default function Builder() {
 		);
 
 	return (
-		<section className="mx-auto max-w-[1500px] py-10">
-			<div className="flex w-full gap-6">
+		<section className="bg[#1D1E2B] mx-auto h-screen max-w-[1500px]">
+			<div className="flex w-full justify-center pt-4">
 				<FormList />
-				<Tabs defaultValue="editor" className="w-full">
-					<TabsList className="ml-24 grid w-1/2 grid-cols-3">
-						<TabsTrigger value="editor">Editor</TabsTrigger>
-						<TabsTrigger value="preview">Preview</TabsTrigger>
-						<TabsTrigger value="code">Code</TabsTrigger>
-					</TabsList>
-					<TabsContent className="" value="editor">
-						<SettingsToggle
-							onClick={() =>
-								state.setAppState({
-									showSettings: state.showSettings === "form" ? null : "form",
-								})
-							}
-						/>
-						{state.showSettings === "form" ? (
+				<div
+					defaultValue="editor"
+					className="max-w[1000px] b-[#1D1E2B] w-full rounded-lg"
+				>
+					<SettingsToggle
+						onClick={() =>
+							state.setAppState({
+								builderContent:
+									state.builderContent === "formSettings"
+										? null
+										: "formSettings",
+							})
+						}
+					/>
+					<div className="flex justify-center bg-background">
+						<div
+							style={{ borderRadius: "0px 0px 10px 10px" }}
+							className="flex w-fit justify-center gap-2 bg-[#1D1E2B] p-2"
+						>
+							<Button
+								variant={
+									state.builderContent === "editor" ? "default" : "outline"
+								}
+								className="flex gap-2 p-3"
+								onClick={() => handleTabChange("editor")}
+							>
+								<Pencil /> <span>Editor</span>
+							</Button>
+							<Button
+								variant={
+									state.builderContent === "preview" ? "default" : "outline"
+								}
+								className="flex gap-2 p-3"
+								onClick={() => handleTabChange("preview")}
+							>
+								<Eye /> <span>Preview</span>
+							</Button>
+							<Button
+								variant={
+									state.builderContent === "code" ? "default" : "outline"
+								}
+								className="flex gap-2 p-3"
+								onClick={() => handleTabChange("code")}
+							>
+								<Code2 /> <span>Code</span>
+							</Button>
+						</div>
+					</div>
+					<div className="bg-background p-6">
+						{state.builderContent === "formSettings" ? (
 							<FormSettings />
-						) : state.showSettings ? (
+						) : state.builderContent === "preview" ? (
+							<Preview />
+						) : state.builderContent === "code" ? (
+							<Code />
+						) : state.builderContent === "fieldSettings" ? (
 							<FieldSettings />
+						) : state.builderContent === "editor" ? (
+							<SortableGrid />
 						) : (
 							<SortableGrid />
 						)}
-					</TabsContent>
-					<TabsContent value="preview">
-						<Preview />
-					</TabsContent>
-					<TabsContent value="code">
-						<Code />
-					</TabsContent>
-				</Tabs>
+					</div>
+				</div>
 				<AddField fields={fields} />
 			</div>
 		</section>

@@ -11,26 +11,35 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { RenderField } from "./RenderField";
+import { toast } from "sonner";
 
 export function Preview() {
 	const { currentForm } = useAppState();
 
 	const getDefaultValues = (row: FF<FormFramework>) => {
+		const variant = row.variant.split("-").slice(2).join("-");
 		switch (row.kind) {
 			case "text":
-				if (row.variant === "next-originui-text-inputtag")
+				if (variant === "text-inputtag")
 					return {
 						[row.key]: [],
 					};
 
-				return row.validation?.email ? { [row.key]: "" } : { [row.key]: "" };
+				return row.validation?.isEmail ? { [row.key]: "" } : { [row.key]: "" };
 			case "number":
-				// TODO: fix value for dual slider and number
-				if (row.variant === "next-shadcn-number-slider")
+				if (variant === "number-slider")
+					return {
+						[row.key]: [0],
+					};
+				if (variant === "number-slider")
+					return {
+						[row.key]: [0],
+					};
+				if (variant === "number-dualslider")
 					return {
 						[row.key]: [0, 0],
 					};
-				if (row.variant === "next-shadcn-number-phone")
+				if (variant === "number-phone")
 					return {
 						[row.key]: "",
 					};
@@ -40,7 +49,7 @@ export function Preview() {
 			case "boolean":
 				return { [row.key]: false };
 			case "date":
-				if (row.variant === "next-shadcn-date-daterange") {
+				if (variant === "date-daterange") {
 					return {
 						[row.key]: { from: new Date(), to: addDays(new Date(), 20) },
 					};
@@ -69,11 +78,14 @@ export function Preview() {
 						),
 					};
 
-				return row.validation?.email
+				return row.validation?.isEmail
 					? { [row.key]: z.string().email().min(1).max(9999999999) }
 					: { [row.key]: z.string().min(1).max(9999999999) };
 			case "number":
-				// TODO: fix value for dual slider and number
+				if (row.variant === "next-shadcnexpansion-number-dualslider")
+					return {
+						[row.key]: z.array(z.number()),
+					};
 				if (row.variant === "next-shadcn-number-slider")
 					return {
 						[row.key]: z.array(z.number()),
@@ -109,7 +121,7 @@ export function Preview() {
 		}
 	};
 
-	const ff = currentForm.fields.reduce((acc, col) => {
+	const schema = currentForm.fields.reduce((acc, col) => {
 		col.forEach((row) => {
 			Object.assign(acc, createFieldSchema(row));
 		});
@@ -123,13 +135,13 @@ export function Preview() {
 		return acc;
 	}, {});
 
-	const formSchema = z.object(ff);
+	const formSchema = z.object(schema);
 	const form = useForm<z.infer<any>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: defaultValues,
 	});
 
-	// TODO: Replace alert with toast
+	// TODO: Replace alert with toast, and make it look better
 	function onSubmit() {
 		const values = form.getValues();
 		let result = "Submitted Values:\n";
@@ -138,10 +150,13 @@ export function Preview() {
 			// biome-ignore lint/suspicious/noPrototypeBuiltins: <explanation>
 			if (values.hasOwnProperty(key)) {
 				// @ts-ignore
-				result += `${key}: ${values[key]}\n`;
+				result += `\n${key}: ${values[key]}\n`;
 			}
 		}
-		alert(result);
+		toast.info("Form submitted", {
+			description: () => <div>{result}</div>,
+		});
+		// alert(result);
 	}
 
 	return (
@@ -162,13 +177,13 @@ export function Preview() {
 				))}
 				<Button onClick={() => form.getValues()}>Submit</Button>
 
-				<Alert variant="warning">
+				{/* <Alert variant="warning">
 					<AlertCircle className="h-4 w-4" />
 					<AlertTitle>Form validation doesn't work in Live preview</AlertTitle>
 					<AlertDescription>
 						But it does work when utilizing the generated code.
 					</AlertDescription>
-				</Alert>
+				</Alert> */}
 			</form>
 		</Form>
 	);

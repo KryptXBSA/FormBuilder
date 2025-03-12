@@ -11,15 +11,11 @@ export const select = `
           </FormControl>
           <SelectContent>
             <SelectGroup>
-              <SelectItem value="m@example.com">
-                m@example.com
+              <template v-for="item in {{enumName}}" :key="item.value">
+              <SelectItem :value="item.value">
+                  {{DBO}} item.label {{DBC}}
               </SelectItem>
-              <SelectItem value="m@google.com">
-                m@google.com
-              </SelectItem>
-              <SelectItem value="m@support.com">
-                m@support.com
-              </SelectItem>
+            </template>
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -29,4 +25,4 @@ export const select = `
         <FormMessage />
       </FormItem>
     </FormField>
-    `
+    `;

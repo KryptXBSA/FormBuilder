@@ -7,18 +7,18 @@ export const button = `
 					<FormLabel>{{label}}</FormLabel>
 					<FormControl>
 						<div className="flex gap-2">
-							{btns.map((btn) => (
+							{ {{enumName}}.map((item) => (
 								<Button
-									variant={field.value === btn.value ? "outline" : "default"}
+									variant={field.value === item.value ? "outline" : "default"}
 									type="button"
-									key={btn.label}
+									key={item.value}
 									onClick={() => {
-										field.value === btn.value
+										field.value === item.value
 											? field.onChange(null)
-											: field.onChange(btn.value);
+											: field.onChange(item.value);
 									}}
 								>
-									{btn.label}
+									{item.label}
 								</Button>
 							))}
 						</div>

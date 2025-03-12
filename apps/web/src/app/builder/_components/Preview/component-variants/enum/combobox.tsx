@@ -26,18 +26,6 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 
-const languages = [
-	{ label: "English", value: "en" },
-	{ label: "French", value: "fr" },
-	{ label: "German", value: "de" },
-	{ label: "Spanish", value: "es" },
-	{ label: "Portuguese", value: "pt" },
-	{ label: "Russian", value: "ru" },
-	{ label: "Japanese", value: "ja" },
-	{ label: "Korean", value: "ko" },
-	{ label: "Chinese", value: "zh" },
-] as const;
-
 export function Combobox({ f }: { f: EnumField<FormFramework> }) {
 	const form = useFormContext<any>();
 	return (
@@ -59,33 +47,32 @@ export function Combobox({ f }: { f: EnumField<FormFramework> }) {
 									)}
 								>
 									{field.value
-										? languages.find(
-												(language) => language.value === field.value,
-											)?.label
-										: "Select language"}
+										? f.enumValues?.find((item) => item.value === field.value)
+												?.label
+										: f.placeholder}
 									<ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
 								</Button>
 							</FormControl>
 						</PopoverTrigger>
 						<PopoverContent className="w-[200px] p-0">
 							<Command>
-								<CommandInput placeholder="Search language..." />
+								<CommandInput placeholder={f.placeholder} />
 								<CommandList>
-									<CommandEmpty>No language found.</CommandEmpty>
+									<CommandEmpty>No {f.enumName} found.</CommandEmpty>
 									<CommandGroup>
-										{languages.map((language) => (
+										{f.enumValues?.map((item) => (
 											<CommandItem
-												value={language.label}
-												key={language.value}
+												value={item.label}
+												key={item.value}
 												onSelect={() => {
-													form.setValue(f.key, language.value);
+													form.setValue(f.key, item.value);
 												}}
 											>
-												{language.label}
+												{item.label}
 												<Check
 													className={cn(
 														"ml-auto",
-														language.value === field.value
+														item.value === field.value
 															? "opacity-100"
 															: "opacity-0",
 													)}

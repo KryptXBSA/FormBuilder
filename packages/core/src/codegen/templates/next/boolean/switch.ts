@@ -9,7 +9,10 @@ export const switchTemplate = `
 						<FormDescription>{{description}}</FormDescription>
 					</div>
 					<FormControl>
-						<Switch {...field} />
+						<Switch
+							checked={field.value}
+							onCheckedChange={field.onChange}
+						/>
 					</FormControl>
 					<FormMessage />
 				</FormItem>

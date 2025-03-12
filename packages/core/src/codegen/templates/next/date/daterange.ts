@@ -36,7 +36,10 @@ export const daterange = `
 									initialFocus
 									mode="range"
 									defaultMonth={field.value?.from}
-									selected={field.value}
+									selected={{
+         				             from: field.value?.from,
+            				         to: field.value?.to,
+                      				}}
 									onSelect={field.onChange}
 									numberOfMonths={2}
 								/>

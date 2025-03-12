@@ -13,7 +13,7 @@ function jsonSchemaToZod(obj: any) {
 	const catchallPattern = /\.catchall\(z\.never\(\)\)/;
 	schema = schema.replace(catchallPattern, "");
 	schema = schema.replace(".number()", ".coerce.number()");
-	schema = schema.replace(".string().datetime()", ".date()");
+	schema = schema.replaceAll(".string().datetime({ offset: true })", ".date()");
 	return schema;
 }
 
@@ -22,9 +22,21 @@ function formToJsonSchema(form: FormSchema) {
 	const properties: { [key: string]: any } = {};
 	const required: string[] = [];
 
+	// TODO: handle optional and non optional fields
 	form.fields.flat().forEach((field: FormField<FormFramework>) => {
 		let property: any;
-		if (field.kind === "text")
+		if (field.variant === "next-originui-text-inputtag") {
+			property = {
+				type: "array",
+				items: {
+					type: "object",
+					properties: {
+						id: { type: "string" },
+						text: { type: "string" },
+					},
+				},
+			};
+		} else if (field.kind === "text")
 			property = {
 				type: "string",
 				minLength: field.validation?.min
@@ -34,38 +46,57 @@ function formToJsonSchema(form: FormSchema) {
 					? Number.parseInt(field.validation?.max.toString())
 					: 255,
 			};
-		else if (field.kind === "number")
-			property = {
-				type: field.kind,
-				minimum: field.validation?.min,
-				maximum: field.validation?.max,
-			};
-		else if (field.kind === "boolean")
+		else if (field.kind === "number") {
+			if (field.variant.includes("slider"))
+				property = {
+					type: "array",
+					items: {
+						type: "number",
+					},
+				};
+			else if (field.variant.includes("phone"))
+				property = {
+					type: "string",
+					format: "phone",
+				};
+			else
+				property = {
+					type: field.kind,
+					minimum: field.validation?.min,
+					maximum: field.validation?.max,
+				};
+		} else if (field.kind === "boolean")
 			property = {
 				type: field.kind,
 			};
 		else if (field.kind === "date")
-			property = {
-				type: "string",
-				format: "date-time",
-			};
+			if (field.variant === "next-shadcn-date-daterange")
+				property = {
+					type: "object",
+					properties: {
+						from: {
+							type: "string",
+							format: "date-time",
+						},
+						to: {
+							type: "string",
+							format: "date-time",
+						},
+					},
+				};
+			else
+				property = {
+					type: "string",
+					format: "date-time",
+				};
 		else if (field.kind === "enum")
 			property = {
 				type: "string",
 			};
-		// else if (field.kind === "text")
-		// 	property = {
-		// 		type: "string",
-		// 		minLength: field.validation?.min,
-		// 		maxLength: field.validation?.max,
-		// 	};
-		// if (field.kind === "string" && field.validation?.format) {
-		// 	property.format = field.validation.format;
-		// }
 		properties[field.key] = property;
-		if (field.required) {
-			required.push(field.key);
-		}
+		// if (field.required) {
+		// 	required.push(field.key);
+		// }
 	});
 
 	definitions.form = {

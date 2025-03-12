@@ -5,10 +5,7 @@ import type {
 	FrameworkFieldKinds,
 } from "./fieldVariants";
 
-export type FormFramework =
-	| "next"
-	| "svelte"
-	| "vue"
+export type FormFramework = "next" | "svelte" | "vue";
 
 export type ChosenField<F extends FormFramework> = {
 	kind: FrameworkFieldKinds[F];
@@ -16,7 +13,7 @@ export type ChosenField<F extends FormFramework> = {
 };
 
 export type FormSchema<F extends FormFramework = FormFramework> = Prettify<{
-	id: number;
+	id: string;
 	name: string;
 	framework: F;
 	fields: FormField<F>[][];

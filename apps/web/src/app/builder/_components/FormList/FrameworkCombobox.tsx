@@ -33,18 +33,6 @@ const frameworks: { value: FormFramework; label: string }[] = [
 		value: "vue",
 		label: "Vue",
 	},
-	{
-		value: "react",
-		label: "React",
-	},
-	{
-		value: "solid",
-		label: "Solid",
-	},
-	{
-		value: "astro",
-		label: "Astro",
-	},
 ];
 
 export function FrameworkCombobox({

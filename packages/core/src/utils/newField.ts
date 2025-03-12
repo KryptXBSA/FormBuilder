@@ -1,88 +1,121 @@
 import type {
-	BooleanFieldVariant,
-	DateFieldVariant,
-	EnumFieldVariant,
-	FormField,
-	FormVariant,
-	NumberFieldVariant,
-	TextFieldVariant,
+	BooleanField,
+	DateField,
+	EnumField,
+	HeadingField,
+	NumberField,
+	TextField,
 } from "@/types/field";
 
-import { randNum } from "./randNum";
+import { randID } from "./randID";
+import type { FormFramework } from "@/types";
+import type { FrameworkFieldVariants } from "@/types/fieldVariants";
 
-export function newTextField(variant: FormVariant): FormField {
+export function newHeadingField<F extends FormFramework>(
+	variant: FrameworkFieldVariants[F],
+): HeadingField<F> {
 	return {
-		id: `id${randNum()}`,
-		key: `key${randNum()}`,
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
+		headingLevel:"H2",
 		label: "My string",
-		desc: "Description",
+		kind: "heading",
+		variant: variant,
+	};
+}
+export function newTextField<F extends FormFramework>(
+	variant: FrameworkFieldVariants[F],
+): TextField<F> {
+	return {
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
+		label: "My string",
+		description: "Description",
 		placeholder: "Placeholder",
 		kind: "text",
-		variant: variant as TextFieldVariant,
+		variant: variant,
 		defaultValue: "string",
+		digits: 6,
 		required: true,
+		disabled: false,
 		validation: {
 			min: 1,
 			max: 255,
 		},
 	};
 }
-export function newNumberField(variant: NumberFieldVariant): FormField {
+export function newNumberField<F extends FormFramework>(
+	variant: FrameworkFieldVariants[F],
+): NumberField<F> {
 	return {
-		id: `id${randNum()}`,
-		key: `key${randNum()}`,
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
 		label: "My number",
-		desc: "Description",
+		description: "Description",
 		placeholder: "Placeholder",
 		kind: "number",
-		variant: variant as NumberFieldVariant,
+		variant: variant,
 		defaultValue: 1,
 		required: true,
+		disabled: false,
+		// inputotp
 		validation: {
 			min: 1,
-			max: 9999999999,
+			max: 99999,
 			step: 1,
 		},
 	};
 }
-export function newBooleanField(variant: BooleanFieldVariant): FormField {
+export function newBooleanField<F extends FormFramework>(
+	variant: FrameworkFieldVariants[F],
+): BooleanField<F> {
 	return {
-		id: `id${randNum()}`,
-		key: `key${randNum()}`,
-		label: "My bool",
-		desc: "Description",
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
+		label: "My boolean",
+		description: "Description",
 		placeholder: "Placeholder",
 		kind: "boolean",
-		variant: variant as BooleanFieldVariant,
+		variant: variant,
 		defaultValue: true,
 		required: true,
+		disabled: false,
 	};
 }
 
-export function newDateField(variant: DateFieldVariant): FormField {
+export function newDateField<F extends FormFramework>(
+	variant: FrameworkFieldVariants[F],
+): DateField<F> {
 	return {
-		id: `id${randNum()}`,
-		key: `key${randNum()}`,
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
 		label: "My date",
-		desc: "Description",
+		description: "Description",
 		placeholder: "Pick a date",
 		kind: "date",
-		variant: variant as DateFieldVariant,
+		variant: variant,
 		required: true,
+		disabled: false,
 	};
 }
 
-export function newEnumField(variant: EnumFieldVariant): FormField {
+export function newEnumField<F extends FormFramework>(
+	variant: FrameworkFieldVariants[F],
+): EnumField<F> {
 	return {
-		id: `id${randNum()}`,
-		key: `key${randNum()}`,
+		id: `id_${randID()}`,
+		key: `key_${randID()}`,
 		label: "My enum",
-		desc: "Description",
+		description: "Description",
 		placeholder: "Placeholder",
 		kind: "enum",
-		variant: variant as EnumFieldVariant,
-		enumName: `myEnum${randNum()}`,
-		enumValues: [{ id: Date.now().toString(), label: "label", value: "value" }],
+		variant: variant,
+		enumName: `myEnum${randID()}`,
+		enumValues: [
+			{ id: `id_${randID()}`, label: "label1", value: "value1" },
+			{ id: `id_${randID()}`, label: "label2", value: "value2" },
+		],
 		required: true,
+		disabled: false,
 	};
 }

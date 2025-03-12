@@ -1,5 +1,4 @@
-export const phoneNumber = `
-		<FormField
+export const phoneNumber = `<FormField
 			control={form.control}
 			name="{{key}}"
 			render={({ field }) => (

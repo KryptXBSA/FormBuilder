@@ -12,7 +12,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
+} from "{{importAliasComponents}}/form"
 import { cn } from "{{importAliasUtils}}"
 import { Input } from "{{importAliasComponents}}/input"
 `;

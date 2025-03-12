@@ -1,6 +1,4 @@
 export const combobox = `import { Check, ChevronsUpDown } from "lucide-react";
-import { Button } from "{{importAliasComponents}}/button";
-import { cn } from "{{importAliasUtils}}";
 import {
 	Command,
 	CommandEmpty,
@@ -25,10 +23,12 @@ import {
 
 export const select = `
 import {
-	Select as ShadcnSelect,
+	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
 } from "{{importAliasComponents}}/select";
+`;
+export const button = `
 `;

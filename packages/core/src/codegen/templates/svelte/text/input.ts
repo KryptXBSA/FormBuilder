@@ -3,7 +3,7 @@ export const input = `
     <Form.Control>
       {#snippet children({ props })}
         <Form.Label>{{label}}</Form.Label>
-        <Input {...props} bind:value={$formData.{{key}}} />
+        <Input {...props} bind:value={$formData["{{key}}"] } />
       {/snippet}
     </Form.Control>
     <Form.Description>{{description}}</Form.Description>

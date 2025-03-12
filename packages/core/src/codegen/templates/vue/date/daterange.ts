@@ -1,4 +1,4 @@
-// TODO: correct daterange 
+// TODO: correct daterange
 export const daterange = `
  <FormField name="{{key}}">
       <FormItem class="flex flex-col">

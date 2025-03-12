@@ -24,6 +24,7 @@ export const vueFieldKinds = [
 ] as const;
 
 export const svelteFieldKinds = [
+	"heading",
 	"text",
 	"number",
 	"boolean",
@@ -32,9 +33,7 @@ export const svelteFieldKinds = [
 	"enum",
 ] as const;
 
-
 export type Kind = FrameworkFieldKinds[FormFramework];
-
 
 export const allFieldVariantsByKind = {
 	heading: [

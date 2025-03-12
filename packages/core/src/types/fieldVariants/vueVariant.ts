@@ -1,14 +1,14 @@
 export const headingVariants = [
 	{ label: "Heading", value: "vue-shadcn-heading-simple" },
-	{ label: "Heading Anchor", value: "vue-shadcn-heading-anchor" },
+	// { label: "Heading Anchor", value: "vue-shadcn-heading-anchor" },
 ] as const;
 
 export const textVariants = [
 	{ label: "Input", value: "vue-shadcn-text-input" },
 	{ label: "Textarea", value: "vue-shadcn-text-textarea" },
 	{ label: "Password Input", value: "vue-shadcn-text-password" },
-	{ label: "Input OTP", value: "vue-shadcn-text-inputotp" },
-	{ label: "Input Tag", value: "vue-shadcn-text-inputtag" },
+	// { label: "Input OTP", value: "vue-shadcn-text-inputotp" },
+	// { label: "Input Tag", value: "vue-shadcn-text-inputtag" },
 ] as const;
 
 export const numberVariants = [
@@ -23,11 +23,11 @@ export const booleanVariants = [
 
 export const dateVariants = [
 	{ label: "Date Picker", value: "vue-shadcn-date-date" },
-	{ label: "Date & Time Picker", value: "vue-shadcn-date-datetime" },
-	{ label: "Time Picker", value: "vue-shadcn-date-time" },
-	{ label: "Date Range Picker", value: "vue-shadcn-date-daterange" },
-	{ label: "Calendar Picker", value: "vue-shadcn-date-calendar-picker" },
-	{ label: "Date Range Calendar", value: "vue-shadcn-date-date-range-picker" },
+	// { label: "Date & Time Picker", value: "vue-shadcn-date-datetime" },
+	// { label: "Time Picker", value: "vue-shadcn-date-time" },
+	// { label: "Date Range Picker", value: "vue-shadcn-date-daterange" },
+	// { label: "Calendar Picker", value: "vue-shadcn-date-calendar-picker" },
+	// { label: "Date Range Calendar", value: "vue-shadcn-date-date-range-picker" },
 ] as const;
 
 // export const fileVariants = [
@@ -42,9 +42,6 @@ export const enumVariants = [
 	{ label: "Select Dropdown", value: "vue-shadcn-enum-select" },
 	{ label: "Combobox", value: "vue-shadcn-enum-combobox" },
 	{ label: "Radio Group", value: "vue-shadcn-enum-radio" },
-	{ label: "Checkbox Group", value: "vue-shadcn-enum-checkbox" },
-	{ label: "Segmented Control", value: "vue-shadcn-enum-segmented" },
-	{ label: "Chips Input", value: "vue-shadcn-enum-chips" },
 ] as const;
 
 export const vueFieldVariants = {

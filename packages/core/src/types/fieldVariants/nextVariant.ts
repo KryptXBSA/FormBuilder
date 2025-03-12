@@ -1,6 +1,6 @@
 export const headingVariants = [
 	{ label: "Heading", value: "next-shadcn-heading-simple" },
-	{ label: "Heading Anchor", value: "next-shadcn-heading-anchor" },
+	// { label: "Heading Anchor", value: "next-shadcn-heading-anchor" },
 ] as const;
 
 export const textVariants = [
@@ -15,17 +15,14 @@ export const textVariants = [
 		value: "next-shadcnexpansion-text-autoresizetextarea",
 	},
 	{ label: "Input OTP", value: "next-shadcn-text-inputotp" },
-	// { label: "Input Mask", value: "next-shadcn-text-input-mask" },
 	{ label: "Input Tag", value: "next-originui-text-inputtag" },
 ] as const;
 
 export const numberVariants = [
 	{ label: "Number Input", value: "next-shadcn-number-input" },
 	{ label: "Slider", value: "next-shadcn-number-slider" },
+	{ label: "Dual Slider", value: "next-shadcnexpansion-number-dualslider" },
 	{ label: "Phone", value: "next-shadcn-number-phone" },
-	// { label: "Rating", value: "next-shadcn-number-rating" },
-	// { label: "OTP", value: "next-shadcn-number-otp" },
-	// { label: "Stepper", value: "next-shadcn-number-stepper" }
 ] as const;
 
 export const booleanVariants = [
@@ -50,7 +47,7 @@ export const enumVariants = [
 	{ label: "Combobox", value: "next-shadcn-enum-combobox" },
 	{ label: "Select Dropdown", value: "next-shadcn-enum-select" },
 	{ label: "Radio Group", value: "next-shadcn-enum-radio" },
-	{ label: "Button Group", value: "next-shadcn-enum-button" },
+	// { label: "Button Group", value: "next-shadcn-enum-button" },
 ] as const;
 
 export const nextFieldVariants = {

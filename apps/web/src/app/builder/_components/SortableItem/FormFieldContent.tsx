@@ -35,7 +35,12 @@ export function FormFieldContent({
 						<Trash />
 					</Button>
 					<Button
-						onClick={() => state.setAppState({ showSettings: id })}
+						onClick={() =>
+							state.setAppState({
+								builderContent: "fieldSettings",
+								fieldId: id,
+							})
+						}
 						data-no-dnd={true}
 						variant={"ghost"}
 						className="-ml-2 h-auto p-1 text-secondary-foreground/50"

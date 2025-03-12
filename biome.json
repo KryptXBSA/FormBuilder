@@ -16,10 +16,12 @@
 		"rules": {
 			"complexity": { "noForEach": "off" },
 			"style": {
+				"useSelfClosingElements": { "level": "warn" },
 				"noNonNullAssertion": { "level": "off" },
 				"useImportType": { "level": "warn" }
 			},
 			"suspicious": {
+				"noFallthroughSwitchClause": "off",
 				"noExplicitAny": "off",
 				"noArrayIndexKey": { "level": "off" }
 			},

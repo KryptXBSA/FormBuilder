@@ -1,11 +1,13 @@
 export const date = `
  import CalendarIcon from "lucide-svelte/icons/calendar";
   import {
+   CalendarDate,
     DateFormatter,
     type DateValue,
-    getLocalTimeZone
+    getLocalTimeZone,
+    parseDate,
+    today
   } from "@internationalized/date";
-  import { cn } from "{{importAliasUtils}}";
   import { buttonVariants } from "{{importAliasComponents}}/button/index.js";
   import { Calendar } from "{{importAliasComponents}}/calendar/index.js";
   import * as Popover from "{{importAliasComponents}}/popover/index.js";
