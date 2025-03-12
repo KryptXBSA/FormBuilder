@@ -133,7 +133,7 @@ export const VUE_COMPONENTS: ComponentConfig = {
 	},
 	"vue-shadcn-enum-radio": {
 		label: "Radio Group",
-		cli: ["radio"],
+		cli: ["radio-group"],
 		imports: radio,
 		template: enumTemplates.radio,
 	},

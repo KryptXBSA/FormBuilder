@@ -1,6 +1,5 @@
 export const combobox = `
 import { Check, ChevronsUpDown } from "lucide-vue-next";
-import { Button } from "{{importAliasComponents}}/button";
 import { cn } from "{{importAliasUtils}}";
 import {
 	Command,

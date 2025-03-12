@@ -8,11 +8,11 @@ export const combobox = `
               <Button
                 variant="outline"
                 role="combobox"
-                :class="cn('w-[200px] justify-between', !values.language && 'text-muted-foreground')"
+                :class="cn('w-[200px] justify-between', !values['{{key}}'] && 'text-muted-foreground')"
               >
-                {{ values.language ? {{enumName}}.find(
-                  (language) => language.value === values.language,
-                )?.label : 'Select {{enumName}}...' }}
+                {{DBO}} values['{{key}}'] ? {{enumName}}.find(
+                  (language) => language.value === values['{{key}}'],
+                )?.label : 'Select {{enumName}}...' {{DBC}}
                 <ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </FormControl>
@@ -24,17 +24,17 @@ export const combobox = `
               <CommandList>
                 <CommandGroup>
                   <CommandItem
-                    v-for="language in {{enumName}}"
-                    :key="language.value"
-                    :value="language.label"
+                    v-for="item in {{enumName}}"
+                    :key="item.value"
+                    :value="item.label"
                     @select="() => {
-                      setFieldValue('{{key}}', language.value)
+                      setFieldValue('{{key}}', item.value)
                     }"
                   >
                     <Check
-                      :class="cn('mr-2 h-4 w-4', language.value === values.language ? 'opacity-100' : 'opacity-0')"
+                      :class="cn('mr-2 h-4 w-4', item.value === values['{{key}}'] ? 'opacity-100' : 'opacity-0')"
                     />
-                    {{ language.label }}
+                    {{DBO}} item.label {{DBC}}
                   </CommandItem>
                 </CommandGroup>
               </CommandList>
