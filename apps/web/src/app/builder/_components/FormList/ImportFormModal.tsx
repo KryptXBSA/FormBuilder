@@ -25,7 +25,6 @@ export function ImportFormModal() {
 
 	function handleImport() {
 		if (fileData) {
-			console.log("fileData", fileData);
 			const forms: FormSchema[] = JSON.parse(fileData);
 			toast(`Successfully imported ${forms.length} forms`);
 			state.setAppState({

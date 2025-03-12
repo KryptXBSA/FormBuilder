@@ -127,7 +127,6 @@ export function Preview() {
 		});
 		return acc;
 	}, {});
-	console.log("schemacla,", schema);
 
 	const defaultValues = currentForm.fields.reduce((acc, col) => {
 		col.forEach((row) => {
