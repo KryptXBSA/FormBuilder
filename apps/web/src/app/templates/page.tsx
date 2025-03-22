@@ -152,11 +152,11 @@ export default function TemplatesPage() {
 			/>
 
 			<div className="mb-6">
-				<div className="flex flex-col space-y-4">
+				<div className="flex items-end gap-2">
 					{/* Filter sections */}
-					<div>
-						<h3 className="mb-2 font-medium text-sm">Categories</h3>
-						<div className="flex flex-wrap items-center gap-2">
+					<div className="flex flex-wrap items-center gap-2">
+						<div>
+							<h3 className="mb-2 font-medium text-sm">Categories</h3>
 							{categories.map((category) => (
 								<Button
 									key={category}
@@ -170,7 +170,14 @@ export default function TemplatesPage() {
 									{category}
 								</Button>
 							))}
+						</div>
+					</div>
+					<div className="h-9 w-0.5 bg-border" />
 
+
+					<div>
+						<h3 className="mb-2 font-medium text-sm">Frameworks</h3>
+						<div className="flex flex-wrap items-center gap-2">
 							{frameworks.map((framework) => {
 								const Icon = framework.icon;
 								return (
@@ -194,22 +201,21 @@ export default function TemplatesPage() {
 									</Button>
 								);
 							})}
-
-							{(selectedCategory !== "All" || selectedFramework) && (
-								<Button
-									variant="ghost"
-									size="sm"
-									className="ml-auto"
-									onClick={() => {
-										setSelectedCategory("All");
-										setSelectedFramework(null);
-									}}
-								>
-									Clear Filters
-								</Button>
-							)}
 						</div>
 					</div>
+					{(selectedCategory !== "All" || selectedFramework) && (
+						<Button
+							variant="ghost"
+							size="sm"
+							className="ml-auto"
+							onClick={() => {
+								setSelectedCategory("All");
+								setSelectedFramework(null);
+							}}
+						>
+							Clear Filters
+						</Button>
+					)}
 				</div>
 
 				{filteredTemplates.length > 0 ? (
@@ -221,11 +227,11 @@ export default function TemplatesPage() {
 									<div className="text-slate-400">Template Preview</div>
 									{/* Uncomment when images are available */}
 									<Image
-                    src={template.image}
-                    alt={template.title}
-                    fill
-                    className="object-cover"
-                  />
+										src={template.image}
+										alt={template.title}
+										fill
+										className="object-cover"
+									/>
 								</div>
 								<CardHeader>
 									<div className="flex items-start justify-between">
@@ -291,14 +297,23 @@ export default function TemplatesPage() {
 					</div>
 				)}
 			</div>
-
-			<div className="mt-12 text-center">
-				<p className="mb-4 text-slate-500">
-					Don't see what you're looking for?
-				</p>
-				<Link href="/builder">
-					<Button size="lg">Create Custom Form</Button>
-				</Link>
+			<div className="mt-12 space-y-4 text-center">
+				<p className="text-slate-500">Don't see what you're looking for?</p>
+				<div className="flex justify-center space-x-4">
+					<Link href="/builder">
+						<Button size="lg">Create Custom Form</Button>
+					</Link>
+					{/* TODO: FIX LINK */}
+					<Link
+						href="https://github.com/your-repo/your-project/issues/new"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<Button size="lg" variant="outline">
+							Request a Template
+						</Button>
+					</Link>
+				</div>
 			</div>
 		</div>
 	);
