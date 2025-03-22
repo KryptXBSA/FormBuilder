@@ -4,9 +4,8 @@ import React, { useState } from "react";
 import initializeAppState from "@/hooks/initializeAppState";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FormBuilder } from "@/core/FormBuilder";
 import { FormList } from "@/app/builder/_components/FormList";
-import { FormName } from "@/core/FormName";
+import { FormName } from "@/components/shared/FormName";
 import { Preview } from "@/app/builder/_components/Preview";
 
 export default function IndexPage() {
@@ -33,7 +32,6 @@ export default function IndexPage() {
 						<TabsTrigger value="preview">Preview</TabsTrigger>
 					</TabsList>
 					<TabsContent className="w-full" value="editor">
-						<FormBuilder />
 					</TabsContent>
 					<TabsContent value="preview">
 						<Preview />

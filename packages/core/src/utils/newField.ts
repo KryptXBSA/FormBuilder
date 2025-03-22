@@ -17,7 +17,7 @@ export function newHeadingField<F extends FormFramework>(
 	return {
 		id: `id_${randID()}`,
 		key: `key_${randID()}`,
-		headingLevel:"H2",
+		headingLevel: "H2",
 		label: "My string",
 		kind: "heading",
 		variant: variant,

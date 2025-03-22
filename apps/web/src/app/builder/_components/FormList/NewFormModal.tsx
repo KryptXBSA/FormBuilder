@@ -11,7 +11,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { FrameworkCombobox } from "./FrameworkCombobox";
+import { FrameworkCombobox } from "@/components/shared/FrameworkCombobox";
 import { FiPlus } from "react-icons/fi";
 import { useAppState } from "@/state/state";
 import { randID, type FormFramework } from "formbuilder-core";

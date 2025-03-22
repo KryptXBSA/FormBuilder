@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Preview } from "@/app/builder/_components/Preview";
 import { SortableGrid } from "./_components/SortableGrid";
 import { AddField } from "./_components/AddField";

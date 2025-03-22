@@ -16,4 +16,4 @@ export const heading = `
 			{{label}}
 			</h1>
 		{{/ifEquals}}
-`; 
+`;
