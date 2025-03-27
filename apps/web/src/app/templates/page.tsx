@@ -174,7 +174,6 @@ export default function TemplatesPage() {
 					</div>
 					<div className="h-9 w-0.5 bg-border" />
 
-
 					<div>
 						<h3 className="mb-2 font-medium text-sm">Frameworks</h3>
 						<div className="flex flex-wrap items-center gap-2">
