@@ -17,6 +17,8 @@ import { Code2, Eye, Pen, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Builder() {
+	const { currentForm } = useAppState();
+
 	const [loaded, setLoaded] = useState(false);
 	initializeAppState(loaded, setLoaded);
 
@@ -97,7 +99,7 @@ export default function Builder() {
 						{state.builderContent === "formSettings" ? (
 							<FormSettings />
 						) : state.builderContent === "preview" ? (
-							<Preview />
+							<Preview currentForm={currentForm} />
 						) : state.builderContent === "code" ? (
 							<Code />
 						) : state.builderContent === "fieldSettings" ? (

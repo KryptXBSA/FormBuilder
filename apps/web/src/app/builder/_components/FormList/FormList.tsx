@@ -17,7 +17,7 @@ export function FormList() {
 				<li className="flex gap-2" key={idx}>
 					<Button
 						className="flex w-32 justify-start"
-						onClick={() => selectForm(idx)}
+						onClick={() => selectForm(f.id)}
 					>
 						{f.framework === "vue" ? (
 							<>

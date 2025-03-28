@@ -13,10 +13,18 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-// Icons for frameworks
-import { SiSvelte, SiNextdotjs, SiVuedotjs } from "react-icons/si";
+import { Preview } from "@/app/builder/_components/Preview/Preview";
 import { Icons } from "@/components/icons";
+import type {
+	FormField,
+	FormFramework,
+	FormSchema,
+	Settings,
+} from "formbuilder-core";
+import { ArrowLeft } from "lucide-react";
+import { type Template, TEMPLATES } from "./templates";
+import { useAppState } from "@/state/state";
+import { useRouter } from "next/navigation";
 
 // Define types
 type Framework = {
@@ -24,78 +32,6 @@ type Framework = {
 	name: string;
 	icon: React.ElementType;
 };
-
-type Template = {
-	id: string;
-	title: string;
-	description: string;
-	image: string;
-	category: string;
-	frameworks: string[];
-	fieldCount: number;
-};
-
-// Sample template data
-const templates: Template[] = [
-	{
-		id: "contact-form",
-		title: "Contact Form",
-		description: "A simple contact form with name, email, and message fields.",
-		image: "/templates/prev1.png",
-		category: "Basic",
-		frameworks: ["next", "vue"],
-		fieldCount: 3,
-	},
-	{
-		id: "survey",
-		title: "Customer Survey",
-		description:
-			"Collect feedback from your customers with this comprehensive survey template.",
-		image: "/templates/prev1.png",
-		category: "Business",
-		frameworks: ["next", "svelte", "vue"],
-		fieldCount: 8,
-	},
-	{
-		id: "event-registration",
-		title: "Event Registration",
-		description:
-			"Allow users to register for your events with this registration form.",
-		image: "/templates/prev1.png",
-		category: "Events",
-		frameworks: ["next"],
-		fieldCount: 5,
-	},
-	{
-		id: "job-application",
-		title: "Job Application",
-		description:
-			"A complete job application form with personal details, experience, and file uploads.",
-		image: "/templates/prev1.png",
-		category: "Business",
-		frameworks: ["next", "svelte"],
-		fieldCount: 12,
-	},
-	{
-		id: "newsletter-signup",
-		title: "Newsletter Signup",
-		description:
-			"A simple form to collect email addresses for your newsletter.",
-		image: "/templates/prev1.png",
-		category: "Marketing",
-		frameworks: ["vue", "svelte"],
-		fieldCount: 2,
-	},
-	{
-		id: "feedback",
-		title: "Feedback Form",
-		description: "Collect user feedback about your product or service.",
-		image: "/templates/prev1.png",
-		category: "Basic",
-		frameworks: ["next", "vue", "svelte"],
-		fieldCount: 4,
-	},
-];
 
 // Filter options for templates
 const categories: string[] = [
@@ -129,14 +65,27 @@ const PageHeader: React.FC<PageHeaderProps> = ({ heading, subheading }) => {
 };
 
 export default function TemplatesPage() {
+	const state = useAppState();
+	const router = useRouter();
+
 	// State for selected category and framework
 	const [selectedCategory, setSelectedCategory] = useState<string>("All");
-	const [selectedFramework, setSelectedFramework] = useState<string | null>(
+	const [selectedFramework, setSelectedFramework] =
+		useState<FormFramework | null>(null);
+
+	// State for preview
+	const [isPreviewMode, setIsPreviewMode] = useState(false);
+	const [previewTemplate, setPreviewTemplate] = useState<FormSchema | null>(
 		null,
 	);
 
+	function useTemplate(schema: FormSchema) {
+		state.newForm(schema);
+		state.selectForm(schema.id)
+		router.push("/builder");
+	}
 	// Filter templates based on selected category and framework
-	const filteredTemplates = templates.filter((template) => {
+	const filteredTemplates = TEMPLATES.filter((template) => {
 		const categoryMatch =
 			selectedCategory === "All" || template.category === selectedCategory;
 		const frameworkMatch =
@@ -144,6 +93,55 @@ export default function TemplatesPage() {
 		return categoryMatch && frameworkMatch;
 	});
 
+	// Handle preview button click
+	const handlePreview = (template: Template) => {
+		// Default to first available framework if none selected
+		const framework = selectedFramework || template.frameworks[0];
+		const formData = template.formSchema[framework];
+
+		if (formData) {
+			setPreviewTemplate(formData);
+			setIsPreviewMode(true);
+		}
+	};
+
+	// Return to templates list
+	const handleBackToTemplates = () => {
+		setIsPreviewMode(false);
+		setPreviewTemplate(null);
+	};
+
+	// Render preview content
+	if (isPreviewMode && previewTemplate) {
+		return (
+			<div className="container mx-auto py-6">
+				<div className="mb-6 flex items-center justify-between">
+					<h2 className="font-bold text-2xl tracking-tight">
+						{previewTemplate.name}
+					</h2>
+					<div className="flex gap-4">
+						<Button onClick={() => useTemplate(previewTemplate)}>
+							Use Template
+						</Button>
+						<Button
+							variant="outline"
+							onClick={handleBackToTemplates}
+							className="flex items-center gap-2"
+						>
+							<ArrowLeft className="h-4 w-4" />
+							Back to Templates
+						</Button>
+					</div>
+				</div>
+
+				<div className="rounded-lg border p-6 shadow-sm">
+					<Preview currentForm={previewTemplate} />
+				</div>
+			</div>
+		);
+	}
+
+	// Render templates list
 	return (
 		<div className="container mx-auto py-6">
 			<PageHeader
@@ -191,7 +189,7 @@ export default function TemplatesPage() {
 											setSelectedFramework(
 												selectedFramework === framework.id
 													? null
-													: framework.id,
+													: (framework.id as FormFramework),
 											)
 										}
 									>
@@ -268,12 +266,24 @@ export default function TemplatesPage() {
 									</div>
 								</CardContent>
 								<CardFooter className="flex justify-between">
-									<Button variant="outline">Preview</Button>
-									<Link
-										href={`/builder?template=${template.id}&framework=${template.frameworks[0]}`}
+									<Button
+										variant="outline"
+										onClick={() => handlePreview(template)}
 									>
-										<Button>Use Template</Button>
-									</Link>
+										Preview
+									</Button>
+									<Button
+										onClick={() => {
+											const framework =
+												selectedFramework || template.frameworks[0];
+											const schema = template.formSchema[framework];
+											if (schema) {
+												useTemplate(schema);
+											}
+										}}
+									>
+										Use Template
+									</Button>
 								</CardFooter>
 							</Card>
 						))}
@@ -301,16 +311,6 @@ export default function TemplatesPage() {
 				<div className="flex justify-center space-x-4">
 					<Link href="/builder">
 						<Button size="lg">Create Custom Form</Button>
-					</Link>
-					{/* TODO: FIX LINK */}
-					<Link
-						href="https://github.com/your-repo/your-project/issues/new"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<Button size="lg" variant="outline">
-							Request a Template
-						</Button>
 					</Link>
 				</div>
 			</div>

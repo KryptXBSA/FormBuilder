@@ -15,7 +15,7 @@ export type BaseField = {
 	id: string;
 	label: string;
 	key: string;
-	required: boolean;
+	required?: boolean;
 	description?: string;
 	placeholder?: string;
 	disabled?: boolean;
