@@ -3,6 +3,9 @@
 	"version": "0.9.0",
 	"private": true,
 	"scripts": {
+		"pages:build": "npx @cloudflare/next-on-pages",
+		"preview": "npm run pages:build && wrangler pages dev",
+		"deploy": "npm run pages:build && wrangler pages deploy",
 		"dev": "next dev -p 7017",
 		"build": "next build",
 		"start": "next start -p 7017",
@@ -11,6 +14,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@cloudflare/next-on-pages": "^1.13.12",
 		"@dnd-kit/core": "6.0.8",
 		"@dnd-kit/modifiers": "6.0.1",
 		"@dnd-kit/sortable": "7.0.2",
