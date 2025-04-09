@@ -12,6 +12,7 @@ coverage
 .next/
 out/
 build
+.vercel
 
 # misc
 .DS_Store
