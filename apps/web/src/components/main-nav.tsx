@@ -15,10 +15,14 @@ interface MainNavProps {
 export function MainNav({ items }: MainNavProps) {
 	const pathname = usePathname();
 	return (
-		<div className="flex gap-6 md:gap-10">
+		<div className="flex items-center gap-6 md:gap-10">
 			<Link href="/" className="flex items-center space-x-2">
-				<Icons.logo className="h-6 w-6" />
-				<span className="inline-block font-bold">{siteConfig.name}</span>
+				<div className="h-12 w-12">
+					<Icons.Logo />
+				</div>
+				<span className=" inline-block bg-gradient-to-r from-blue-400 to-pink-600 bg-clip-text font-bold text-transparent">
+					{siteConfig.name}
+				</span>
 			</Link>
 			{[
 				{ href: "/builder", label: "Builder" },

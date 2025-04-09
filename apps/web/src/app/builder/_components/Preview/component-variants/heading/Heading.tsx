@@ -27,11 +27,11 @@ export function Heading({
 	return (
 		<>
 			{useAnchor ? (
-				<HeadingComponent className="border-b-2" anchor={anchorValue}>
+				<HeadingComponent className="order-b-2" anchor={anchorValue}>
 					{label}
 				</HeadingComponent>
 			) : (
-				<HeadingComponent className="border-b-2">{label}</HeadingComponent>
+				<HeadingComponent className="order-b-2">{label}</HeadingComponent>
 			)}
 		</>
 	);

@@ -20,10 +20,11 @@ import type {
 	FormSchema,
 	Settings,
 } from "formbuilder-core";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Eye } from "lucide-react";
 import { type Template, TEMPLATES } from "./templates";
 import { useAppState } from "@/state/state";
 import { useRouter } from "next/navigation";
+import { TemplateCard } from "@/components/shared/TemplateCard";
 
 // Define types
 type Framework = {
@@ -40,6 +41,7 @@ const categories: string[] = [
 	"Events",
 	"Marketing",
 ];
+
 const frameworks: Framework[] = [
 	{ id: "next", name: "Next.js", icon: Icons.next },
 	{ id: "svelte", name: "Svelte", icon: Icons.Svelte },
@@ -217,74 +219,13 @@ export function TemplatesPage() {
 				{filteredTemplates.length > 0 ? (
 					<div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 						{filteredTemplates.map((template) => (
-							<Card key={template.id} className="overflow-hidden">
-								<div className="relative flex h-48 w-full items-center justify-center bg-slate-100">
-									{/* Placeholder for template preview image */}
-									<div className="text-slate-400">Template Preview</div>
-									{/* Uncomment when images are available */}
-									<Image
-										src={template.image}
-										alt={template.title}
-										fill
-										className="object-cover"
-									/>
-								</div>
-								<CardHeader>
-									<div className="flex items-start justify-between">
-										<div>
-											<CardTitle>{template.title}</CardTitle>
-											<CardDescription className="mt-2">
-												{template.description}
-											</CardDescription>
-										</div>
-										<span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 font-medium text-blue-800 text-xs">
-											{template.category}
-										</span>
-									</div>
-								</CardHeader>
-								<CardContent>
-									<div className="flex flex-wrap gap-2">
-										{template.frameworks.map((fw) => {
-											const framework = frameworks.find((f) => f.id === fw);
-											const Icon = framework?.icon;
-											return (
-												<Badge
-													key={fw}
-													variant="outline"
-													className="flex items-center gap-1"
-												>
-													{Icon && <Icon className="h-3 w-3" />}
-													{framework?.name}
-												</Badge>
-											);
-										})}
-										<div className="ml-auto flex items-center text-muted-foreground">
-											{template.fieldCount}{" "}
-											{template.fieldCount === 1 ? "Field" : "Fields"}
-										</div>
-									</div>
-								</CardContent>
-								<CardFooter className="flex justify-between">
-									<Button
-										variant="outline"
-										onClick={() => handlePreview(template)}
-									>
-										Preview
-									</Button>
-									<Button
-										onClick={() => {
-											const framework =
-												selectedFramework || template.frameworks[0];
-											const schema = template.formSchema[framework];
-											if (schema) {
-												useTemplate(schema);
-											}
-										}}
-									>
-										Use Template
-									</Button>
-								</CardFooter>
-							</Card>
+							<TemplateCard
+								key={template.id}
+								template={template}
+								selectedFramework={selectedFramework}
+								onPreview={handlePreview}
+								onUseTemplate={useTemplate}
+							/>
 						))}
 					</div>
 				) : (

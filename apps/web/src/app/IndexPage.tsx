@@ -103,12 +103,12 @@ export function IndexPage() {
 				</div>
 			</div>
 
-			<div className="mx-auto mt-24 max-w-6xl">
+			{/* <div className="mx-auto mt-24 max-w-6xl">
 				<h2 className="mb-10 text-center font-bold text-3xl">
 					What developers are saying
 				</h2>
 				<TestimonialScroller />
-			</div>
+			</div> */}
 		</div>
 	);
 }

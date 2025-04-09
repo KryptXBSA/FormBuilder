@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-	name: "Form Builder",
+	name: "FormBuilder",
 	description: "UI based codegen tool to easily create @shadcn/ui forms.",
 	mainNav: [
 		{

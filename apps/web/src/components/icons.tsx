@@ -8,6 +8,7 @@ import {
 import { SiSvelte, SiTypescript, SiVuedotjs, SiReact } from "react-icons/si";
 import { RiNextjsFill } from "react-icons/ri";
 import { cn } from "@/lib/utils";
+import { Logo } from "./Logo";
 export type Icon = typeof LucideIcon;
 
 export const Icons = {
@@ -29,6 +30,7 @@ export const Icons = {
 	Svelte: ({ className }: { className?: string }) => (
 		<SiSvelte className={cn("h-5 w-5", className)} color="#FF3E00" />
 	),
+	Logo: Logo,
 	logo: (props: LucideProps) => (
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
 			<path
