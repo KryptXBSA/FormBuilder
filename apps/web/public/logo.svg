@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="590" height="602" viewBox="0 0 590 602" fill="none">
+  <!-- Background with enhanced gradient -->
+  <rect x="8" y="8" width="555" height="594" rx="25" fill="url(#backgroundGradient)"/>
+  
+  <!-- Top input field with gradient -->
+  <rect x="71" y="54" width="425" height="94" rx="20" stroke="url(#fieldGradient)" stroke-width="10"/>
+  <rect x="95" y="93" width="315" height="15" rx="1" fill="url(#fieldInnerGradient)"/>
+  <path d="M448.944 108.233L437.419 87.7451C437.232 87.4118 437.473 87 437.855 87H461.137C461.521 87 461.762 87.4155 461.57 87.7489L449.813 108.237C449.62 108.573 449.134 108.571 448.944 108.233Z" fill="#4A5BDD" stroke="#4A5BDD" stroke-width="3.5"/>
+  
+  <!-- Square field (top left) with gradient -->
+  <rect x="71" y="198" width="80" height="80" rx="20" stroke="url(#fieldGradient)" stroke-width="10"/>
+  <path d="M181 231C181 230.448 181.448 230 182 230H409C409.552 230 410 230.448 410 231V244C410 244.552 409.552 245 409 245H182C181.448 245 181 244.552 181 244V231Z" fill="url(#fieldInnerGradient)"/>
+  
+  <!-- Circle field (middle left) with gradient -->
+  <rect x="71" y="328" width="80" height="80" rx="40" stroke="url(#fieldGradient)" stroke-width="10"/>
+  <path d="M181 361C181 360.448 181.448 360 182 360H409C409.552 360 410 360.448 410 361V374C410 374.552 409.552 375 409 375H182C181.448 375 181 374.552 181 374V361Z" fill="url(#fieldInnerGradient)"/>
+  
+  <!-- Bottom input field with gradient -->
+  <rect x="71" y="458" width="425" height="94" rx="20" stroke="url(#fieldGradient)" stroke-width="10"/>
+  <rect x="95" y="497" width="315" height="15" rx="1" fill="url(#fieldInnerGradient)"/>
+  <path d="M448.944 516.233L437.419 495.745C437.232 495.412 437.473 495 437.855 495H461.137C461.521 495 461.762 495.416 461.57 495.749L449.813 516.237C449.62 516.573 449.134 516.571 448.944 516.233Z" fill="#4A5BDD" stroke="#4A5BDD" stroke-width="3.5"/>
+  
+  <!-- Half circles with enhanced gradients -->
+  <path d="M95.1776 393.745C78.8182 360.517 70.9925 323.737 72.4071 286.727C73.8216 249.717 84.4319 213.642 103.28 181.76C122.128 149.878 148.62 123.192 180.364 104.112C212.108 85.0321 248.105 74.1592 285.104 72.475C322.102 70.7907 358.938 78.3482 392.284 94.4651C425.631 110.582 454.438 134.751 476.104 164.789C497.771 194.827 511.615 229.788 516.386 266.517C521.157 303.245 516.706 340.583 503.433 375.16" stroke="url(#circleGradient1)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M451.002 178.817C470.729 204.795 483.675 235.276 488.671 267.509C493.668 299.743 490.557 332.713 479.62 363.444C468.684 394.174 450.265 421.696 426.028 443.525C401.791 465.355 372.498 480.804 340.795 488.477C309.092 496.151 275.977 495.807 244.44 487.477C212.903 479.148 183.938 463.095 160.159 440.767C136.38 418.44 118.536 390.541 108.239 359.59C97.9424 328.64 95.5166 295.612 101.181 263.489" stroke="url(#circleGradient2)" stroke-width="10" stroke-linecap="round"/>
+  
+  <!-- Pencil with enhanced gradient -->
+  <g clip-path="url(#clip0_5_57)">
+    <path d="M180.864 372.819C180.158 373.531 179.681 374.439 179.497 375.425L169.343 429.808C168.697 433.267 171.731 436.293 175.188 435.639L229.121 425.425C230.113 425.237 231.026 424.753 231.738 424.036L396.618 257.987C398.554 256.037 398.554 252.89 396.618 250.941L352.799 206.811C350.844 204.842 347.658 204.842 345.703 206.811L180.864 372.819ZM224.999 411.176C224.287 411.893 223.374 412.377 222.381 412.565L192.476 418.229C189.019 418.883 185.985 415.857 186.63 412.398L192.267 382.211C192.451 381.225 192.927 380.317 193.634 379.605L345.703 226.458C347.658 224.489 350.844 224.489 352.799 226.458L377.109 250.941C379.045 252.89 379.045 256.037 377.109 257.987L224.999 411.176Z" fill="url(#pencilGradient)"/>
+    <path d="M399.136 153L360.964 191.443L411.828 242.668L450 204.225L399.136 153ZM380.472 191.443L399.136 172.647L430.491 204.225L411.828 223.021L380.472 191.443Z" fill="url(#eraserGradient)"/>
+  </g>
+  
+  <!-- Gradients and clip path definitions -->
+  <defs>
+    <linearGradient id="backgroundGradient" x1="0" y1="0" x2="555" y2="594" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0D1033"/>
+      <stop offset="0.3" stop-color="#0F1245"/>
+      <stop offset="0.7" stop-color="#121440"/>
+      <stop offset="1" stop-color="#171832"/>
+    </linearGradient>
+    
+    <linearGradient id="fieldGradient" x1="71" y1="54" x2="496" y2="552" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3A4BCD"/>
+      <stop offset="0.5" stop-color="#6148DD"/>
+      <stop offset="1" stop-color="#9240D0"/>
+    </linearGradient>
+    
+    <linearGradient id="fieldInnerGradient" x1="180" y1="93" x2="410" y2="375" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4A5BDD"/>
+      <stop offset="1" stop-color="#7955D9"/>
+    </linearGradient>
+    
+    <linearGradient id="pencilGradient" x1="168" y1="153" x2="450" y2="435" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4A5BDD"/>
+      <stop offset="0.4" stop-color="#7F50E0"/>
+      <stop offset="0.7" stop-color="#BD3969"/>
+      <stop offset="1" stop-color="#DB2346"/>
+    </linearGradient>
+    
+    <linearGradient id="eraserGradient" x1="360" y1="153" x2="450" y2="242" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8651DF"/>
+      <stop offset="0.5" stop-color="#AF3E7E"/>
+      <stop offset="1" stop-color="#DB2346"/>
+    </linearGradient>
+    
+    <radialGradient id="circleGradient1" cx="300" cy="300" r="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4A5BDD"/>
+      <stop offset="0.4" stop-color="#7F50E0"/>
+      <stop offset="0.8" stop-color="#C43464"/>
+      <stop offset="1" stop-color="#DB2346"/>
+    </radialGradient>
+    
+    <radialGradient id="circleGradient2" cx="290" cy="320" r="250" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#DB2346"/>
+      <stop offset="0.3" stop-color="#BD3969"/>
+      <stop offset="0.7" stop-color="#7955D9"/>
+      <stop offset="1" stop-color="#4A5BDD"/>
+    </radialGradient>
+    
+    <clipPath id="clip0_5_57">
+      <rect width="282" height="284" fill="white" transform="translate(168 153)"/>
+    </clipPath>
+  </defs>
+</svg>

@@ -12,7 +12,7 @@ export function SettingsToggle({ onClick }: SettingsToggleProps) {
 	return (
 		<div className="flex justify-between rounded-xl bg-[#1D1E2B] px-24 py-4">
 			<div className="-space-y-1.5">
-				<h3 className="scroll-m-20 font-semibold text-2xl tracking-tight">
+				<h3 className="scroll-m-20 font-semibold text-2xl text-[#F8FAFC] tracking-tight">
 					{state.currentForm.name}
 				</h3>
 				<p className="font-semibold text-muted-foreground text-sm">

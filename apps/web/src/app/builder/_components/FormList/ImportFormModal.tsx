@@ -1,5 +1,5 @@
 "use client";
-import { Download } from "lucide-react";
+import { Download, Upload } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -47,9 +47,12 @@ export function ImportFormModal() {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className="w-full">
-					<Download size={22} />
-					Import JSON
+				<Button
+					className="flex flex-1 items-center justify-center gap-2 transition-colors"
+					size="sm"
+				>
+					<Upload size={16} />
+					<span>Import</span>
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-md">

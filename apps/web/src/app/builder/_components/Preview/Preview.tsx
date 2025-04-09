@@ -1,21 +1,30 @@
 "use client";
 import React from "react";
-import type { FormField as FF, FormFramework } from "formbuilder-core";
-import { useAppState } from "@/state/state";
+import type {
+	FormField as FF,
+	FormFramework,
+	Settings,
+} from "formbuilder-core";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addDays } from "date-fns";
-import { AlertCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { RenderField } from "./RenderField";
 import { toast } from "sonner";
 
-export function Preview() {
-	const { currentForm } = useAppState();
-
+export function Preview({
+	currentForm,
+}: {
+	currentForm: {
+		id: string;
+		name: string;
+		framework: FormFramework;
+		fields: FF<FormFramework>[][];
+		settings: Settings;
+	};
+}) {
 	const getDefaultValues = (row: FF<FormFramework>) => {
 		const variant = row.variant.split("-").slice(2).join("-");
 		switch (row.kind) {

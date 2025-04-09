@@ -18,4 +18,4 @@ export const headingWithAnchor = `
 				</h1>
 			{{/ifEquals}}
 		</>
-		`; 
+		`;

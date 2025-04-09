@@ -16,4 +16,4 @@ export const headingWithoutAnchor = `
 					{{label}}
 				</h1>
 			{{/ifEquals}}
-		`; 
+		`;

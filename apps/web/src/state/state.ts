@@ -152,8 +152,9 @@ function updateFormFields<F extends FormFramework>(fields: FormField<F>[][]) {
 	});
 }
 
-function selectForm(selectedForm: number) {
-	$appState.set({ ...$appState.get(), selectedForm });
+function selectForm(id: string) {
+	const idx = $appState.get().forms.findIndex((f) => f.id === id);
+	$appState.set({ ...$appState.get(), selectedForm: idx });
 }
 
 function deleteForm(idx: number) {

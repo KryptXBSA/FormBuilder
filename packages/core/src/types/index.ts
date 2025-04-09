@@ -42,10 +42,4 @@ export type FrameworkSettings = {
 	vue?: {
 		composition: boolean;
 	};
-	solid?: {
-		signals: boolean;
-	};
-	astro?: {
-		ssr: boolean;
-	};
 };

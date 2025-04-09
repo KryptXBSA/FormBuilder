@@ -104,7 +104,7 @@ export async function generateCode(
 	const flattedFields = form.fields.flatMap((group) => [
 		{ variant: `${framework}-divider-start` },
 		...group,
-		{ variant: `${framework}-divider-end` }
+		{ variant: `${framework}-divider-end` },
 	]);
 	const formTemplateCode = main({
 		...form,
@@ -113,7 +113,7 @@ export async function generateCode(
 	});
 
 	function hasDateFields(fields: FormField<"svelte">[]): boolean {
-		return fields.some(field => field.variant === "svelte-shadcn-date-date");
+		return fields.some((field) => field.variant === "svelte-shadcn-date-date");
 	}
 	const importsTemplate = Handlebars.compile(
 		generateImports(framework, form.fields),

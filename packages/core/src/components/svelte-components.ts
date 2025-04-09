@@ -1,9 +1,5 @@
 import { Heading } from "../codegen/imports/svelte/heading";
-import {
-	Input,
-	Textarea,
-	InputOTP,
-} from "../codegen/imports/svelte/text";
+import { Input, Textarea, InputOTP } from "../codegen/imports/svelte/text";
 import {
 	phoneNumber,
 	slider,
@@ -13,7 +9,12 @@ import {
 import { switchInput } from "../codegen/imports/svelte/boolean";
 import { checkbox } from "../codegen/imports/svelte/boolean";
 import { date, daterange } from "../codegen/imports/svelte/date";
-import { button, combobox, radio, select } from "../codegen/imports/svelte/enum";
+import {
+	button,
+	combobox,
+	radio,
+	select,
+} from "../codegen/imports/svelte/enum";
 import { PasswordStrengthIndicator } from "../codegen/imports/svelte/text";
 
 import { textTemplates } from "../codegen/templates/svelte/text";
@@ -26,13 +27,21 @@ import { headingTemplates } from "../codegen/templates/svelte/heading";
 
 export const SVELTE_COMPONENTS: ComponentConfig = {
 	"svelte-divider-start": {
-		label: "", cli: [], imports: "", template: `
+		label: "",
+		cli: [],
+		imports: "",
+		template: `
 		<div class="flex flex-row gap-4">
-		` },
+		`,
+	},
 	"svelte-divider-end": {
-		label: "", cli: [], imports: "", template: `
+		label: "",
+		cli: [],
+		imports: "",
+		template: `
 		</div>
-		`},
+		`,
+	},
 	"svelte-shadcn-heading-simple": {
 		label: "Heading",
 		cli: [],
@@ -107,7 +116,7 @@ export const SVELTE_COMPONENTS: ComponentConfig = {
 	},
 	"svelte-shadcn-date-date": {
 		label: "Date Picker",
-		cli: ["popover","calendar"],
+		cli: ["popover", "calendar"],
 		imports: date,
 		template: dateTemplates.date,
 	},
