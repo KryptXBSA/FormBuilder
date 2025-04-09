@@ -1,5 +1,24 @@
 # web
 
+## 0.9.0
+
+### Minor Changes
+
+- 74b2dc6: remove old code and add simple templates design
+
+### Patch Changes
+
+- 21cf888: add logo and minor changes
+- 5a955f0: improve FormList design
+- b1192b3: modify templates
+- a421917: add basic metadata
+- 8e16442: fix templates arr and proper state management
+- f5092ed: add simple homepage design
+- Updated dependencies [74b2dc6]
+- Updated dependencies [8e16442]
+- Updated dependencies [f5092ed]
+  - formbuilder-core@0.9.0
+
 ## 0.8.0
 
 ### Minor Changes

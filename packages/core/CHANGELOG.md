@@ -1,5 +1,16 @@
 # formbuilder-core
 
+## 0.9.0
+
+### Minor Changes
+
+- 74b2dc6: remove old code and add simple templates design
+
+### Patch Changes
+
+- 8e16442: fix templates arr and proper state management
+- f5092ed: add simple homepage design
+
 ## 0.8.0
 
 ### Minor Changes
