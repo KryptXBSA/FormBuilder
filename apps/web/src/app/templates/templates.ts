@@ -482,7 +482,7 @@ export const TEMPLATES: Template[] = [
 						{
 							id: "personal-info-heading",
 							key: "personalInfoHeading",
-                            headingLevel: "H3",
+							headingLevel: "H3",
 							label: "Personal Information",
 							kind: "heading",
 							variant: "next-shadcn-heading-simple",
@@ -1064,7 +1064,7 @@ export const TEMPLATES: Template[] = [
 					[
 						{
 							id: "customer-info-heading",
-                            headingLevel: "H3",
+							headingLevel: "H3",
 							key: "customerInfoHeading",
 							label: "Customer Information",
 							kind: "heading",

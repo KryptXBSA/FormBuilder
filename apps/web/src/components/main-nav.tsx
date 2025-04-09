@@ -20,7 +20,7 @@ export function MainNav({ items }: MainNavProps) {
 				<div className="h-12 w-12">
 					<Icons.Logo />
 				</div>
-				<span className=" inline-block bg-gradient-to-r from-blue-400 to-pink-600 bg-clip-text font-bold text-transparent">
+				<span className=" inline-block bg-gradient-to-r from-blue-400 to-pink-600 bg-clip-text font-bold text-lg text-transparent">
 					{siteConfig.name}
 				</span>
 			</Link>

@@ -1,6 +1,6 @@
 ---
-"formbuilder-core": patch
-"web": patch
+"formbuilder-core": minor
+"web": minor
 ---
 
 remove old code and add simple templates design

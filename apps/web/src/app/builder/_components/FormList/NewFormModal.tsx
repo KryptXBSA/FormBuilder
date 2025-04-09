@@ -25,9 +25,12 @@ export function NewFormModal() {
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>
-				<Button className="w-32">
-					<FiPlus size={22} />
-					New Form
+				<Button
+					className="flex w-full items-center gap-2 transition-colors"
+					size="sm"
+				>
+					<FiPlus size={18} />
+					<span>New Form</span>
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="gap-0 sm:max-w-[600px]">

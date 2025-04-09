@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useAppState } from "@/state/state";
-import { Upload } from "lucide-react";
+import { Upload, Download } from "lucide-react";
 import { ImportFormModal } from "./ImportFormModal";
 
 export function ImportExport() {
@@ -20,10 +20,14 @@ export function ImportExport() {
 	}
 
 	return (
-		<div className="flex w-full flex-col gap-2 pr-4">
-			<Button className="w-full" onClick={handleExport}>
-				<Upload size={22} />
-				Export JSON
+		<div className="flex w-full gap-2">
+			<Button
+				className="flex flex-1 items-center justify-center gap-2 transition-colors"
+				size="sm"
+				onClick={handleExport}
+			>
+				<Download size={16} />
+				<span>Export</span>
 			</Button>
 			<ImportFormModal />
 		</div>

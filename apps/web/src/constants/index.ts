@@ -1,6 +1,9 @@
 export const colorMap: Record<string, { label: string; border: string }> = {
 	// TODO: fix heading color
-	heading: { label: "text-white", border: "border-white" },
+	heading: {
+		label: "text-zinc-900 dark:text-white",
+		border: "border-zinc-900 dark:border-white",
+	},
 	text: { label: "text-green-500", border: "border-green-500" },
 	number: { label: "text-blue-500", border: "border-blue-500" },
 	boolean: { label: "text-red-500", border: "border-red-500" },
