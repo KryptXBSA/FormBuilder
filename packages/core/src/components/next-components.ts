@@ -6,6 +6,7 @@ import {
 	InputOTP,
 	InputTag,
 	PasswordStrengthIndicator,
+	Password
 } from "../codegen/imports/next/text";
 import {
 	phoneNumber,
@@ -68,9 +69,15 @@ export const NEXT_COMPONENTS: ComponentConfig = {
 	},
 	"next-originui-text-password": {
 		label: "Password Strength Indicator",
-		cli: ["originui-password"],
+		cli: [""],
 		imports: PasswordStrengthIndicator,
 		template: textTemplates.passwordStrengthIndicator,
+	},
+	"next-shadcn-text-password": {
+		label: "Password Input",
+		cli: [""],
+		imports: Password,
+		template: textTemplates.password,
 	},
 	"next-shadcnexpansion-text-autoresizetextarea": {
 		label: "Auto-resizing Textarea",

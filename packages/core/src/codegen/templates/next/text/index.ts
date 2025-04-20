@@ -4,6 +4,7 @@ import { inputOTP } from "./input-otp";
 import { inputTag } from "./input-tag";
 import { input } from "./input";
 import { passwordStrengthIndicator } from "./password-strength-indicator";
+import { password } from "./password";
 
 export const textTemplates = {
 	textarea,
@@ -12,4 +13,5 @@ export const textTemplates = {
 	inputTag,
 	input,
 	passwordStrengthIndicator,
+	password
 } as const;
