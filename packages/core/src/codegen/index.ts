@@ -102,7 +102,7 @@ export async function generateCode(
 				: mainNextTemplate,
 	);
 	const flattedFields = form.fields.flatMap((group) => [
-		{ variant: `${framework}-divider-start` },
+		{ variant: `${framework}-divider-start`, rowLength: group.length },
 		...group,
 		{ variant: `${framework}-divider-end` },
 	]);

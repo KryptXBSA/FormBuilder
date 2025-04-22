@@ -16,6 +16,7 @@ export function generateImports<F extends FormFramework>(
 				: nextInitialImports;
 	const addedVariants: Set<string> = new Set();
 
+	// prevent duplicate imports
 	for (const field of fields.flat()) {
 		if (!addedVariants.has(field.variant)) {
 			if (
@@ -30,14 +31,15 @@ export function generateImports<F extends FormFramework>(
 			) {
 				continue;
 			}
-			if (field.kind === "heading") {
-				imports += COMPONENTS[field.variant].imports.replace(
-					"{{headingLevel}}",
-					field.headingLevel!,
-				);
-			} else {
-				imports += COMPONENTS[field.variant].imports;
-			}
+			// TODO: not needed anymore?
+			// if (field.kind === "heading") {
+			// 	imports += COMPONENTS[field.variant].imports.replace(
+			// 		"{{headingLevel}}",
+			// 		field.headingLevel!,
+			// 	);
+			// } else {
+			imports += COMPONENTS[field.variant].imports;
+			// }
 			addedVariants.add(field.variant);
 		}
 	}

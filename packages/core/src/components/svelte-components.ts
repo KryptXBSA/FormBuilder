@@ -31,7 +31,7 @@ export const SVELTE_COMPONENTS: ComponentConfig = {
 		cli: [],
 		imports: "",
 		template: `
-		<div class="flex flex-row gap-4">
+		<div class="grid grid-cols-1 md:grid-cols-{{rowLength}} gap-6">
 		`,
 	},
 	"svelte-divider-end": {
@@ -45,13 +45,13 @@ export const SVELTE_COMPONENTS: ComponentConfig = {
 	"svelte-shadcn-heading-simple": {
 		label: "Heading",
 		cli: [],
-		imports: Heading,
+		imports: "",
 		template: headingTemplates.headingWithoutAnchor,
 	},
 	"svelte-shadcn-heading-anchor": {
 		label: "Heading Anchor",
 		cli: [],
-		imports: Heading,
+		imports: "",
 		template: headingTemplates.headingWithAnchor,
 	},
 	"svelte-shadcn-text-input": {

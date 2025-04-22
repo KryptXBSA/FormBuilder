@@ -32,7 +32,7 @@ export const NEXT_COMPONENTS: ComponentConfig = {
 		cli: [],
 		imports: "",
 		template: `
-		<div className="flex flex-row gap-4">
+		<div className="grid grid-cols-1 md:grid-cols-{{rowLength}} gap-6">
 		`,
 	},
 	"next-divider-end": {
@@ -46,13 +46,13 @@ export const NEXT_COMPONENTS: ComponentConfig = {
 	"next-shadcn-heading-simple": {
 		label: "Heading",
 		cli: [],
-		imports: Heading,
+		imports: "",
 		template: headingTemplates.headingWithoutAnchor,
 	},
 	"next-shadcn-heading-anchor": {
 		label: "Heading Anchor",
 		cli: [],
-		imports: Heading,
+		imports: "",
 		template: headingTemplates.headingWithAnchor,
 	},
 	"next-shadcn-text-input": {

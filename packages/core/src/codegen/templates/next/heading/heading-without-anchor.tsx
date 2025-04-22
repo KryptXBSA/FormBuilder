@@ -4,7 +4,7 @@ export const headingWithoutAnchor = `
 					{{label}}
 				</h1>
 			{{else ifEquals headingLevel "H2"}}
-				<h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+				<h2 className="mt-10 scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
 					{{label}}
 				</h2>
 			{{else ifEquals headingLevel "H3"}}
@@ -12,7 +12,7 @@ export const headingWithoutAnchor = `
 					{{label}}
 				</h3>
 			{{else}}
-				<h1 className="border-b-2">
+				<h1 className="">
 					{{label}}
 				</h1>
 			{{/ifEquals}}

@@ -32,7 +32,7 @@ export const VUE_COMPONENTS: ComponentConfig = {
 		cli: [],
 		imports: "",
 		template: `
-		<div class="flex flex-row gap-4">
+		<div class="grid grid-cols-1 md:grid-cols-{{rowLength}} gap-6">
 		`,
 	},
 	"vue-divider-end": {
@@ -46,13 +46,13 @@ export const VUE_COMPONENTS: ComponentConfig = {
 	"vue-shadcn-heading-simple": {
 		label: "Heading",
 		cli: [],
-		imports: Heading,
+		imports: "",
 		template: heading,
 	},
 	"vue-shadcn-heading-anchor": {
 		label: "Heading Anchor",
 		cli: [],
-		imports: Heading,
+		imports: "",
 		template: heading,
 	},
 	"vue-shadcn-text-input": {

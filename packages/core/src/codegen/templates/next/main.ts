@@ -91,7 +91,7 @@ export function MyForm() {
 
   return (
     <Form {...form}>
-      <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mx-auto max-w-3xl p-8">
         {{#each fields}}
           {{{lookupComponent this}}}
         {{/each}}

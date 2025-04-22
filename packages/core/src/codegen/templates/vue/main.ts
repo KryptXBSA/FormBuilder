@@ -32,7 +32,7 @@ const handleComplete = (e: string[]) => console.log(e.join(''))
 </script>
 
 <template>
-  <form class="w-2/3 space-y-6" @submit="onSubmit">
+  <form class="space-y-4 mx-auto max-w-3xl p-8" @submit="onSubmit">
         {{#each fields}}
           {{{lookupComponent this}}}
         {{/each}}
