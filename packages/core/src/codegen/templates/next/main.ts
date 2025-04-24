@@ -82,7 +82,6 @@ export function MyForm() {
   {{/each}}
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {{{defaultValues fields}}},
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {

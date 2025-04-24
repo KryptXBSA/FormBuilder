@@ -140,7 +140,7 @@ export const SVELTE_COMPONENTS: ComponentConfig = {
 	},
 	"svelte-shadcn-enum-radio": {
 		label: "Radio Group",
-		cli: ["radio"],
+		cli: ["radio-group"],
 		imports: radio,
 		template: enumTemplates.radio,
 	},

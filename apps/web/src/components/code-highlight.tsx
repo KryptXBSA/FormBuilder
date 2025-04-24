@@ -259,7 +259,7 @@ export const actions: Actions = {
 `;
 const sveltePageCode = `<script lang="ts">
 import type { PageData } from "./$types.js";
-import MyForm from "./myform-form.svelte";
+import MyForm from "./my-form.svelte";
 const { data }: { data: PageData } = $props();
 </script>
     

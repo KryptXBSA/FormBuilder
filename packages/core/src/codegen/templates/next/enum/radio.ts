@@ -17,7 +17,7 @@ export const radio = `
                       <RadioGroupItem value={item.value} />
                     </FormControl>
                     <FormLabel className="font-normal">
-                    {{label}}
+                    {item.label}
                     </FormLabel>
                   </FormItem>
                   ))}

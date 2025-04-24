@@ -25,7 +25,8 @@ Handlebars.registerHelper("times", (n, block) => {
 	return accum;
 });
 
-// TODO: fix default values
+// TODO: fix default values at form declaration main template
+//  defaultValues: {{{defaultValues fields}}},
 Handlebars.registerHelper("defaultValues", (fields) => {
 	let output = "{\n";
 	for (const field of fields) {
