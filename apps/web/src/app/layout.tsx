@@ -16,7 +16,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-	openGraph: { images: "/demo.png" },
+	openGraph: { images: "/images/index.png" },
 
 	title: {
 		default: siteConfig.name,
@@ -42,7 +42,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 					<script
 						defer
 						src="https://cloud.umami.is/script.js"
-						data-website-id="220b413a-21b2-4a0c-90ed-06699b341b39"
+						data-website-id="0ccfc5f6-42a2-4e77-87bc-bc7185352d55"
 					/>
 				</head>
 				<body

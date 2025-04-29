@@ -10,8 +10,8 @@ export const siteConfig = {
 		},
 	],
 	links: {
-		twitter: "https://twitter.com/AlanddSleman",
-		github: "https://github.com/AlandSleman/FormBuilder",
+		twitter: "https://twitter.com/KryptXBSA",
+		github: "https://github.com/kryptxbsa/FormBuilder",
 		docs: "https://ui.shadcn.com",
 	},
 };
