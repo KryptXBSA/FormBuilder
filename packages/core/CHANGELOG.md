@@ -1,5 +1,17 @@
 # formbuilder-core
 
+## 1.0.0
+
+### Major Changes
+
+- 1ea8d5c: add metadata, improve mockForm and v1 release
+
+### Patch Changes
+
+- c9e9311: change flex to grid
+- ab8afb3: add basic password field for next
+- ff75408: minor changes and bugfixes
+
 ## 0.9.0
 
 ### Minor Changes
