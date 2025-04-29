@@ -54,7 +54,7 @@ export function IndexPage() {
 						size="lg"
 						className="hover:-translate-y-0.5 transform cursor-pointer bg-gradient-to-r from-blue-500 to-pink-600 font-medium text-white transition-all duration-300 hover:from-blue-600 hover:to-pink-700 hover:shadow-blue-500/20 hover:shadow-md"
 					>
-						<Link href="/playground" className="flex items-center">
+						<Link href="/builder" className="flex items-center">
 							Go to Playground{" "}
 							<ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
 						</Link>

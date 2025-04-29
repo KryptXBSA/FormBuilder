@@ -13,3 +13,6 @@ export const InputTag = `import { Tag, TagInput } from "emblor";`;
 export const PasswordStrengthIndicator = `import { Check, Eye, EyeOff, X } from "lucide-react";
 import { useMemo, useState } from "react";
 `;
+export const Password = `import { Check, Eye, EyeOff, X } from "lucide-react";
+import { useMemo, useState } from "react";
+`;

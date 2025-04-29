@@ -1,6 +1,23 @@
 {
 	"name": "formbuilder-core",
 	"version": "0.9.0",
+	"description": "The core library for the FormBuilder project",
+	"author": "KryptXBSA",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kryptxbsa/FormBuilder.git"
+	},
+	"homepage": "https://github.com/kryptxbsa/FormBuilder#readme",
+	"keywords": [
+		"formbuilder",
+		"form",
+		"next.js",
+		"shadcn/ui",
+		"svelte",
+		"react",
+		"vue"
+	],
 	"main": "src/index",
 	"devDependencies": {
 		"@types/bun": "latest"

@@ -4,7 +4,7 @@ export const headingWithAnchor = `
 				{{label}}
 			</h1>
 		{{else ifEquals headingLevel "h2"}}
-			<h2 class="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0" {anchor}>
+			<h2 class="mt-10 scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0" {anchor}>
 				{{label}}
 			</h2>
 		{{else ifEquals headingLevel "h3"}}

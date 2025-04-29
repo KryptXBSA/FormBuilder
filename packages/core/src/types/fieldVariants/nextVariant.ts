@@ -7,6 +7,10 @@ export const textVariants = [
 	{ label: "Input", value: "next-shadcn-text-input" },
 	{ label: "Textarea", value: "next-shadcn-text-textarea" },
 	{
+		label: "Password Input",
+		value: "next-shadcn-text-password",
+	},
+	{
 		label: "Password Strength Indicator",
 		value: "next-originui-text-password",
 	},

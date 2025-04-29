@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 		type: "website",
 		images: [
 			{
-				url: "/images/templates-og.jpg",
+				url: "/images/templates.png",
 				width: 1200,
 				height: 630,
 				alt: "FormBuilder Templates",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 		title: "Form Templates | FormBuilder",
 		description:
 			"Browse our collection of beautiful, ready-to-use form templates for your project",
-		images: ["/images/templates-og.jpg"],
+		images: ["/images/templates.png"],
 	},
 };
 

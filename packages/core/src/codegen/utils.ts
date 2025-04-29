@@ -47,7 +47,15 @@ function formToJsonSchema(form: FormSchema) {
 					: 255,
 			};
 		else if (field.kind === "number") {
-			if (field.variant.includes("slider"))
+			// this may also be applicable to dual slider svelete?
+			if (field.variant==="next-shadcn-number-slider")
+				property = {
+					type: "array",
+					items: {
+						type: "number",
+					},
+				};
+			else if (field.variant.includes("dualslider"))
 				property = {
 					type: "array",
 					items: {

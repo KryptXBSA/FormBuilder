@@ -77,7 +77,7 @@ export function Code() {
 				<Alert className="my-4" variant="warning">
 					<AlertCircle className="mt-1 h-5 w-5" />
 					<AlertTitle className="text-lg">
-						The following components are not official shadcn/ui components:
+						These components are not part of the official shadcn/ui library.
 					</AlertTitle>
 					<AlertDescription className="flex flex-col gap-2">
 						{state.currentForm.fields

@@ -5,7 +5,7 @@ export const headingWithAnchor = `
 					{&#96;&#36;{headingLevel} with anchor&#96;}
 				</h1>
 			{{else ifEquals headingLevel "h2"}}
-				<h2 className="mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0" anchor={anchorValue}>
+				<h2 className="mt-10 scroll-m-20 border-b text-3xl font-semibold tracking-tight transition-colors first:mt-0" anchor={anchorValue}>
 					{&#96;&#36;{headingLevel} with anchor&#96;}
 				</h2>
 			{{else ifEquals headingLevel "h3"}}

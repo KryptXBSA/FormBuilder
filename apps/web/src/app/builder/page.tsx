@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 		type: "website",
 		images: [
 			{
-				url: "/images/builder-og.jpg",
+				url: "/images/builder.png",
 				width: 1200,
 				height: 630,
 				alt: "FormBuilder Interface",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 		title: "Form Builder | Create Custom Forms",
 		description:
 			"Design and build custom forms with our intuitive drag-and-drop interface",
-		images: ["/images/builder-og.jpg"],
+		images: ["/images/builder.png"],
 	},
 };
 

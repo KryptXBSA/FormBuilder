@@ -82,7 +82,6 @@ export function MyForm() {
   {{/each}}
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {{{defaultValues fields}}},
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -91,7 +90,7 @@ export function MyForm() {
 
   return (
     <Form {...form}>
-      <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form noValidate onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mx-auto max-w-3xl p-8">
         {{#each fields}}
           {{{lookupComponent this}}}
         {{/each}}

@@ -6,6 +6,7 @@ import {
 	Textarea,
 	InputTag,
 	PasswordStrengthIndicator,
+	Password
 } from "./component-variants/text";
 import { Heading } from "./component-variants/heading/Heading";
 import { DualSlider } from "./component-variants/number/dual-slider";
@@ -23,7 +24,12 @@ import type { FormField as FF, FormFramework } from "formbuilder-core";
 import { Slider } from "./component-variants/number/slider";
 
 export function RenderField({ col }: { col: FF<FormFramework> }) {
+	const originalVariant = col.variant;
 	const variant = col.variant.split("-").slice(2).join("-");
+
+	if (col.kind === "text" && originalVariant === "next-shadcn-text-password")
+		return <Password f={col} />;
+
 	switch (col.kind) {
 		case "heading":
 			if (variant === "heading-simple") {

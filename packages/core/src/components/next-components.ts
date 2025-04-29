@@ -6,6 +6,7 @@ import {
 	InputOTP,
 	InputTag,
 	PasswordStrengthIndicator,
+	Password
 } from "../codegen/imports/next/text";
 import {
 	phoneNumber,
@@ -31,7 +32,7 @@ export const NEXT_COMPONENTS: ComponentConfig = {
 		cli: [],
 		imports: "",
 		template: `
-		<div className="flex flex-row gap-4">
+		<div className="grid grid-cols-1 md:grid-cols-{{rowLength}} gap-6">
 		`,
 	},
 	"next-divider-end": {
@@ -45,13 +46,13 @@ export const NEXT_COMPONENTS: ComponentConfig = {
 	"next-shadcn-heading-simple": {
 		label: "Heading",
 		cli: [],
-		imports: Heading,
+		imports: "",
 		template: headingTemplates.headingWithoutAnchor,
 	},
 	"next-shadcn-heading-anchor": {
 		label: "Heading Anchor",
 		cli: [],
-		imports: Heading,
+		imports: "",
 		template: headingTemplates.headingWithAnchor,
 	},
 	"next-shadcn-text-input": {
@@ -68,9 +69,15 @@ export const NEXT_COMPONENTS: ComponentConfig = {
 	},
 	"next-originui-text-password": {
 		label: "Password Strength Indicator",
-		cli: ["originui-password"],
+		cli: [""],
 		imports: PasswordStrengthIndicator,
 		template: textTemplates.passwordStrengthIndicator,
+	},
+	"next-shadcn-text-password": {
+		label: "Password Input",
+		cli: [""],
+		imports: Password,
+		template: textTemplates.password,
 	},
 	"next-shadcnexpansion-text-autoresizetextarea": {
 		label: "Auto-resizing Textarea",

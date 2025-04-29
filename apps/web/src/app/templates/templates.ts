@@ -27,7 +27,7 @@ export const TEMPLATES: Template[] = [
 		fieldCount: 10,
 		formSchema: {
 			next: {
-				id: "job-application",
+				id: "job-application-next",
 				name: "Job Application Form",
 				framework: "next",
 				fields: [
@@ -122,7 +122,7 @@ export const TEMPLATES: Template[] = [
 							kind: "number",
 							description: "How many years of relevant experience do you have?",
 							variant: "next-shadcn-number-slider",
-							validation: { min: 0, max: 20 },
+							validation: { min: 0, max: 20, step:1 },
 						},
 					],
 					[
@@ -170,12 +170,12 @@ export const TEMPLATES: Template[] = [
 					],
 				],
 				settings: {
-					importAliasComponents: "@/components",
+					importAliasComponents: "@/components/ui",
 					importAliasUtils: "@/lib/utils",
 				},
 			},
 			vue: {
-				id: "job-application",
+				id: "job-application-vue",
 				name: "Job Application Form",
 				framework: "vue",
 				fields: [
@@ -260,7 +260,7 @@ export const TEMPLATES: Template[] = [
 							kind: "number",
 							description: "How many years of relevant experience do you have?",
 							variant: "vue-shadcn-number-slider",
-							validation: { min: 0, max: 20 },
+							validation: { min: 0, max: 20, step:1 },
 						},
 					],
 					[
@@ -308,12 +308,12 @@ export const TEMPLATES: Template[] = [
 					],
 				],
 				settings: {
-					importAliasComponents: "@/components",
+					importAliasComponents: "@/components/ui",
 					importAliasUtils: "@/lib/utils",
 				},
 			},
 			svelte: {
-				id: "job-application",
+				id: "job-application-svelte",
 				name: "Job Application Form",
 				framework: "svelte",
 				fields: [
@@ -409,7 +409,7 @@ export const TEMPLATES: Template[] = [
 							kind: "number",
 							description: "How many years of relevant experience do you have?",
 							variant: "svelte-shadcn-number-slider",
-							validation: { min: 0, max: 20 },
+							validation: { min: 0, max: 20, step:1 },
 						},
 					],
 					[
@@ -474,7 +474,7 @@ export const TEMPLATES: Template[] = [
 		fieldCount: 9,
 		formSchema: {
 			next: {
-				id: "product-registration",
+				id: "product-registration-next",
 				name: "Product Registration",
 				framework: "next",
 				fields: [
@@ -563,7 +563,8 @@ export const TEMPLATES: Template[] = [
 							placeholder: "SN-12345-ABC",
 							variant: "next-shadcn-text-inputotp",
 							required: true,
-							validation: {},
+							digits: 6,
+							validation: { min: 1, max: 99999 },
 						},
 						{
 							id: "purchase-date-field",
@@ -591,7 +592,7 @@ export const TEMPLATES: Template[] = [
 							kind: "number",
 							description: "Approximate price range of your product",
 							variant: "next-shadcnexpansion-number-dualslider",
-							validation: { min: 0, max: 2000 },
+							validation: { min: 0, max: 2000, step: 1 },
 						},
 					],
 					[
@@ -608,12 +609,12 @@ export const TEMPLATES: Template[] = [
 					],
 				],
 				settings: {
-					importAliasComponents: "@/components",
+					importAliasComponents: "@/components/ui",
 					importAliasUtils: "@/lib/utils",
 				},
 			},
 			vue: {
-				id: "product-registration",
+				id: "product-registration-vue",
 				name: "Product Registration",
 				framework: "vue",
 				fields: [
@@ -702,7 +703,8 @@ export const TEMPLATES: Template[] = [
 							placeholder: "SN-12345-ABC",
 							variant: "vue-shadcn-text-password",
 							required: true,
-							validation: {},
+							digits: 6,
+							validation: { min: 1, max: 99999 },
 						},
 						{
 							id: "purchase-date-field",
@@ -730,7 +732,7 @@ export const TEMPLATES: Template[] = [
 							kind: "number",
 							description: "Approximate price of your product",
 							variant: "vue-shadcn-number-slider",
-							validation: { min: 0, max: 2000 },
+							validation: { min: 0, max: 2000, step: 1 },
 						},
 					],
 					[
@@ -747,12 +749,12 @@ export const TEMPLATES: Template[] = [
 					],
 				],
 				settings: {
-					importAliasComponents: "@/components",
+					importAliasComponents: "@/components/ui",
 					importAliasUtils: "@/lib/utils",
 				},
 			},
 			svelte: {
-				id: "product-registration",
+				id: "product-registration-svelte",
 				name: "Product Registration",
 				framework: "svelte",
 				fields: [
@@ -841,7 +843,8 @@ export const TEMPLATES: Template[] = [
 							placeholder: "SN-12345-ABC",
 							variant: "svelte-shadcn-text-inputotp",
 							required: true,
-							validation: {},
+							digits: 6,
+							validation: { min: 1, max: 99999 },
 						},
 						{
 							id: "purchase-date-field",
@@ -869,7 +872,7 @@ export const TEMPLATES: Template[] = [
 							kind: "number",
 							description: "Approximate price of your product",
 							variant: "svelte-shadcn-number-slider",
-							validation: { min: 0, max: 2000 },
+							validation: { min: 0, max: 2000, step: 1 },
 						},
 					],
 					[
@@ -886,8 +889,8 @@ export const TEMPLATES: Template[] = [
 					],
 				],
 				settings: {
-					importAliasComponents: "@/components",
-					importAliasUtils: "@/lib/utils",
+					importAliasComponents: "$lib/components/ui",
+					importAliasUtils: "$lib/utils.js",
 				},
 			},
 		},
@@ -897,13 +900,13 @@ export const TEMPLATES: Template[] = [
 		title: "Customer Feedback Survey",
 		description:
 			"A comprehensive survey form to collect customer feedback about products and services with multiple horizontal field layouts.",
-		image: "/templates/prev1.png", // Update with appropriate image
+		image: "/templates/prev1.png",
 		category: "Feedback",
 		frameworks: ["next", "vue", "svelte"],
 		fieldCount: 10,
 		formSchema: {
 			next: {
-				id: "customer-feedback",
+				id: "customer-feedback-next",
 				name: "Customer Feedback Survey",
 				framework: "next",
 				fields: [
@@ -995,7 +998,7 @@ export const TEMPLATES: Template[] = [
 							kind: "number",
 							description: "Rate your overall satisfaction with the product",
 							variant: "next-shadcn-number-slider",
-							validation: { min: 1, max: 10 },
+							validation: { min: 1, max: 10,step:1 },
 							required: true,
 						},
 					],
@@ -1052,12 +1055,12 @@ export const TEMPLATES: Template[] = [
 					],
 				],
 				settings: {
-					importAliasComponents: "@/components",
+					importAliasComponents: "@/components/ui",
 					importAliasUtils: "@/lib/utils",
 				},
 			},
 			vue: {
-				id: "customer-feedback",
+				id: "customer-feedback-vue",
 				name: "Customer Feedback Survey",
 				framework: "vue",
 				fields: [
@@ -1149,7 +1152,7 @@ export const TEMPLATES: Template[] = [
 							kind: "number",
 							description: "Rate your overall satisfaction with the product",
 							variant: "vue-shadcn-number-slider",
-							validation: { min: 1, max: 10 },
+							validation: { min: 1, max: 10, step:1 },
 							required: true,
 						},
 					],
@@ -1206,12 +1209,12 @@ export const TEMPLATES: Template[] = [
 					],
 				],
 				settings: {
-					importAliasComponents: "@/components",
+					importAliasComponents: "@/components/ui",
 					importAliasUtils: "@/lib/utils",
 				},
 			},
 			svelte: {
-				id: "customer-feedback",
+				id: "customer-feedback-svelete",
 				name: "Customer Feedback Survey",
 				framework: "svelte",
 				fields: [
@@ -1303,7 +1306,7 @@ export const TEMPLATES: Template[] = [
 							kind: "number",
 							description: "Rate your overall satisfaction with the product",
 							variant: "svelte-shadcn-number-slider",
-							validation: { min: 1, max: 10 },
+							validation: { min: 1, max: 10, step:1 },
 							required: true,
 						},
 					],
@@ -1360,8 +1363,8 @@ export const TEMPLATES: Template[] = [
 					],
 				],
 				settings: {
-					importAliasComponents: "@/components",
-					importAliasUtils: "@/lib/utils",
+					importAliasComponents: "$lib/components/ui",
+					importAliasUtils: "$lib/utils.js",
 				},
 			},
 		},

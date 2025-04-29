@@ -12,6 +12,11 @@ coverage
 .next/
 out/
 build
+.vercel
+
+# test dir
+/apps/web/src/app/test
+/apps/web/src/app/test2
 
 # misc
 .DS_Store
