@@ -21,7 +21,7 @@ export const TEMPLATES: Template[] = [
 		title: "Job Application Form",
 		description:
 			"A comprehensive job application form with personal details, education, and experience sections.",
-		image: "/templates/prev1.png",
+		image: "/templates/job-application.png",
 		category: "Professional",
 		frameworks: ["next", "vue", "svelte"],
 		fieldCount: 10,
@@ -468,7 +468,7 @@ export const TEMPLATES: Template[] = [
 		title: "Product Registration",
 		description:
 			"A form for registering products with customer information and product details laid out horizontally.",
-		image: "/templates/prev1.png", // Update with appropriate image
+		image: "/templates/product-registration.png", 
 		category: "Business",
 		frameworks: ["next", "vue", "svelte"],
 		fieldCount: 9,
@@ -900,7 +900,7 @@ export const TEMPLATES: Template[] = [
 		title: "Customer Feedback Survey",
 		description:
 			"A comprehensive survey form to collect customer feedback about products and services with multiple horizontal field layouts.",
-		image: "/templates/prev1.png",
+		image: "/templates/customer-feedback.png",
 		category: "Feedback",
 		frameworks: ["next", "vue", "svelte"],
 		fieldCount: 10,
