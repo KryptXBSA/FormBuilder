@@ -8,7 +8,6 @@ export default async function Page() {
 	return <div>redirect</div>;
 }
  
- 
 export async function redirect() {
   permanentRedirect("https://formbuilder.kryptxbsa.com") 
 }
